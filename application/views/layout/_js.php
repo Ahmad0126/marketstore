@@ -14,4 +14,17 @@
 <!-- End plugin js for this page -->
 <!-- Custom js for this page-->
 <script src="<?= base_url('assets/regal/') ?>js/dashboard.js"></script>
+<script>
+    <?php if($this->session->flashdata('alert') != null){ ?>
+    $('#alertmodal').modal("show");
+	<?php } ?>
+    $('#edituser').on('show.bs.modal', function(event){
+        var button = $(event.relatedTarget);
+		var modal = $(this);
+		modal.find('#Nama').val(button.data('nama'));
+		modal.find('#Username').val(button.data('username'));
+		modal.find('#level').val(button.data('level'));
+		modal.find('#id_user').val(button.data('id_user'));
+	});
+</script>
 <!-- End custom js for this page-->

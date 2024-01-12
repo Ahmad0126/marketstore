@@ -1,3 +1,8 @@
+<div class="modal fade" id="alertmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<?= $this->session->flashdata('alert'); ?>
+	</div>
+</div>
 <div class="row">
 	<div class="col-lg-12 grid-margin stretch-card">
 		<div class="card">
@@ -19,21 +24,30 @@
 							</tr>
 						</thead>
 						<tbody>
+							<?php
+							$no = 1;
+							foreach($users as $u){
+							?>
 							<tr>
-								<td>1</td>
-								<td>Herman Beck</td>
-								<td>HermanBeck</td>
+								<td><?= $no++ ?></td>
+								<td><?= $u->nama ?></td>
+								<td><?= $u->username ?></td>
 								<td class="py-1">
 									<a href="">
 										<img src="<?= base_url('assets/regal/') ?>images/faces/face1.jpg" alt="image" />
 									</a>
 								</td>
-								<td>User</td>
+								<td><?= $u->level ?></td>
 								<td>
-									<button class="btn btn-primary">urygfse</button>
-									<button class="btn btn-danger">urygfse</button>
+									<button class="btn btn-primary" data-toggle="modal" data-target="#edituser" 
+										data-nama="<?= $u->nama ?>" data-username="<?= $u->username ?>" 
+										data-level="<?= $u->level ?>" data-id_user="<?= $u->id_user ?>">
+										Edit
+									</button>
+									<a href="<?= base_url('user/delete/').$u->id_user ?>" onclick="return confirm('Yakin ingin menghapus user ini?')" class="btn btn-danger">Hapus</a>
 								</td>
 							</tr>
+							<?php } ?>
 						</tbody>
 					</table>
 				</div>
@@ -80,7 +94,7 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="edituser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -93,11 +107,8 @@
 			<div class="modal-body">
 				<div class="form-group mb-3">
 					<label for="Username">Username</label>
-					<input type="text" name="username" class="form-control" placeholder="Username" id="Username">
-				</div>
-				<div class="form-group mb-3">
-					<label for="Password">Password</label>
-					<input type="password" name="password" class="form-control" placeholder="Password" id="Password">
+					<input type="text" name="username" class="form-control" placeholder="Username" id="Username" readonly>
+					<input type="hidden" name="id_user" id="id_user">
 				</div>
 				<div class="form-group mb-3">
 					<label for="Nama">Nama</label>

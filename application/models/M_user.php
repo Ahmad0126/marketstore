@@ -74,8 +74,8 @@ class M_user extends CI_Model{
     public function get_user_by_id($id){
         return $this->db->get_where($this->_table, array('user_id' => $id))->row();
     }
-    public function getwup_user($user, $pass){
-        return $this->db->get_where($this->_table, array('username' => $user, 'password' => $pass))->row_array();
+    public function getwup_user($user){
+        return $this->db->get_where($this->_table, array('username' => $user))->row_array();
     }
 
     //Delete

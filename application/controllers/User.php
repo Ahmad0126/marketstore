@@ -4,6 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class User extends CI_Controller{
     public function __construct(){
         parent::__construct();
+        if($this->session->userdata('level') != 'Admin'){
+            redirect(base_url('auth'));
+        }
         $this->load->model('M_user');
     }
     public function index(){

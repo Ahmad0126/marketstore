@@ -31,18 +31,17 @@
 							</div>
 							<h4>Hello! let's get started</h4>
 							<h6 class="font-weight-light">Sign in to continue.</h6>
-							<form class="pt-3">
+							<form action="<?= base_url('auth/login') ?>" method="post" class="pt-3">
 								<div class="form-group">
-									<input type="email" class="form-control form-control-lg" id="exampleInputEmail1"
-										placeholder="Username">
+									<input type="text" name="username" class="form-control form-control-lg <?= $this->session->flashdata('username')? 'is-invalid' : '' ?>" id="exampleInputEmail1" placeholder="Username" value="<?= $this->session->flashdata('username_val'); ?>">
+									<?php if($this->session->flashdata('username')){ ?><div class="invalid-feedback"><?= $this->session->flashdata('username') ?></div><?php } ?>
 								</div>
 								<div class="form-group">
-									<input type="password" class="form-control form-control-lg"
-										id="exampleInputPassword1" placeholder="Password">
+									<input type="password" name="password" class="form-control form-control-lg <?= $this->session->flashdata('password')? 'is-invalid' : '' ?>" id="exampleInputPassword1" placeholder="Password">
+									<?php if($this->session->flashdata('password')){ ?><div class="invalid-feedback"><?= $this->session->flashdata('password') ?></div><?php } ?>
 								</div>
 								<div class="mt-3">
-									<a class="btn btn-block btn-info btn-lg font-weight-medium auth-form-btn"
-										href="<?= base_url('assets/regal/') ?>index.html">SIGN IN</a>
+									<button type="submit" class="btn btn-block btn-info btn-lg font-weight-medium auth-form-btn">LOGIN</button>
 								</div>
 							</form>
 						</div>

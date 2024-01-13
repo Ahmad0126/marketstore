@@ -17,11 +17,16 @@
 				<span class="menu-title">Dashboard</span>
 			</a>
 		</li>
-		
 		<li class="nav-item">
 			<a class="nav-link" href="<?= base_url('user') ?>" aria-expanded="false" aria-controls="auth">
 				<i class="icon-head menu-icon"></i>
 				<span class="menu-title">User</span>
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="<?= base_url('supplier') ?>" aria-expanded="false" aria-controls="auth">
+				<i class="icon-head menu-icon"></i>
+				<span class="menu-title">Supplier</span>
 			</a>
 		</li>
 		<li class="nav-item">

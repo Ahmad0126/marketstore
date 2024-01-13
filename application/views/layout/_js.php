@@ -26,5 +26,13 @@
 		modal.find('#level').val(button.data('level'));
 		modal.find('#id_user').val(button.data('id_user'));
 	});
+    $('#editsupplier').on('show.bs.modal', function(event){
+        var button = $(event.relatedTarget);
+		var modal = $(this);
+		modal.find('#Nama').val(button.data('nama'));
+		modal.find('#Kode').val(button.data('kode'));
+		modal.find('#Telepon').val(button.data('telp'));
+		modal.find('#id_supplier').val(button.data('id_supplier'));
+	});
 </script>
 <!-- End custom js for this page-->

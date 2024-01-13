@@ -34,5 +34,11 @@
 		modal.find('#Telepon').val(button.data('telp'));
 		modal.find('#id_supplier').val(button.data('id_supplier'));
 	});
+    $('#editkate').on('show.bs.modal', function(event){
+        var button = $(event.relatedTarget);
+		var modal = $(this);
+		modal.find('#kategori').val(button.data('nama'));
+		modal.find('#id_kategori').val(button.data('id'));
+	});
 </script>
 <!-- End custom js for this page-->

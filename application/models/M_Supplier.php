@@ -122,6 +122,11 @@ class M_supplier extends CI_Model{
         $tanggal = date('sdy');
         $telp = substr($this->input->post('telp'), -4);
         $code = 'S-'.$tanggal.$telp;
+        $is_code = $this->db->get_where($this->_table, array('kode_supplier' => $code))->row_array();
+        if($is_code){
+            $telp = substr($this->input->post('telp'), rand(-1, -5), 4);
+            return 'S-'.$tanggal.$telp;
+        }
         return $code;
     }
 }

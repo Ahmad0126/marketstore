@@ -36,8 +36,8 @@
 								<td><?= $b->kode_barang ?></td>
 								<td><?= $b->kategori ?></td>
 								<td><?= $b->stok ?></td>
-								<td><?= $b->harga_beli ?></td>
-								<td><?= $b->harga_jual ?></td>
+								<td><?= 'Rp '.number_format($b->harga_beli)  ?></td>
+								<td><?= 'Rp '.number_format($b->harga_jual) ?></td>
 								<td>
 									<button class="btn btn-primary" data-toggle="modal" data-target="#editbarang" 
 										data-nama="<?= $b->nama ?>" data-kode="<?= $b->kode_barang ?>" 

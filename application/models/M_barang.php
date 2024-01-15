@@ -236,9 +236,15 @@ class M_barang extends CI_Model{
     private function generate_code(){
         $tanggal = date('sdy');
         $kategori = $this->input->post('kategori');
-        $h_jual = substr($this->input->post('harga_jual'), 0, 3);
-        $h_beli = substr($this->input->post('harga_beli'), 0, 3);
-        $code = 'B-'.$tanggal.$kategori.$h_beli.$h_jual ;
+        $h_jual = substr($this->input->post('harga_jual'), 0, 2).rand(0, 9);
+        $h_beli = substr($this->input->post('harga_beli'), 0, 2).rand(0, 9);
+        $code = 'B-'.$tanggal.$kategori.$h_beli.$h_jual;
+        $is_code = $this->db->get_where($this->_table, array('kode_barang' => $code))->row_array();
+        if($is_code){
+            $harga_j = intval($h_jual) + rand(0, 9);
+            $harga_b = intval($h_beli) + rand(0, 9);
+            return 'B-'.$tanggal.$kategori.$harga_b.$harga_j;
+        }
         return $code;
     }
 }

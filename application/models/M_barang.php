@@ -2,24 +2,34 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_barang extends CI_Model{
-    protected $_table = 'barang'; //DB table
+    protected $_table = 'barang'; //Main DB table
     protected $table1 = 'kategori'; //DB table
 
     //validation rules
     protected $insert_rules = [
         [
-            'field' => 'username',
-            'label' => 'Username',
-            'rules' => 'required|min_length[4]|is_unique[user.username]',
+            'field' => 'harga_jual',
+            'label' => 'Harga Jual',
+            'rules' => 'required|integer|min_length[3]',
             'errors' => [
                 'required' => 'Tolong kasih {field}!',
-                'min_length' => '{field} minimal 4 huruf!',
-                'is_unique' => '{field} sudah Dipakai!'
+                'integer' => 'Kasih {field} yang valid!',
+                'min_length' => '{field} minimal Rp100!'
             ]
-        ], 
+        ],
         [
-            'field' => 'password',
-            'label' => 'Password',
+            'field' => 'harga_beli',
+            'label' => 'Harga Beli',
+            'rules' => 'required|integer|min_length[3]',
+            'errors' => [
+                'required' => 'Tolong kasih {field}!',
+                'integer' => 'Kasih {field} yang valid!',
+                'min_length' => '{field} minimal Rp100!'
+            ]
+        ],
+        [
+            'field' => 'nama',
+            'label' => 'Nama',
             'rules' => 'required|min_length[4]',
             'errors' => [
                 'required' => 'Tolong kasih {field}!',
@@ -27,22 +37,45 @@ class M_barang extends CI_Model{
             ]
         ],
         [
-            'field' => 'nama',
-            'label' => 'Nama',
-            'rules' => 'required|min_length[5]',
+            'field' => 'kategori',
+            'label' => 'Kategori',
+            'rules' => 'required',
             'errors' => [
-                'required' => 'Tolong kasih {field}!',
-                'min_length' => '{field} minimal 5 huruf!'
+                'required' => 'Tolong kasih {field}!'
             ]
         ],
         [
-            'field' => 'level',
-            'label' => 'Level',
-            'rules' => 'in_list[Admin,Kasir]'
+            'field' => 'kode',
+            'label' => 'Kode',
+            'rules' => 'exact_length[20]|is_unique[barang.kode_barang]',
+            'errors' => [
+                'is_unique' => '{field} barang sudah dipakai!',
+                'exact_length' => '{field} harus berisi 20 digit!'
+            ]
         ]
     ];
     protected $edit_rules = [
         [
+            'field' => 'harga_jual',
+            'label' => 'Harga Jual',
+            'rules' => 'required|integer|min_length[3]',
+            'errors' => [
+                'required' => 'Tolong kasih {field}!',
+                'integer' => 'Kasih {field} yang valid!',
+                'min_length' => '{field} minimal Rp100!'
+            ]
+        ],
+        [
+            'field' => 'harga_beli',
+            'label' => 'Harga Beli',
+            'rules' => 'required|integer|min_length[3]',
+            'errors' => [
+                'required' => 'Tolong kasih {field}!',
+                'integer' => 'Kasih {field} yang valid!',
+                'min_length' => '{field} minimal Rp100!'
+            ]
+        ],
+        [
             'field' => 'nama',
             'label' => 'Nama',
             'rules' => 'required|min_length[4]',
@@ -52,9 +85,12 @@ class M_barang extends CI_Model{
             ]
         ],
         [
-            'field' => 'level',
-            'label' => 'Level',
-            'rules' => 'required|in_list[Admin,Kasir]'
+            'field' => 'kategori',
+            'label' => 'Kategori',
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Tolong kasih {field}!'
+            ]
         ]
     ];
     protected $kategori_rules = [
@@ -137,7 +173,10 @@ class M_barang extends CI_Model{
     //Bagian barang
     //Read
     public function get_barang(){
-        return $this->db->get($this->_table)->result();
+        $this->db->select('*');
+        $this->db->from($this->_table);
+        $this->db->join($this->table1, $this->_table.'.id_kategori = '.$this->table1.'.id_kategori');
+        return $this->db->get()->result();
     }
     public function get_barang_by_id($id){
         return $this->db->get_where($this->_table, array('user_id' => $id))->row();
@@ -154,8 +193,16 @@ class M_barang extends CI_Model{
         $this->validation_rules = $this->insert_rules;
         $validation_barang = $this->validation();
         if ($validation_barang){
+            if($this->input->post('kode') == ''){
+                $code = $this->generate_code();
+            }else{ $code = $this->input->post('kode'); }
             $data = [
-
+                'kode_barang' => $code,
+                'nama' => $this->input->post('nama'),
+                'id_kategori' => $this->input->post('kategori'),
+                'harga_beli' => $this->input->post('harga_beli'),
+                'harga_jual' => $this->input->post('harga_jual'),
+                'stok' => 0
             ];
             return $this->insert_barang($data);
         } else { return FALSE; }
@@ -171,7 +218,10 @@ class M_barang extends CI_Model{
         $validation_barang = $this->validation();
         if ($validation_barang){
             $data = [
-                
+                'nama' => $this->input->post('nama'),
+                'id_kategori' => $this->input->post('kategori'),
+                'harga_beli' => $this->input->post('harga_beli'),
+                'harga_jual' => $this->input->post('harga_jual')
             ];
             return $this->update_barang($data);
         } else { return FALSE; }
@@ -180,5 +230,15 @@ class M_barang extends CI_Model{
         $this->db->where('id_barang',$this->input->post('id_barang'));
         $this->db->update($this->_table, $data);
         return TRUE;
+    }
+
+    //generator
+    private function generate_code(){
+        $tanggal = date('sdy');
+        $kategori = $this->input->post('kategori');
+        $h_jual = substr($this->input->post('harga_jual'), 0, 3);
+        $h_beli = substr($this->input->post('harga_beli'), 0, 3);
+        $code = 'B-'.$tanggal.$kategori.$h_beli.$h_jual ;
+        return $code;
     }
 }

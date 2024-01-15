@@ -38,7 +38,7 @@
 			<div class="collapse" id="gudang">
 				<ul class="nav flex-column sub-menu">
 					<li class="nav-item">
-						<a class="nav-link" href="<?= base_url('NA') ?>">
+						<a class="nav-link" href="<?= base_url('barang') ?>">
 							<span class="menu-title">Barang</span>
 						</a>
 					</li>
@@ -52,7 +52,7 @@
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" data-toggle="collapse" href="#ui-trans" aria-expanded="false" aria-controls="ui-basic">
-				<i class="icon-box menu-icon"></i>
+				<i class="icon-clipboard menu-icon"></i>
 				<span class="menu-title">Transaksi</span>
 				<i class="menu-arrow"></i>
 			</a>

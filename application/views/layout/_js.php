@@ -34,6 +34,16 @@
 		modal.find('#Telepon').val(button.data('telp'));
 		modal.find('#id_supplier').val(button.data('id_supplier'));
 	});
+    $('#editbarang').on('show.bs.modal', function(event){
+        var button = $(event.relatedTarget);
+		var modal = $(this);
+		modal.find('#Nama').val(button.data('nama'));
+		modal.find('#Kode').val(button.data('kode'));
+		modal.find('#Beli').val(button.data('harga_beli'));
+		modal.find('#Jual').val(button.data('harga_jual'));
+		modal.find('#kategori').val(button.data('id_kategori'));
+		modal.find('#id_barang').val(button.data('id_barang'));
+	});
     $('#editkate').on('show.bs.modal', function(event){
         var button = $(event.relatedTarget);
 		var modal = $(this);

@@ -27,10 +27,10 @@ class M_supplier extends CI_Model{
         [
             'field' => 'kode',
             'label' => 'Kode',
-            'rules' => 'required|is_unique[supplier.kode_supplier]',
+            'rules' => 'exact_length[12]|is_unique[supplier.kode_supplier]',
             'errors' => [
-                'required' => 'Tolong kasih {field}!',
-                'is_unique' => '{field} supplier sudah dipakai!'
+                'is_unique' => '{field} supplier sudah dipakai!',
+                'exact_length' => '{field} harus berisi 12 digit!'
             ]
         ]
     ];
@@ -60,9 +60,12 @@ class M_supplier extends CI_Model{
     private function validation(){
         $this->form_validation->set_rules($this->validation_rules);
         if ($this->form_validation->run() == TRUE){
+            if($this->input->post('kode') == ''){
+                $code = $this->generate_code();
+            }else{ $code = $this->input->post('kode'); }
             $data = [
                 'nama' => $this->input->post('nama'),
-                'kode_supplier' => $this->input->post('kode'),
+                'kode_supplier' => $code,
                 'telp' => $this->input->post('telp')
             ];
             return $data;
@@ -112,5 +115,13 @@ class M_supplier extends CI_Model{
         $this->db->where('id_supplier',$this->input->post('id_supplier'));
         $this->db->update($this->_table, $data);
         return TRUE;
+    }
+
+    //generator
+    private function generate_code(){
+        $tanggal = date('sdy');
+        $telp = substr($this->input->post('telp'), -4);
+        $code = 'S-'.$tanggal.$telp;
+        return $code;
     }
 }

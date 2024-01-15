@@ -30,45 +30,46 @@
 			</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-				<i class="icon-disc menu-icon"></i>
-				<span class="menu-title">UI Elements</span>
+			<a class="nav-link" data-toggle="collapse" href="#gudang" aria-expanded="false" aria-controls="ui-basic">
+				<i class="icon-box menu-icon"></i>
+				<span class="menu-title">Gudang</span>
 				<i class="menu-arrow"></i>
 			</a>
-			<div class="collapse" id="ui-basic">
+			<div class="collapse" id="gudang">
 				<ul class="nav flex-column sub-menu">
 					<li class="nav-item">
-						<a class="nav-link" href="pages/forms/basic_elements.html">
-							<i class="icon-file menu-icon"></i>
-							<span class="menu-title">Form elements</span>
+						<a class="nav-link" href="<?= base_url('NA') ?>">
+							<span class="menu-title">Barang</span>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="pages/charts/chartjs.html">
-							<i class="icon-pie-graph menu-icon"></i>
-							<span class="menu-title">Charts</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="pages/tables/basic-table.html">
-							<i class="icon-command menu-icon"></i>
-							<span class="menu-title">Tables</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="pages/icons/feather-icons.html">
-							<i class="icon-help menu-icon"></i>
-							<span class="menu-title">Icons</span>
+						<a class="nav-link" href="<?= base_url('kategori') ?>">
+							<span class="menu-title">Kategori Barang</span>
 						</a>
 					</li>
 				</ul>
 			</div>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="docs/documentation.html">
-				<i class="icon-book menu-icon"></i>
-				<span class="menu-title">Documentation</span>
+			<a class="nav-link" data-toggle="collapse" href="#ui-trans" aria-expanded="false" aria-controls="ui-basic">
+				<i class="icon-box menu-icon"></i>
+				<span class="menu-title">Transaksi</span>
+				<i class="menu-arrow"></i>
 			</a>
+			<div class="collapse" id="ui-trans">
+				<ul class="nav flex-column sub-menu">
+					<li class="nav-item">
+						<a class="nav-link" href="<?= base_url('NA') ?>">
+							<span class="menu-title">Penjualan</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="<?= base_url('NA') ?>">
+							<span class="menu-title">Pembelian</span>
+						</a>
+					</li>
+				</ul>
+			</div>
 		</li>
 	</ul>
 </nav>

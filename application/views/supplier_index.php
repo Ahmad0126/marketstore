@@ -66,7 +66,7 @@
 				</div>
 				<div class="form-group mb-3">
 					<label for="Kode">Kode</label>
-					<input type="text" name="kode" class="form-control" placeholder="Kode" id="Kode">
+					<input type="text" name="kode" class="form-control" placeholder="*Opsional" id="Kode">
 				</div>
 				<div class="form-group mb-3">
 					<label for="Telepon">Telepon</label>

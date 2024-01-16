@@ -14,7 +14,15 @@
 <!-- End plugin js for this page -->
 <!-- Custom js for this page-->
 <script src="<?= base_url('assets/regal/') ?>js/dashboard.js"></script>
+<script src="<?= base_url('assets/regal/') ?>vendors/datatables/jquery.dataTables.min.js"></script>
+<script src="<?= base_url('assets/regal/') ?>vendors/datatables/dataTables.bootstrap4.min.js"></script>
 <script>
+	let table = new DataTable('#barang',{
+		dom: 't'
+	});
+	$('#carian').keyup(function(){
+        table.search($(this).val()).draw() ;
+	})
     <?php if($this->session->flashdata('alert') != null){ ?>
     $('#alertmodal').modal("show");
 	<?php } ?>

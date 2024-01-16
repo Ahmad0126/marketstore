@@ -1,9 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_barang extends CI_Model{
-    protected $_table = 'barang'; //Main DB table
-    protected $table1 = 'kategori'; //DB table
+class M_transaksi extends CI_Model{
+    protected $table1 = 'pembelian'; //DB tables
+    protected $table2 = 'penjualan'; //DB tables
+    protected $table3 = 'supplier'; //DB tables
 
     //validation rules
     protected $insert_rules = [
@@ -119,31 +120,34 @@ class M_barang extends CI_Model{
 
     //Bagian Kategori
     //Read
-    public function get_kategori(){
-        return $this->db->get($this->table1)->result();
+    public function get_pembelian(){
+        $this->db->select('*');
+        $this->db->from($this->table1);
+        $this->db->join($this->table3, $this->table3.'.kode_supplier = '.$this->table1.'.kode_supplier');
+        return $this->db->get()->result();
     }
-    public function get_kategori_by_id($id){
-        return $this->db->get_where($this->table1, array('id_kategori' => $id))->row_array();
+    public function get_pembelian_by_id($id){
+        return $this->db->get_where($this->table1, array('id_pembelian' => $id))->row_array();
     }
 
     //Delete
-    public function delete_kategori($id){
-        $this->db->delete($this->table1, array('id_kategori' => $id));
+    public function delete_pembelian($id){
+        $this->db->delete($this->table1, array('id_pembelian' => $id));
         return TRUE;
     }
 
     //Insert
-    public function simpan_kategori(){
-        $this->validation_rules = $this->kategori_rules;
-        $validation_kategori = $this->validation();
-        if ($validation_kategori){
+    public function simpan_pembelian(){
+        $this->validation_rules = $this->pembelian_rules;
+        $validation_pembelian = $this->validation();
+        if ($validation_pembelian){
             $data = [
-                'kategori' => $this->input->post('kategori')
+                'pembelian' => $this->input->post('pembelian')
             ];
-            return $this->insert_kategori($data);
+            return $this->insert_pembelian($data);
         } else { return FALSE; }
     }
-    private function insert_kategori($data){
+    private function insert_pembelian($data){
         $this->db->insert($this->table1, $data);
         return TRUE;
     }

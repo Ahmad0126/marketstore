@@ -64,7 +64,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="<?= base_url('NA') ?>">
+						<a class="nav-link" href="<?= base_url('pembelian') ?>">
 							<span class="menu-title">Pembelian</span>
 						</a>
 					</li>

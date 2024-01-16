@@ -34,7 +34,7 @@
 					<a class="dropdown-item preview-item">
 						<i class="icon-head"></i> Profile
 					</a>
-					<a class="dropdown-item preview-item">
+					<a href="<?= base_url('auth/logout') ?>" class="dropdown-item preview-item">
 						<i class="icon-inbox"></i> Logout
 					</a>
 				</div>

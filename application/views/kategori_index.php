@@ -26,7 +26,7 @@
 							foreach($kategori as $k): 
 							?>
 							<tr>
-								<td><?= $no ?></td>
+								<td><?= $no++ ?></td>
 								<td><?= $k->kategori ?></td>
 								<td>
 									<a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editkate" data-id="<?= $k->id_kategori ?>" data-nama="<?= $k->kategori ?>">Edit <i class="fa fa-edit"></i></a>

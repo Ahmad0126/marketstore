@@ -26,6 +26,20 @@
     <?php if($this->session->flashdata('alert') != null){ ?>
     $('#alertmodal').modal("show");
 	<?php } ?>
+	$(document).ready(function () { 
+		$(".add_barang").click(function () { 
+			var button = $(this);
+			tableBody = $("#detail tbody"); 
+			if(tableBody.find('#'+button.data('kode')).attr('id') != button.data('kode')){
+				row = '<tr id="'+button.data('kode')+'"><td>'+button.data('nama')+'<input type="hidden" name="kode_barang[]" value="'+button.data('kode')+'" class="form-control"></td><td>'+button.data('kode')+'</td><td>Rp '+button.data('harga')+'</td><td><input type="number" name="jumlah[]" id="" class="form-control"></td><td></td></tr>';
+				tableBody.append(row);
+				button.html('-');
+			}else{
+				button.html('+');
+				$('#'+button.data('kode')).remove();
+			}
+		}); 
+	}); 
     $('#edituser').on('show.bs.modal', function(event){
         var button = $(event.relatedTarget);
 		var modal = $(this);

@@ -15,10 +15,13 @@ class Pembelian extends CI_Controller{
     }
     public function add(){
         $this->load->model('M_barang');
+        $this->load->model('M_supplier');
         $data['barang'] = $this->M_barang->get_barang();
+        $data['suppliers'] = $this->M_supplier->get_supplier();
         $this->template->load('layout/template', 'pembelian_form', 'Transaksi Pembelian', $data);
     }
     public function simpan(){
+        var_dump($_POST); die;
         if($this->M_transaksi->beli()){
             $this->session->set_flashdata('alert', $this->template->buat_notif('Data Pembelian Berhasil Ditambahkan!', 'success'));
             redirect(base_url('pembelian'));

@@ -26,6 +26,45 @@
     <?php if($this->session->flashdata('alert') != null){ ?>
     $('#alertmodal').modal("show");
 	<?php } ?>
+	$(document).ready(function () { 
+		$(".add_barang").click(function () { 
+			var button = $(this);
+			tableBody = $("#detail tbody");
+			if(tableBody.find('#'+button.data('kode')).attr('id') != button.data('kode')){
+				row = '<tr id="'+button.data('kode')+'">'+
+					'<td>'
+						+button.data('nama')+
+						'<input type="hidden" name="kode_barang[]" value="'+button.data('kode')+'">'+
+						'<input type="hidden" name="harga[]" value="'+button.data('harga')+'"</td>'+
+					'<td>'+button.data('kode')+'</td>'+
+					'<td>Rp '+button.data('harga').toLocaleString()+'</td>'+
+					'<td><input type="number" name="jumlah[]" data-harga="'+button.data('harga')+'" data-kode="'+button.data('kode')+'" class="form-control form-control-sm jumlah"></td>'+
+					'<td class="total1" id="total_'+button.data('kode')+'"></td>'+
+				'</tr>';
+				tableBody.append(row);
+				button.html('-');
+			}else{
+				button.html('+');
+				$('#'+button.data('kode')).remove();
+			}
+			jumlahkan();
+		}); 
+	}); 
+	$('#detail').delegate('input', 'keyup', function(){
+		var harga = $(this).data('harga');
+		var jumlah = $(this).val();
+		var total = parseInt(harga) * parseInt(jumlah);
+		$('#total_'+$(this).data('kode')).html('Rp '+total.toLocaleString()).attr('data-h_total', total);
+		jumlahkan();
+	});
+	function jumlahkan(){
+		var h_total = document.querySelectorAll('.total1');
+		var all_total = 0;
+		for (var i = 0; i < h_total.length; i++){
+			all_total += parseInt(($(h_total[i]).data('h_total')));
+		}
+		$('#total').html('Rp '+all_total.toLocaleString());
+	}
     $('#edituser').on('show.bs.modal', function(event){
         var button = $(event.relatedTarget);
 		var modal = $(this);

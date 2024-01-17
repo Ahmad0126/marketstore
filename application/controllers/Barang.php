@@ -28,7 +28,12 @@ class Barang extends CI_Controller{
             $this->session->set_flashdata('alert', $this->template->buat_notif('Barang Berhasil Diedit!', 'success'));
             redirect(base_url('barang'));
         }else{
-            $this->session->set_flashdata('alert', $this->template->buat_notif(validation_errors(), 'danger'));
+            if(validation_errors() == null){
+                $pesan = "Kode barang sudah dipakai!";
+            }else{
+                $pesan = validation_errors();
+            }
+            $this->session->set_flashdata('alert', $this->template->buat_notif($pesan, 'danger'));
             redirect(base_url('barang'));
         }
     }

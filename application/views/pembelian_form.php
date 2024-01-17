@@ -67,6 +67,12 @@
 						</thead>
 						<tbody>
 						</tbody>
+						<thead>
+							<tr>
+								<th colspan="4">Total Transaksi</th>
+								<th id="total"></th>
+							</tr>
+						</thead>
 					</table>
 				</div>
 				</form>

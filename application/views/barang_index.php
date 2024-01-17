@@ -117,7 +117,7 @@
 				</div>
 				<div class="form-group mb-3">
 					<label for="Kode">Kode</label>
-					<input type="text" name="kode" class="form-control" placeholder="*Opsional" id="Kode" readonly>
+					<input type="text" name="kode" class="form-control" placeholder="*Opsional" id="Kode">
 					<input type="hidden" name="id_barang" id="id_barang">
 				</div>
 				<div class="form-group mb-3">

@@ -85,6 +85,14 @@ class M_barang extends CI_Model{
             ]
         ],
         [
+            'field' => 'kode',
+            'label' => 'Kode',
+            'rules' => 'exact_length[15]',
+            'errors' => [
+                'exact_length' => '{field} harus berisi 15 digit!'
+            ]
+        ],
+        [
             'field' => 'kategori',
             'label' => 'Kategori',
             'rules' => 'required',
@@ -178,9 +186,13 @@ class M_barang extends CI_Model{
         $this->db->join($this->table1, $this->_table.'.id_kategori = '.$this->table1.'.id_kategori');
         return $this->db->get()->result();
     }
-    public function get_barang_by_id($id){
-        return $this->db->get_where($this->_table, array('user_id' => $id))->row();
+    public function get_stok($kode){
+        return $this->db->get_where($this->_table, array('kode_barang' => $kode))->row_array();
     }
+    public function get_barang_by_id($id){
+        return $this->db->get_where($this->_table, array('id_barang' => $id))->row_array();
+    }
+    
 
     //Delete
     public function delete($id){
@@ -216,10 +228,13 @@ class M_barang extends CI_Model{
     public function edit(){
         $this->validation_rules = $this->edit_rules;
         $validation_barang = $this->validation();
-        if ($validation_barang){
+        $kode_lain = $this->get_stok($this->input->post('kode'));
+        $kode = $this->get_barang_by_id($this->input->post('id_barang'));
+        if ($validation_barang && ($kode_lain == null || $kode['kode_barang'] == $this->input->post('kode'))){
             $data = [
                 'nama' => $this->input->post('nama'),
                 'id_kategori' => $this->input->post('kategori'),
+                'kode_barang' => $this->input->post('kode'),
                 'harga_beli' => $this->input->post('harga_beli'),
                 'harga_jual' => $this->input->post('harga_jual')
             ];
@@ -228,6 +243,11 @@ class M_barang extends CI_Model{
     }
     private function update_barang($data){
         $this->db->where('id_barang',$this->input->post('id_barang'));
+        $this->db->update($this->_table, $data);
+        return TRUE;
+    }
+    public function update_stok_barang($data, $id){
+        $this->db->where('kode_barang',$id);
         $this->db->update($this->_table, $data);
         return TRUE;
     }

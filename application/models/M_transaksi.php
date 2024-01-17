@@ -3,8 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_transaksi extends CI_Model{
     protected $table1 = 'pembelian'; //DB tables
-    protected $table2 = 'penjualan'; //DB tables
-    protected $table3 = 'supplier'; //DB tables
+    protected $table2 = 'penjualan';
+    protected $table3 = 'supplier';
+    protected $table4 = 'detail_pembelian';
+    protected $table5 = 'detail_ penjualan';
+    protected $table6 = 'barang';
 
     //validation rules
     protected $insert_rules = [
@@ -118,7 +121,7 @@ class M_transaksi extends CI_Model{
         return FALSE;
     }
 
-    //Bagian Kategori
+    //Bagian Pembelian
     //Read
     public function get_pembelian(){
         $this->db->select('*');
@@ -127,54 +130,72 @@ class M_transaksi extends CI_Model{
         return $this->db->get()->result();
     }
     public function get_pembelian_by_id($id){
-        return $this->db->get_where($this->table1, array('id_pembelian' => $id))->row_array();
+        $this->db->select('*');
+        $this->db->from($this->table1);
+        $this->db->join($this->table3, $this->table3.'.kode_supplier = '.$this->table1.'.kode_supplier');
+        $this->db->where('id_pembelian', $id);
+        return $this->db->get()->row_array();
+    }
+    public function get_detail_pembelian($kode){
+        $this->db->select('*');
+        $this->db->from($this->table4);
+        $this->db->join($this->table6, $this->table6.'.kode_barang = '.$this->table4.'.kode_barang');
+        $this->db->where('kode_pembelian', $kode);
+        return $this->db->get()->result();
     }
 
     //Delete
-    public function delete_pembelian($id){
-        $this->db->delete($this->table1, array('id_pembelian' => $id));
+    public function delete_pembelian($kode){
+        $this->load->model('M_barang');
+        $detail = $this->get_detail_pembelian($kode);
+        foreach($detail as $d){
+            $stok = $this->M_barang->get_stok($d->kode_barang);
+            $stok_akhir = $stok['stok'] - $d->jumlah;
+            $this->M_barang->update_stok_barang(array('stok' => $stok_akhir), $d->kode_barang);
+        }
+        $this->db->delete($this->table4, array('kode_pembelian' => $kode));
+        $this->db->delete($this->table1, array('kode_pembelian' => $kode));
         return TRUE;
     }
 
     //Insert
-    public function simpan_pembelian(){
-        $this->validation_rules = $this->pembelian_rules;
-        $validation_pembelian = $this->validation();
-        if ($validation_pembelian){
+    public function beli(){
+        $this->load->model('M_barang');
+        $kode_beli = $this->generate_code();
+        $total = 0;
+        $kode_barang = $this->input->post('kode_barang');
+        $jumlah = $this->input->post('jumlah');
+        $harga = $this->input->post('harga');
+        for($i = 0; $i < count($kode_barang); $i++){
             $data = [
-                'pembelian' => $this->input->post('pembelian')
+                'kode_barang' => $kode_barang[$i],
+                'jumlah' => $jumlah[$i],
+                'kode_pembelian' => $kode_beli
             ];
-            return $this->insert_pembelian($data);
-        } else { return FALSE; }
+            $total += ($harga[$i] * $jumlah[$i]);
+            $this->insert_barang($data);
+            $stok = $this->M_barang->get_stok($kode_barang[$i]);
+            $newstok = intval($stok['stok']) + intval($jumlah[$i]);
+            $this->M_barang->update_stok_barang(array('stok' => $newstok), $kode_barang[$i]);
+        }
+        $pembelian = [
+            'kode_pembelian' => $kode_beli,
+            'tanggal' => $this->input->post('tanggal'),
+            'kode_supplier' => $this->input->post('kode_supplier'),
+            'total_tagihan' => $total
+        ];
+        return $this->insert_pembelian($pembelian);
     }
     private function insert_pembelian($data){
         $this->db->insert($this->table1, $data);
         return TRUE;
     }
-    
-    //Update
-    public function edit_kategori(){
-        $this->db->select('kategori');
-        $this->db->from($this->table1);
-        $this->db->where('kategori', $this->input->post('kategori'));
-        $kategori_lain = $this->db->get()->row_array();
-        $kategori = $this->get_kategori_by_id($this->input->post('id_kategori'));
-        if ($kategori_lain == null || $kategori['kategori'] == $this->input->post('kategori')){
-            $data = [
-                'kategori' => $this->input->post('kategori')
-            ];
-            return $this->update_kategori($data);
-        } else {
-            return FALSE; 
-        }
-    }
-    private function update_kategori($data){
-        $this->db->where('id_kategori',$this->input->post('id_kategori'));
-        $this->db->update($this->table1, $data);
+    private function insert_barang($data){
+        $this->db->insert($this->table4, $data);
         return TRUE;
     }
     
-    //Bagian barang
+    //Bagian Penjualan
     //Read
     public function get_barang(){
         $this->db->select('*');
@@ -208,10 +229,10 @@ class M_transaksi extends CI_Model{
                 'harga_jual' => $this->input->post('harga_jual'),
                 'stok' => 0
             ];
-            return $this->insert_barang($data);
+            return $this->insert_($data);
         } else { return FALSE; }
     }
-    private function insert_barang($data){
+    private function insert_($data){
         $this->db->insert($this->_table, $data);
         return TRUE;
     }
@@ -238,16 +259,13 @@ class M_transaksi extends CI_Model{
 
     //generator
     private function generate_code(){
-        $tanggal = date('sdy');
-        $kategori = $this->input->post('kategori');
-        $h_jual = substr($this->input->post('harga_jual'), 0, 2).rand(0, 9);
-        $h_beli = substr($this->input->post('harga_beli'), 0, 2).rand(0, 9);
-        $code = 'B-'.$tanggal.$kategori.$h_beli.$h_jual;
-        $is_code = $this->db->get_where($this->_table, array('kode_barang' => $code))->row_array();
+        $tanggal = substr($this->input->post('tanggal'), 2, 2).substr($this->input->post('tanggal'), 5, 2).substr($this->input->post('tanggal'), 8, 2);
+        $kode_supplier = substr($this->input->post('kode_supplier'), -4);
+        $code = 'P-'.$tanggal.$kode_supplier.rand(0, 99);
+        $is_code = $this->db->get_where($this->table1, array('kode_pembelian' => $code))->row_array();
         if($is_code){
-            $harga_j = intval($h_jual) + rand(0, 9);
-            $harga_b = intval($h_beli) + rand(0, 9);
-            return 'B-'.$tanggal.$kategori.$harga_b.$harga_j;
+            $new = intval(substr($code, -2)) + rand(0, 99);
+            return 'B-'.$tanggal.$kode_supplier.$new;
         }
         return $code;
     }

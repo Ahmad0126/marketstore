@@ -30,13 +30,13 @@
 							?>
 							<tr>
 								<td><?= $no++ ?></td>
-								<td><?= $pb->tanggal ?></td>
+								<td><?= $this->template->translate_bulan($pb->tanggal) ?></td>
 								<td><?= $pb->kode_pembelian ?></td>
 								<td><?= $pb->nama ?></td>
 								<td><?= 'Rp '.number_format($pb->total_tagihan)  ?></td>
 								<td>
 									<a href="<?= base_url('pembelian/detail/').$pb->id_pembelian ?>" class="btn btn-primary">Detail</a>
-									<a href="<?= base_url('pembelian/delete/').$pb->id_pembelian ?>" onclick="return confirm('Yakin ingin menghapus pembelian ini?')" class="btn btn-danger">Hapus</a>
+									<a href="<?= base_url('pembelian/delete/').$pb->kode_pembelian ?>" onclick="return confirm('Yakin ingin menghapus pembelian ini?')" class="btn btn-danger">Hapus</a>
 								</td>
 							</tr>
 							<?php } ?>

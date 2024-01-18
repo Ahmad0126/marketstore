@@ -54,14 +54,14 @@
 		var harga = $(this).data('harga');
 		var jumlah = $(this).val();
 		var total = parseInt(harga) * parseInt(jumlah);
-		$('#total_'+$(this).data('kode')).html('Rp '+total.toLocaleString()).attr('data-h_total', total);
+		$('#total_'+$(this).data('kode')).html('Rp '+total);
 		jumlahkan();
 	});
 	function jumlahkan(){
 		var h_total = document.querySelectorAll('.total1');
 		var all_total = 0;
 		for (var i = 0; i < h_total.length; i++){
-			all_total += parseInt(($(h_total[i]).data('h_total')));
+			all_total += parseInt(($(h_total[i]).html().substr(3)));
 		}
 		$('#total').html('Rp '+all_total.toLocaleString());
 	}

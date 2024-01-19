@@ -59,7 +59,7 @@
 			<div class="collapse" id="ui-trans">
 				<ul class="nav flex-column sub-menu">
 					<li class="nav-item">
-						<a class="nav-link" href="<?= base_url('NA') ?>">
+						<a class="nav-link" href="<?= base_url('penjualan') ?>">
 							<span class="menu-title">Penjualan</span>
 						</a>
 					</li>

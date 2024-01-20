@@ -30,22 +30,12 @@
 	<div class="col-lg-9 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
-				<form action="<?= base_url('pembelian/simpan') ?>" method="post">
+				<form action="<?= base_url('penjualan/simpan') ?>" method="post">
                 <div class="d-flex justify-content-between">
                     <h4 class="card-title">Detail Transaksi</h4>
-                    <button type="submit" class="btn btn-info">Beli</button>
+                    <button type="submit" class="btn btn-info">Simpan</button>
                 </div>
                 <div class="row">
-                    <div class="col-6">
-                        <div class="form-group mb-3">
-                            <label for="Supplier">Supplier Barang</label>
-							<select name="kode_supplier" id="Supplier" class="form-control">
-								<?php foreach($suppliers as $s){ ?>
-								<option value="<?= $s->kode_supplier ?>"><?= $s->nama ?></option>
-								<?php } ?>
-							</select>
-                        </div>
-                    </div>
                     <div class="col-6">
                         <div class="form-group mb-3">
                             <label for="Tanggal">Tanggal Transaksi</label>
@@ -53,7 +43,6 @@
                         </div>
                     </div>
                 </div>
-                
 				<div class="table-responsive">
 					<table id="detail" class="table table-hover table-striped">
 						<thead>

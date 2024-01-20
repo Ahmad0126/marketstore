@@ -15,25 +15,32 @@ class Pembelian extends CI_Controller{
     }
     public function add(){
         $this->load->model('M_barang');
+        $this->load->model('M_supplier');
         $data['barang'] = $this->M_barang->get_barang();
+        $data['suppliers'] = $this->M_supplier->get_supplier();
         $this->template->load('layout/template', 'pembelian_form', 'Transaksi Pembelian', $data);
+    }
+    public function delete($kode){
+        if($this->M_transaksi->delete_pembelian($kode)){
+            $this->session->set_flashdata('alert', $this->template->buat_notif('Data Pembelian Berhasil Dihapus!', 'warning'));
+            redirect(base_url('pembelian'));
+        }else{
+            $this->session->set_flashdata('alert', $this->template->buat_notif('Data Pembelian Gagal Dihapus!', 'danger'));
+            redirect(base_url('pembelian'));
+        }
     }
     public function simpan(){
         if($this->M_transaksi->beli()){
             $this->session->set_flashdata('alert', $this->template->buat_notif('Data Pembelian Berhasil Ditambahkan!', 'success'));
             redirect(base_url('pembelian'));
         }else{
-            $this->session->set_flashdata('alert', $this->template->buat_notif(validation_errors(), 'danger'));
+            $this->session->set_flashdata('alert', $this->template->buat_notif('Data Pembelian Gagal Ditambahkan!', 'danger'));
             redirect(base_url('pembelian'));
         }
     }
-    public function delete($id){
-        if($this->M_transaksi->delete($id)){
-            $this->session->set_flashdata('alert', $this->template->buat_notif('Pembelian Berhasil Dihapus!', 'warning'));
-            redirect(base_url('pembelian'));
-        }else{
-            $this->session->set_flashdata('alert', $this->template->buat_notif('Pembelian Gagal Dihapus!', 'danger'));
-            redirect(base_url('pembelian'));
-        }
+    public function detail($id){
+        $data['pembelian'] = $this->M_transaksi->get_pembelian_by_id($id);
+        $data['detail'] = $this->M_transaksi->get_detail_pembelian($data['pembelian']['kode_pembelian']);
+        $this->template->load('layout/template', 'pembelian_detail', 'Transaksi '.$data['pembelian']['kode_pembelian'], $data);
     }
 }

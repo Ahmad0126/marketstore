@@ -31,6 +31,15 @@ class User extends CI_Controller{
             redirect(base_url('user'));
         }
     }
+    public function reset(){
+        if($this->M_user->reset()){
+            $this->session->set_flashdata('alert', $this->template->buat_notif('Password User Berhasil Direset!', 'success'));
+            redirect(base_url('user'));
+        }else{
+            $this->session->set_flashdata('alert', $this->template->buat_notif('Konfirmasi Password Gagal!', 'danger'));
+            redirect(base_url('user'));
+        }
+    }
     public function delete($id){
         if($this->M_user->delete($id)){
             $this->session->set_flashdata('alert', $this->template->buat_notif('User Berhasil Dihapus!', 'warning'));

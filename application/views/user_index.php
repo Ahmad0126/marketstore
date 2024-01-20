@@ -44,6 +44,7 @@
 										data-level="<?= $u->level ?>" data-id_user="<?= $u->id_user ?>">
 										Edit
 									</button>
+									<button class="btn btn-warning"  data-toggle="modal" data-target="#resetuser"  data-id_user="<?= $u->id_user ?>">Reset Password</button>
 									<a href="<?= base_url('user/delete/').$u->id_user ?>" onclick="return confirm('Yakin ingin menghapus user ini?')" class="btn btn-danger">Hapus</a>
 								</td>
 							</tr>
@@ -125,6 +126,31 @@
 			<div class="modal-footer">
 				<button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
 				<button type="submit" class="btn btn-primary m-2">Simpan</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="resetuser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form action="<?= base_url('user/reset') ?>" method="post">
+			<div class="modal-body">
+				<div class="form-group mb-3">
+					<label for="konf_pass">Konfirmasi Password Anda</label>
+					<input type="password" name="password" class="form-control" placeholder="Konfirmasi Password" id="konf_pass">
+					<input type="hidden" name="id_user" id="id_user">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+				<button type="submit" class="btn btn-primary m-2" onclick="return confirm('Yakin ingin mereset password user ini?')">Reset</button>
 			</div>
 			</form>
 		</div>

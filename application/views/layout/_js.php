@@ -34,6 +34,12 @@
 		modal.find('#level').val(button.data('level'));
 		modal.find('#id_user').val(button.data('id_user'));
 	});
+    $('#resetuser').on('show.bs.modal', function(event){
+        var button = $(event.relatedTarget);
+		var modal = $(this);
+		modal.find('#id_user').val(button.data('id_user'));
+		modal.find('#konf_pass').val('');
+	});
     $('#editsupplier').on('show.bs.modal', function(event){
         var button = $(event.relatedTarget);
 		var modal = $(this);

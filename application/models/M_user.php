@@ -124,6 +124,11 @@ class M_user extends CI_Model{
             return $this->update_user($data);
         } else { return FALSE; }
     }
+    public function edit_profile($data){
+        $this->db->where('id_user',$this->session->userdata('id'));
+        $this->db->update($this->_table, $data);
+        return TRUE;
+    }
     private function update_user($data){
         $this->db->where('id_user',$this->input->post('id_user'));
         $this->db->update($this->_table, $data);

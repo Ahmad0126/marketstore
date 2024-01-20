@@ -1,13 +1,13 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
 	<div class="user-profile">
 		<div class="user-image">
-			<img src="<?= base_url('assets/regal/') ?>images/faces/face28.png">
+			<img src="<?= $this->session->userdata('profil') == null ? base_url('assets/upload/profil/unknown.png') : base_url('assets/upload/profil/').$this->session->userdata('profil') ?>">
 		</div>
 		<div class="user-name">
-			Edward Spencer
+			<?= $this->session->userdata('nama') ?>
 		</div>
 		<div class="user-designation">
-			Developer
+			<?= $this->session->userdata('level') ?>
 		</div>
 	</div>
 	<ul class="nav">

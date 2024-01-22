@@ -10,8 +10,9 @@ class M_barang extends CI_Model{
         [
             'field' => 'harga_jual',
             'label' => 'Harga Jual',
-            'rules' => 'required|integer|min_length[3]',
+            'rules' => 'required|integer|min_length[3]|max_length[11]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'integer' => 'Kasih {field} yang valid!',
                 'min_length' => '{field} minimal Rp100!'
@@ -20,8 +21,9 @@ class M_barang extends CI_Model{
         [
             'field' => 'harga_beli',
             'label' => 'Harga Beli',
-            'rules' => 'required|integer|min_length[3]',
+            'rules' => 'required|integer|min_length[3]|max_length[11]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'integer' => 'Kasih {field} yang valid!',
                 'min_length' => '{field} minimal Rp100!'
@@ -30,8 +32,9 @@ class M_barang extends CI_Model{
         [
             'field' => 'nama',
             'label' => 'Nama',
-            'rules' => 'required|min_length[4]',
+            'rules' => 'required|min_length[4]|max_length[40]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'min_length' => '{field} minimal 4 huruf!'
             ]
@@ -58,8 +61,9 @@ class M_barang extends CI_Model{
         [
             'field' => 'harga_jual',
             'label' => 'Harga Jual',
-            'rules' => 'required|integer|min_length[3]',
+            'rules' => 'required|integer|min_length[3]|max_length[11]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'integer' => 'Kasih {field} yang valid!',
                 'min_length' => '{field} minimal Rp100!'
@@ -68,8 +72,9 @@ class M_barang extends CI_Model{
         [
             'field' => 'harga_beli',
             'label' => 'Harga Beli',
-            'rules' => 'required|integer|min_length[3]',
+            'rules' => 'required|integer|min_length[3]|max_length[11]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'integer' => 'Kasih {field} yang valid!',
                 'min_length' => '{field} minimal Rp100!'
@@ -78,8 +83,9 @@ class M_barang extends CI_Model{
         [
             'field' => 'nama',
             'label' => 'Nama',
-            'rules' => 'required|min_length[4]',
+            'rules' => 'required|min_length[4]|max_length[40]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'min_length' => '{field} minimal 4 huruf!'
             ]
@@ -105,8 +111,9 @@ class M_barang extends CI_Model{
         [
             'field' => 'kategori',
             'label' => 'Kategori',
-            'rules' => 'required|is_unique[kategori.kategori]',
+            'rules' => 'required|is_unique[kategori.kategori]|max_length[20]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'is_unique' => '{field} sudah Dipakai!'
             ]

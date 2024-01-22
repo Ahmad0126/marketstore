@@ -9,8 +9,9 @@ class M_user extends CI_Model{
         [
             'field' => 'username',
             'label' => 'Username',
-            'rules' => 'required|min_length[4]|is_unique[user.username]',
+            'rules' => 'required|min_length[4]|is_unique[user.username]|max_length[25]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'min_length' => '{field} minimal 4 huruf!',
                 'is_unique' => '{field} sudah Dipakai!'
@@ -19,8 +20,9 @@ class M_user extends CI_Model{
         [
             'field' => 'password',
             'label' => 'Password',
-            'rules' => 'required|min_length[4]',
+            'rules' => 'required|min_length[4]|max_length[40]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'min_length' => '{field} minimal 4 huruf!'
             ]
@@ -28,8 +30,9 @@ class M_user extends CI_Model{
         [
             'field' => 'nama',
             'label' => 'Nama',
-            'rules' => 'required|min_length[5]',
+            'rules' => 'required|min_length[5]|max_length[60]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'min_length' => '{field} minimal 5 huruf!'
             ]
@@ -44,8 +47,9 @@ class M_user extends CI_Model{
         [
             'field' => 'nama',
             'label' => 'Nama',
-            'rules' => 'required|min_length[4]',
+            'rules' => 'required|min_length[4]|max_length[60]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'min_length' => '{field} minimal 4 huruf!'
             ]

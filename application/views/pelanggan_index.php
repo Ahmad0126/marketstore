@@ -31,7 +31,7 @@
 							<tr>
 								<td><?= $no++ ?></td>
 								<td><?= $p->nama ?></td>
-								<td><?= $p->poin ?></td>
+								<td><?= number_format($p->poin) ?></td>
 								<td><?= $p->alamat ?></td>
 								<td><?= $p->telp ?></td>
 								<td>

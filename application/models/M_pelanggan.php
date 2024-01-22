@@ -9,8 +9,9 @@ class M_pelanggan extends CI_Model{
         [
             'field' => 'telp',
             'label' => 'Telepon',
-            'rules' => 'required|numeric',
+            'rules' => 'required|numeric|max_length[18]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'numeric' => 'Nomor {field} harus angka!'
             ]
@@ -18,8 +19,9 @@ class M_pelanggan extends CI_Model{
         [
             'field' => 'nama',
             'label' => 'Nama',
-            'rules' => 'required|min_length[4]',
+            'rules' => 'required|min_length[4]|max_length[40]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'min_length' => '{field} minimal 4 huruf!'
             ]
@@ -29,8 +31,8 @@ class M_pelanggan extends CI_Model{
             'label' => 'Alamat',
             'rules' => 'required|max_length[200]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
-                'max_length' => '{field}nya kepanjangan!'
             ]
         ]
     ];
@@ -38,8 +40,9 @@ class M_pelanggan extends CI_Model{
         [
             'field' => 'telp',
             'label' => 'Telepon',
-            'rules' => 'required|numeric',
+            'rules' => 'required|numeric|max_length[18]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'numeric' => 'Nomor {field} harus angka!'
             ]
@@ -47,8 +50,9 @@ class M_pelanggan extends CI_Model{
         [
             'field' => 'nama',
             'label' => 'Nama',
-            'rules' => 'required|min_length[4]',
+            'rules' => 'required|min_length[4]|max_length[40]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'min_length' => '{field} minimal 4 huruf!'
             ]
@@ -58,8 +62,8 @@ class M_pelanggan extends CI_Model{
             'label' => 'Alamat',
             'rules' => 'required|max_length[200]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
-                'max_length' => '{field}nya kepanjangan!'
             ]
         ]
     ];

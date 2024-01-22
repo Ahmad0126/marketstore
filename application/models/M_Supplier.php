@@ -9,8 +9,9 @@ class M_supplier extends CI_Model{
         [
             'field' => 'telp',
             'label' => 'Telepon',
-            'rules' => 'required|numeric',
+            'rules' => 'required|numeric|max_length[20]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'numeric' => 'Nomor {field} harus angka!'
             ]
@@ -18,8 +19,9 @@ class M_supplier extends CI_Model{
         [
             'field' => 'nama',
             'label' => 'Nama',
-            'rules' => 'required|min_length[4]',
+            'rules' => 'required|min_length[4]|max_length[60]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'min_length' => '{field} minimal 4 huruf!'
             ]
@@ -29,6 +31,7 @@ class M_supplier extends CI_Model{
             'label' => 'Kode',
             'rules' => 'exact_length[12]|is_unique[supplier.kode_supplier]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'is_unique' => '{field} supplier sudah dipakai!',
                 'exact_length' => '{field} harus berisi 12 digit!'
             ]
@@ -38,8 +41,9 @@ class M_supplier extends CI_Model{
         [
             'field' => 'nama',
             'label' => 'Nama',
-            'rules' => 'required|min_length[4]',
+            'rules' => 'required|min_length[4]|max_length[60]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'min_length' => '{field} minimal 4 huruf!'
             ]
@@ -47,8 +51,9 @@ class M_supplier extends CI_Model{
         [
             'field' => 'telp',
             'label' => 'Telepon',
-            'rules' => 'required|numeric',
+            'rules' => 'required|numeric|max_length[20]',
             'errors' => [
+                'max_length' => '{field}nya kepanjangan!',
                 'required' => 'Tolong kasih {field}!',
                 'numeric' => 'Nomor {field} harus angka!'
             ]

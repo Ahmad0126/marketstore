@@ -87,6 +87,14 @@
 		modal.find('#Telepon').val(button.data('telp'));
 		modal.find('#id_supplier').val(button.data('id_supplier'));
 	});
+    $('#editpelanggan').on('show.bs.modal', function(event){
+        var button = $(event.relatedTarget);
+		var modal = $(this);
+		modal.find('#Nama').val(button.data('nama'));
+		modal.find('#Alamat').val(button.data('alamat'));
+		modal.find('#Telepon').val(button.data('telp'));
+		modal.find('#id_pelanggan').val(button.data('id_pelanggan'));
+	});
     $('#editbarang').on('show.bs.modal', function(event){
         var button = $(event.relatedTarget);
 		var modal = $(this);

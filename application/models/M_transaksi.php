@@ -134,9 +134,16 @@ class M_transaksi extends CI_Model{
             $newstok = intval($stok['stok']) - intval($jumlah[$i]);
             $this->M_barang->update_stok_barang(array('stok' => $newstok), $kode_barang[$i]);
         }
+        if($this->input->post('id_pelanggan') != null && $total >= 10000){
+            $this->load->model('M_pelanggan');
+            $member = $this->M_pelanggan->get_pelanggan_by_id($this->input->post('id_pelanggan'));
+            $poin = intval($member->poin) + (5 * $total / 100);
+            $this->M_pelanggan->update_poin($poin);
+        }
         $penjualan = [
             'kode_penjualan' => $kode_jual,
             'tanggal' => $this->input->post('tanggal'),
+            'id_pelanggan' => $this->input->post('id_pelanggan'),
             'total_tagihan' => $total
         ];
         return $this->insert_penjualan($penjualan);

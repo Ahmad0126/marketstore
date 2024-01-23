@@ -10,6 +10,8 @@ class Penjualan extends CI_Controller{
         $this->load->model('M_transaksi');
     }
     public function index(){
+        $this->load->model('M_pelanggan');
+        $data['pelanggan'] = $this->M_pelanggan->get_pelanggan();
         $data['penjualan'] = $this->M_transaksi->get_penjualan();
         $this->template->load('layout/template', 'penjualan_index', 'Transaksi Penjualan', $data);
     }
@@ -17,6 +19,13 @@ class Penjualan extends CI_Controller{
         $this->load->model('M_barang');
         $data['barang'] = $this->M_barang->get_barang();
         $this->template->load('layout/template', 'penjualan_form', 'Transaksi Penjualan', $data);
+    }
+    public function member($id){
+        $this->load->model('M_barang');
+        $this->load->model('M_pelanggan');
+        $data['barang'] = $this->M_barang->get_barang();
+        $data['pelanggan'] = $this->M_pelanggan->get_pelanggan_by_id($id);
+        $this->template->load('layout/template', 'penjualan_form_member', 'Transaksi Penjualan', $data);
     }
     public function delete($kode){
         if($this->M_transaksi->delete_penjualan($kode)){

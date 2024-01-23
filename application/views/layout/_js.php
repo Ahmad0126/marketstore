@@ -65,6 +65,10 @@
 		}
 		$('#total').html('Rp '+all_total.toLocaleString());
 	}
+	$('#pelanggan').on('click', function(){
+		var id = $(this).val();
+		$('#memberbtn').attr('href', '<?= base_url('penjualan/member/') ?>'+id);
+	});
     $('#edituser').on('show.bs.modal', function(event){
         var button = $(event.relatedTarget);
 		var modal = $(this);

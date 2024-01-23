@@ -83,7 +83,7 @@ class M_pelanggan extends CI_Model{
         return $this->db->get($this->_table)->result();
     }
     public function get_pelanggan_by_id($id){
-        return $this->db->get_where($this->_table, array('pelanggan_id' => $id))->row();
+        return $this->db->get_where($this->_table, array('id_pelanggan' => $id))->row();
     }
 
     //Delete
@@ -123,6 +123,12 @@ class M_pelanggan extends CI_Model{
             ];
             return $this->update_pelanggan($data);
         } else { return FALSE; }
+    }
+    public function update_poin($poin){
+        $data = [
+            'poin' => $poin
+        ];
+        return $this->update_pelanggan($data);
     }
     private function update_pelanggan($data){
         $this->db->where('id_pelanggan',$this->input->post('id_pelanggan'));

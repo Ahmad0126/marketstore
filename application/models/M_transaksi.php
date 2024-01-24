@@ -119,6 +119,7 @@ class M_transaksi extends CI_Model{
         $this->load->model('M_barang');
         $kode_jual = $this->generate_code_penjualan();
         $total = 0;
+        $diskon = 0;
         $kode_barang = $this->input->post('kode_barang');
         $jumlah = $this->input->post('jumlah');
         $harga = $this->input->post('harga');
@@ -134,16 +135,25 @@ class M_transaksi extends CI_Model{
             $newstok = intval($stok['stok']) - intval($jumlah[$i]);
             $this->M_barang->update_stok_barang(array('stok' => $newstok), $kode_barang[$i]);
         }
-        if($this->input->post('id_pelanggan') != null && $total >= 10000){
+        if($this->input->post('id_pelanggan') != null){
             $this->load->model('M_pelanggan');
-            $member = $this->M_pelanggan->get_pelanggan_by_id($this->input->post('id_pelanggan'));
-            $poin = intval($member->poin) + (5 * $total / 100);
-            $this->M_pelanggan->update_poin($poin);
+            if($this->input->post('poin') != null){
+                $member = $this->M_pelanggan->get_pelanggan_by_id($this->input->post('id_pelanggan'));
+                $diskon += intval($this->input->post('poin'));
+                $poin = intval($member->poin) - $diskon;
+                $this->M_pelanggan->update_poin($poin);
+            }
+            if($total >= 10000){
+                $member = $this->M_pelanggan->get_pelanggan_by_id($this->input->post('id_pelanggan'));
+                $poin = intval($member->poin) + (5 * $total / 100);
+                $this->M_pelanggan->update_poin($poin);
+            }
         }
         $penjualan = [
             'kode_penjualan' => $kode_jual,
             'tanggal' => $this->input->post('tanggal'),
             'id_pelanggan' => $this->input->post('id_pelanggan'),
+            'diskon' => $diskon,
             'total_tagihan' => $total
         ];
         return $this->insert_penjualan($penjualan);

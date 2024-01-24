@@ -49,6 +49,16 @@
 								<th colspan="4">Total Transaksi</th>
 								<th id="total">Rp <?= number_format($penjualan['total_tagihan']) ?></th>
 							</tr>
+							<?php if($penjualan['diskon'] != 0 && $penjualan['diskon'] != null){ ?>
+							<tr>
+								<th colspan="4">Diskon</th>
+								<th id="total">Rp <?= number_format($penjualan['diskon']) ?></th>
+							</tr>
+							<tr>
+								<th colspan="4">Total Bayar</th>
+								<th id="total">Rp <?= number_format($penjualan['total_tagihan'] - $penjualan['diskon']) ?></th>
+							</tr>
+							<?php } ?>
 						</thead>
 					</table>
 				</div>

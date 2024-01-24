@@ -57,13 +57,20 @@
 		$('#total_'+$(this).data('kode')).html('Rp '+total);
 		jumlahkan();
 	});
+	$('#poin').on('keyup', function(){
+		jumlahkan();
+	});
 	function jumlahkan(){
 		var h_total = document.querySelectorAll('.total1');
 		var all_total = 0;
+		var diskon = 0;
 		for (var i = 0; i < h_total.length; i++){
 			all_total += parseInt(($(h_total[i]).html().substr(3)));
 		}
 		$('#total').html('Rp '+all_total.toLocaleString());
+		diskon = $('#poin').val();
+		$('#diskon').html('Rp '+diskon.toLocaleString());
+		$('#total_bayar').html('Rp '+(all_total - diskon).toLocaleString());
 	}
 	$('#pelanggan').on('click', function(){
 		var id = $(this).val();

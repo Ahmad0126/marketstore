@@ -49,7 +49,7 @@
 							<div class="row">
 								<label for="poin" class="col-sm-4 col-form-label">Gunakan Poin</label>
 								<div class="col-sm-8">
-									<input type="number" name="poin" class="form-control" placeholder="Berapa poin?" id="poin">
+									<input type="number" max="<?= $pelanggan->poin ?>" name="poin" class="form-control" placeholder="Berapa poin?" id="poin">
 								</div>
 							</div>
 						</div>
@@ -72,6 +72,14 @@
 							<tr>
 								<th colspan="4">Total Transaksi</th>
 								<th id="total"></th>
+							</tr>
+							<tr>
+								<th colspan="4">Diskon</th>
+								<th id="diskon"></th>
+							</tr>
+							<tr>
+								<th colspan="4">Total Bayar</th>
+								<th id="total_bayar"></th>
 							</tr>
 						</thead>
 					</table>

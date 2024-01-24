@@ -88,6 +88,10 @@ class M_transaksi extends CI_Model{
     public function get_penjualan(){
         return $this->db->get($this->table2)->result();
     }
+    public function get_penjualan_by_id($id){
+        $this->db->where('id_penjualan', $id);
+        return $this->db->get($this->table2)->row_array();
+    }
     public function get_penjualan_by_member($id){
         $this->db->where('id_pelanggan', $id);
         return $this->db->get($this->table2)->result();
@@ -167,20 +171,20 @@ class M_transaksi extends CI_Model{
     private function generate_code_pembelian(){
         $tanggal = substr($this->input->post('tanggal'), 2, 2).substr($this->input->post('tanggal'), 5, 2).substr($this->input->post('tanggal'), 8, 2);
         $kode_supplier = substr($this->input->post('kode_supplier'), -4);
-        $code = 'P-'.$tanggal.$kode_supplier.rand(0, 99);
+        $code = 'P-'.$tanggal.$kode_supplier.rand(10, 99);
         $is_code = $this->db->get_where($this->table1, array('kode_pembelian' => $code))->row_array();
         if($is_code){
-            $new = intval(substr($code, -2)) + rand(0, 99);
+            $new = intval(substr($code, -2)) + rand(10, 99);
             return 'B-'.$tanggal.$kode_supplier.$new;
         }
         return $code;
     }
     private function generate_code_penjualan(){
         $tanggal = substr($this->input->post('tanggal'), 2, 2).substr($this->input->post('tanggal'), 5, 2).substr($this->input->post('tanggal'), 8, 2);
-        $code = 'P-'.$tanggal.rand(0, 999);
+        $code = 'P-'.$tanggal.rand(100, 999);
         $is_code = $this->db->get_where($this->table2, array('kode_penjualan' => $code))->row_array();
         if($is_code){
-            $new = intval(substr($code, -3)) + rand(0, 999);
+            $new = intval(substr($code, -3)) + rand(100, 999);
             return 'J-'.$tanggal.$new;
         }
         return $code;

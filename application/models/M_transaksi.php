@@ -88,9 +88,9 @@ class M_transaksi extends CI_Model{
     public function get_penjualan(){
         return $this->db->get($this->table2)->result();
     }
-    public function get_penjualan_by_id($id){
-        $this->db->where('id_penjualan', $id);
-        return $this->db->get($this->table2)->row_array();
+    public function get_penjualan_by_member($id){
+        $this->db->where('id_pelanggan', $id);
+        return $this->db->get($this->table2)->result();
     }
     public function get_detail_penjualan($kode){
         $this->db->select('*');

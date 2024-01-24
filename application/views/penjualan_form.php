@@ -17,7 +17,7 @@
 							<tr>
 								<td><?= $b->nama ?><span class="invisible"><?= $b->kode_barang ?></span></td>
 								<td>
-                                    <button class="add_barang btn btn-small btn-info" data-nama="<?= $b->nama ?>" data-harga="<?= $b->harga_beli ?>" data-kode="<?= $b->kode_barang ?>">+</button>
+                                    <button class="add_barang btn btn-small btn-info" data-nama="<?= $b->nama ?>" data-stok="<?= $b->stok ?>" data-harga="<?= $b->harga_jual ?>" data-kode="<?= $b->kode_barang ?>">+</button>
                                 </td>
 							</tr>
 							<?php } ?>

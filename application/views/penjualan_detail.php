@@ -38,9 +38,9 @@
 							<tr>
 								<td><?= $b->nama ?></td>
 								<td><?= $b->kode_barang ?></td>
-								<td>Rp <?= number_format($b->harga_beli) ?></td>
+								<td>Rp <?= number_format($b->harga_jual) ?></td>
 								<td><?= $b->jumlah ?></td>
-								<td>Rp <?= number_format($b->harga_beli * $b->jumlah) ?></td>
+								<td>Rp <?= number_format($b->harga_jual * $b->jumlah) ?></td>
 							</tr>
 							<?php } ?>
 						</tbody>

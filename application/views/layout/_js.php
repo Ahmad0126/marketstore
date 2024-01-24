@@ -38,7 +38,7 @@
 						'<input type="hidden" name="harga[]" value="'+button.data('harga')+'"</td>'+
 					'<td>'+button.data('kode')+'</td>'+
 					'<td>Rp '+button.data('harga').toLocaleString()+'</td>'+
-					'<td><input type="number" name="jumlah[]" data-harga="'+button.data('harga')+'" data-kode="'+button.data('kode')+'" class="form-control form-control-sm jumlah"></td>'+
+					'<td><input type="number" name="jumlah[]" max="'+button.data('stok')+'" data-harga="'+button.data('harga')+'" data-kode="'+button.data('kode')+'" class="form-control form-control-sm jumlah"></td>'+
 					'<td class="total1" id="total_'+button.data('kode')+'"></td>'+
 				'</tr>';
 				tableBody.append(row);

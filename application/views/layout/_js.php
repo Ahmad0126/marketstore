@@ -98,6 +98,14 @@
 		modal.find('#Telepon').val(button.data('telp'));
 		modal.find('#id_supplier').val(button.data('id_supplier'));
 	});
+    $('#editvch').on('show.bs.modal', function(event){
+        var button = $(event.relatedTarget);
+		var modal = $(this);
+		modal.find('#Potongan').val(button.data('potongan'));
+		modal.find('#Kode').val(button.data('kode'));
+		modal.find('#expired').val(button.data('expired'));
+		modal.find('#id_voucher').val(button.data('id'));
+	});
     $('#editpelanggan').on('show.bs.modal', function(event){
         var button = $(event.relatedTarget);
 		var modal = $(this);

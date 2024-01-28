@@ -33,6 +33,16 @@ class Voucher extends CI_Controller {
 			redirect(base_url('voucher'));
         }
 	}
+	public function cek_voucher(){
+		$voucher = $this->M_voucher->get_voucher_by_kode($this->input->post('kode_voucher'));
+		if($voucher != null){
+			if($voucher['used'] != 1){
+				if($voucher['expired'] >= date('Y-m-d')){
+					echo json_encode($voucher);
+				} else { echo json_encode(array('status' => 'Voucher Sudah Kadaluawarsa pada tanggal '.$this->template->translate_bulan($voucher['expired']))); }
+			} else { echo json_encode(array('status' => 'Voucher Sudah Dipakai')); }
+        } else { echo json_encode(array('status' => 'Voucher Tidak Ada')); }
+	}
 	public function edit(){
 		if($this->M_voucher->edit()){
 			$this->session->set_flashdata('alert',$this->template->buat_notif('Voucher berhasil diedit!', 'success'));

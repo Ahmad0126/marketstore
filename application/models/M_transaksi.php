@@ -153,6 +153,11 @@ class M_transaksi extends CI_Model{
                 $this->M_pelanggan->update_poin($poin);
             }
         }
+        if($this->input->post('id_voucher') != null){
+            $this->load->model('M_voucher');
+            $this->M_voucher->use_voucher();
+            $diskon += intval($this->input->post('voucher'));
+        }
         $penjualan = [
             'kode_penjualan' => $kode_jual,
             'tanggal' => $this->input->post('tanggal'),

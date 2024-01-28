@@ -36,6 +36,12 @@
 				<span class="menu-title">Pelanggan</span>
 			</a>
 		</li>
+		<li class="nav-item <?= $menu == 'voucher' ? 'active' : '' ?>">
+			<a class="nav-link" href="<?= base_url('voucher') ?>" aria-expanded="false" aria-controls="auth">
+				<i class="icon-paper menu-icon"></i>
+				<span class="menu-title">Voucher</span>
+			</a>
+		</li>
 		<li class="nav-item <?= $menu == 'barang' || $menu == 'kategori' ? 'active' : '' ?>">
 			<a class="nav-link" data-toggle="collapse" href="#gudang" aria-expanded="false" aria-controls="ui-basic">
 				<i class="icon-box menu-icon"></i>

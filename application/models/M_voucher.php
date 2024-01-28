@@ -26,10 +26,11 @@ class M_voucher extends CI_Model{
         [
             'field' => 'kode',
             'label' => 'Kode',
-            'rules' => 'required|min_length[4]|is_unique[voucher.kode_voucher]',
+            'rules' => 'required|min_length[4]|max_length[10]|is_unique[voucher.kode_voucher]',
             'errors' => [
                 'required' => 'Tolong kasih {field} voucher!',
                 'is_unique' => '{field} voucher sudah dipakai!',
+                'max_length' => '{field} voucher kepanjangan, maximal 10 digit!',
                 'min_length' => 'Kasih {field} voucher minimal 4 digit!'
             ]
         ]
@@ -52,6 +53,15 @@ class M_voucher extends CI_Model{
                 'required' => 'Tolong kasih {field}!',
             ]
         ],
+        [
+            'field' => 'kode',
+            'label' => 'Kode',
+            'rules' => 'min_length[4]|max_length[10]',
+            'errors' => [
+                'max_length' => '{field} voucher kepanjangan, maximal 10 digit!',
+                'min_length' => 'Kasih {field} voucher minimal 4 digit!'
+            ]
+        ]
     ];
     protected $validation_rules;
 
@@ -75,6 +85,9 @@ class M_voucher extends CI_Model{
     }
     public function get_voucher_by_kode($kode){
         return $this->db->get_where($this->_table, array('kode_voucher' => $kode))->row_array();
+    }
+    public function get_voucher_by_id($id){
+        return $this->db->get_where($this->_table, array('id_voucher' => $id))->row_array();
     }
 
     //Delete
@@ -103,6 +116,10 @@ class M_voucher extends CI_Model{
         if ($validation_voucher){
             return $this->update_voucher($validation_voucher);
         } else { return FALSE; }
+    }
+    public function use_voucher(){
+        $data = array('used' => 1);
+        $this->update_voucher($data);
     }
     private function update_voucher($data){
         $this->db->where('id_voucher', $this->input->post('id_voucher'));

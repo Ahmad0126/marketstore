@@ -20,6 +20,8 @@
 	let table = new DataTable('#barang',{
 		dom: 't'
 	});
+	var poin = 0;
+	var voucher = 0;
 	$('#carian').keyup(function(){
         table.search($(this).val()).draw() ;
 	})
@@ -50,6 +52,34 @@
 			jumlahkan();
 		}); 
 	}); 
+	$('#vchbtn').on('click', function(){
+		var code = $('#kode_voucher').val();
+		$.ajax({
+			type: 'POST',
+			dataType: 'JSON',
+			url: '<?= base_url("voucher/cek_voucher") ?>',
+			data: {kode_voucher: code},
+			success: function(data){
+				if(data.status == null){
+					$('#vouchermodal').modal('hide');
+					$('#kode_voucher').val("");
+					$('#id_vch').val(data.id_voucher);
+					$('#nomi_vch').val(data.potongan);
+					$('#color').addClass('alert-success');
+					$('#pesan').html('Voucher diterapkan. Diskon sebanyak Rp '+data.potongan.toLocaleString());
+					$('#alertmodal').modal('show');
+					voucher = parseInt(data.potongan);
+					jumlahkan();
+				}else{
+					$('#vouchermodal').modal('hide');
+					$('#kode_voucher').val("");
+					$('#pesan').html(data.status);
+					$('#color').addClass('alert-danger');
+					$('#alertmodal').modal('show');
+				}
+			}
+		});
+	});
 	$('#detail').delegate('input', 'keyup', function(){
 		var harga = $(this).data('harga');
 		var jumlah = $(this).val();
@@ -58,17 +88,17 @@
 		jumlahkan();
 	});
 	$('#poin').on('keyup', function(){
+		poin = parseInt($(this).val());
 		jumlahkan();
 	});
 	function jumlahkan(){
 		var h_total = document.querySelectorAll('.total1');
 		var all_total = 0;
-		var diskon = 0;
 		for (var i = 0; i < h_total.length; i++){
 			all_total += parseInt(($(h_total[i]).html().substr(3)));
 		}
+		var diskon = poin + voucher;
 		$('#total').html('Rp '+all_total.toLocaleString());
-		diskon = $('#poin').val();
 		$('#diskon').html('Rp '+diskon.toLocaleString());
 		$('#total_bayar').html('Rp '+(all_total - diskon).toLocaleString());
 	}

@@ -19,6 +19,7 @@
 								<th>Kode Voucher</th>
 								<th>Potongan Harga</th>
 								<th>Berlaku Sampai</th>
+								<th>Sudah Dipakai</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
@@ -31,9 +32,10 @@
 								<td><?= $no++ ?></td>
 								<td><?= $k->kode_voucher ?></td>
 								<td><?= 'Rp '.number_format($k->potongan) ?></td>
-								<td><?= $k->expired ?></td>
+								<td><?= $this->template->translate_bulan($k->expired) ?></td>
+								<td><?= $k->used == 1 ? '<label class="badge badge-warning">Sudah</label>' : '<label class="badge badge-success">Belum</label>' ?></td>
 								<td>
-									<a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editvch" data-id="<?= $k->id_voucher ?>" data-kode="<?= $k->kode_voucher ?>" data-potongan="<?= $k->potongan ?>" data-expired="<?= $k->expired ?>">Edit <i class="fa fa-edit"></i></a>
+									<a class="btn btn-sm btn-primary" <?= $k->used == 1 ? '' : 'data-toggle="modal" data-target="#editvch"' ?>  data-id="<?= $k->id_voucher ?>" data-kode="<?= $k->kode_voucher ?>" data-potongan="<?= $k->potongan ?>" data-expired="<?= $k->expired ?>">Edit <i class="fa fa-edit"></i></a>
 									<a class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus voucher ini?')" href="<?= base_url('voucher/delete/').$k->id_voucher ?>"><i class="fa fa-trash"></i> Hapus</a>
 								</td>
 							</tr>

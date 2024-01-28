@@ -13,6 +13,12 @@ class Pelanggan extends CI_Controller{
         $data['pelanggan'] = $this->M_pelanggan->get_pelanggan();
         $this->template->load('layout/template', 'pelanggan_index', 'Daftar Pelanggan', $data);
     }
+    public function riwayat($id){
+        $this->load->model('M_transaksi');
+        $data['pelanggan'] = $this->M_pelanggan->get_pelanggan_by_id($id);
+        $data['transaksi'] = $this->M_transaksi->get_penjualan_by_member($id);
+        $this->template->load('layout/template', 'pelanggan_riwayat', 'Riwayat Transaksi Pelanggan', $data);
+    }
     public function add(){
         if($this->M_pelanggan->simpan()){
             $this->session->set_flashdata('alert', $this->template->buat_notif('Pelanggan Berhasil Ditambahkan!', 'success'));

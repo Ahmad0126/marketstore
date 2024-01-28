@@ -38,9 +38,9 @@
 							<tr>
 								<td><?= $b->nama ?></td>
 								<td><?= $b->kode_barang ?></td>
-								<td>Rp <?= number_format($b->harga_beli) ?></td>
+								<td>Rp <?= number_format($b->harga_jual) ?></td>
 								<td><?= $b->jumlah ?></td>
-								<td>Rp <?= number_format($b->harga_beli * $b->jumlah) ?></td>
+								<td>Rp <?= number_format($b->harga_jual * $b->jumlah) ?></td>
 							</tr>
 							<?php } ?>
 						</tbody>
@@ -49,6 +49,16 @@
 								<th colspan="4">Total Transaksi</th>
 								<th id="total">Rp <?= number_format($penjualan['total_tagihan']) ?></th>
 							</tr>
+							<?php if($penjualan['diskon'] != 0 && $penjualan['diskon'] != null){ ?>
+							<tr>
+								<th colspan="4">Diskon</th>
+								<th id="total">Rp <?= number_format($penjualan['diskon']) ?></th>
+							</tr>
+							<tr>
+								<th colspan="4">Total Bayar</th>
+								<th id="total">Rp <?= number_format($penjualan['total_tagihan'] - $penjualan['diskon']) ?></th>
+							</tr>
+							<?php } ?>
 						</thead>
 					</table>
 				</div>

@@ -40,6 +40,7 @@
 										data-telp="<?= $p->telp ?>" data-id_pelanggan="<?= $p->id_pelanggan ?>">
 										Edit
 									</button>
+									<a href="<?= base_url('pelanggan/riwayat/').$p->id_pelanggan ?>" class="btn btn-info">Riwayat</a>
 									<a href="<?= base_url('pelanggan/delete/').$p->id_pelanggan ?>" onclick="return confirm('Yakin ingin menghapus pelanggan ini?')" class="btn btn-danger">Hapus</a>
 								</td>
 							</tr>

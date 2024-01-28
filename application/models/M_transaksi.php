@@ -92,6 +92,10 @@ class M_transaksi extends CI_Model{
         $this->db->where('id_penjualan', $id);
         return $this->db->get($this->table2)->row_array();
     }
+    public function get_penjualan_by_member($id){
+        $this->db->where('id_pelanggan', $id);
+        return $this->db->get($this->table2)->result();
+    }
     public function get_detail_penjualan($kode){
         $this->db->select('*');
         $this->db->from($this->table5);
@@ -119,6 +123,7 @@ class M_transaksi extends CI_Model{
         $this->load->model('M_barang');
         $kode_jual = $this->generate_code_penjualan();
         $total = 0;
+        $diskon = 0;
         $kode_barang = $this->input->post('kode_barang');
         $jumlah = $this->input->post('jumlah');
         $harga = $this->input->post('harga');
@@ -134,9 +139,30 @@ class M_transaksi extends CI_Model{
             $newstok = intval($stok['stok']) - intval($jumlah[$i]);
             $this->M_barang->update_stok_barang(array('stok' => $newstok), $kode_barang[$i]);
         }
+        if($this->input->post('id_pelanggan') != null){
+            $this->load->model('M_pelanggan');
+            if($this->input->post('poin') != null){
+                $member = $this->M_pelanggan->get_pelanggan_by_id($this->input->post('id_pelanggan'));
+                $diskon += intval($this->input->post('poin'));
+                $poin = intval($member->poin) - $diskon;
+                $this->M_pelanggan->update_poin($poin);
+            }
+            if($total >= 10000){
+                $member = $this->M_pelanggan->get_pelanggan_by_id($this->input->post('id_pelanggan'));
+                $poin = intval($member->poin) + (5 * $total / 100);
+                $this->M_pelanggan->update_poin($poin);
+            }
+        }
+        if($this->input->post('id_voucher') != null){
+            $this->load->model('M_voucher');
+            $this->M_voucher->use_voucher();
+            $diskon += intval($this->input->post('voucher'));
+        }
         $penjualan = [
             'kode_penjualan' => $kode_jual,
             'tanggal' => $this->input->post('tanggal'),
+            'id_pelanggan' => $this->input->post('id_pelanggan'),
+            'diskon' => $diskon,
             'total_tagihan' => $total
         ];
         return $this->insert_penjualan($penjualan);
@@ -150,20 +176,20 @@ class M_transaksi extends CI_Model{
     private function generate_code_pembelian(){
         $tanggal = substr($this->input->post('tanggal'), 2, 2).substr($this->input->post('tanggal'), 5, 2).substr($this->input->post('tanggal'), 8, 2);
         $kode_supplier = substr($this->input->post('kode_supplier'), -4);
-        $code = 'P-'.$tanggal.$kode_supplier.rand(0, 99);
+        $code = 'P-'.$tanggal.$kode_supplier.rand(10, 99);
         $is_code = $this->db->get_where($this->table1, array('kode_pembelian' => $code))->row_array();
         if($is_code){
-            $new = intval(substr($code, -2)) + rand(0, 99);
+            $new = intval(substr($code, -2)) + rand(10, 99);
             return 'B-'.$tanggal.$kode_supplier.$new;
         }
         return $code;
     }
     private function generate_code_penjualan(){
         $tanggal = substr($this->input->post('tanggal'), 2, 2).substr($this->input->post('tanggal'), 5, 2).substr($this->input->post('tanggal'), 8, 2);
-        $code = 'P-'.$tanggal.rand(0, 999);
+        $code = 'P-'.$tanggal.rand(100, 999);
         $is_code = $this->db->get_where($this->table2, array('kode_penjualan' => $code))->row_array();
         if($is_code){
-            $new = intval(substr($code, -3)) + rand(0, 999);
+            $new = intval(substr($code, -3)) + rand(100, 999);
             return 'J-'.$tanggal.$new;
         }
         return $code;

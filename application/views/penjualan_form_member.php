@@ -36,13 +36,25 @@
                     <button type="submit" class="btn btn-info">Simpan</button>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="form-group mb-3">
                             <label for="Tanggal">Tanggal Transaksi</label>
                             <input type="date" required name="tanggal" class="form-control" id="Tanggal">
+                            <input type="hidden" required name="id_pelanggan" class="form-control" value="<?= $pelanggan->id_pelanggan ?>">
                         </div>
                     </div>
-                    <div class="col-6 ">
+					<div class="col-4">
+						<div class="form-group mb-3">
+							<p>Pelanggan punya <?= number_format($pelanggan->poin) ?> poin</p>
+							<div class="row">
+								<label for="poin" class="col-sm-4 col-form-label">Gunakan Poin</label>
+								<div class="col-sm-8">
+									<input type="number" max="<?= $pelanggan->poin ?>" name="poin" class="form-control" placeholder="Berapa poin?" id="poin">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-4">
 						<div class="form-group mb-3">
 							<input type="hidden" name="id_voucher" id="id_vch">
 							<input type="hidden" name="voucher" id="nomi_vch">

@@ -73,6 +73,7 @@ class M_user extends CI_Model{
     
     //Read
     public function get_user(){
+        $this->db->order_by('id_user', 'DESC');
         return $this->db->get($this->_table)->result();
     }
     public function get_user_by_id($id){

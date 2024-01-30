@@ -19,6 +19,7 @@ class Penjualan extends CI_Controller{
         $this->load->model('M_barang');
         $data['barang'] = $this->M_barang->get_barang();
         $this->template->load('layout/template', 'penjualan_form', 'Transaksi Penjualan', $data);
+        $this->load->view('layout/transaksi_js');
     }
     public function member($id){
         $this->load->model('M_barang');
@@ -26,6 +27,7 @@ class Penjualan extends CI_Controller{
         $data['barang'] = $this->M_barang->get_barang();
         $data['pelanggan'] = $this->M_pelanggan->get_pelanggan_by_id($id);
         $this->template->load('layout/template', 'penjualan_form_member', 'Transaksi Penjualan', $data);
+        $this->load->view('layout/transaksi_js');
     }
     public function delete($kode){
         if($this->M_transaksi->delete_penjualan($kode)){

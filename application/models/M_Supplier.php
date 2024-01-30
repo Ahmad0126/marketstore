@@ -80,13 +80,11 @@ class M_supplier extends CI_Model{
     
     //Read
     public function get_supplier(){
+        $this->db->order_by('id_supplier', 'DESC');
         return $this->db->get($this->_table)->result();
     }
     public function get_supplier_by_id($id){
         return $this->db->get_where($this->_table, array('id_supplier' => $id))->row();
-    }
-    public function getwup_supplier($supplier){
-        return $this->db->get_where($this->_table, array('suppliername' => $supplier))->row_array();
     }
 
     //Delete

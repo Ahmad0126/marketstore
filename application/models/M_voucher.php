@@ -81,6 +81,7 @@ class M_voucher extends CI_Model{
     
     //Read
     public function get_voucher(){
+        $this->db->order_by('id_voucher', 'DESC');
         return $this->db->get($this->_table)->result();
     }
     public function get_voucher_by_kode($kode){

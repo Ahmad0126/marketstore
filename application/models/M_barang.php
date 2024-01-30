@@ -135,6 +135,7 @@ class M_barang extends CI_Model{
     //Bagian Kategori
     //Read
     public function get_kategori(){
+        $this->db->order_by('id_kategori', 'DESC');
         return $this->db->get($this->table1)->result();
     }
     public function get_kategori_by_id($id){
@@ -191,6 +192,7 @@ class M_barang extends CI_Model{
         $this->db->select('*');
         $this->db->from($this->_table);
         $this->db->join($this->table1, $this->_table.'.id_kategori = '.$this->table1.'.id_kategori');
+        $this->db->order_by('id_barang', 'DESC');
         return $this->db->get()->result();
     }
     public function get_stok($kode){

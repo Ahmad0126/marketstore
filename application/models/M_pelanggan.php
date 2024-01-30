@@ -80,6 +80,7 @@ class M_pelanggan extends CI_Model{
     
     //Read
     public function get_pelanggan(){
+        $this->db->order_by('id_pelanggan', 'DESC');
         return $this->db->get($this->_table)->result();
     }
     public function get_pelanggan_by_id($id){

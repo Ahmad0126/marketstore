@@ -15,6 +15,7 @@ class M_transaksi extends CI_Model{
         $this->db->select('*');
         $this->db->from($this->table1);
         $this->db->join($this->table3, $this->table3.'.kode_supplier = '.$this->table1.'.kode_supplier');
+        $this->db->order_by('tanggal', 'DESC');
         return $this->db->get()->result();
     }
     public function get_pembelian_by_id($id){
@@ -86,6 +87,7 @@ class M_transaksi extends CI_Model{
     //Bagian Penjualan
     //Read
     public function get_penjualan(){
+        $this->db->order_by('tanggal', 'DESC');
         return $this->db->get($this->table2)->result();
     }
     public function get_penjualan_by_id($id){
@@ -93,6 +95,7 @@ class M_transaksi extends CI_Model{
         return $this->db->get($this->table2)->row_array();
     }
     public function get_penjualan_by_member($id){
+        $this->db->order_by('tanggal', 'DESC');
         $this->db->where('id_pelanggan', $id);
         return $this->db->get($this->table2)->result();
     }

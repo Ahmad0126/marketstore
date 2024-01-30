@@ -19,6 +19,7 @@ class Pembelian extends CI_Controller{
         $data['barang'] = $this->M_barang->get_barang();
         $data['suppliers'] = $this->M_supplier->get_supplier();
         $this->template->load('layout/template', 'pembelian_form', 'Transaksi Pembelian', $data);
+        $this->load->view('layout/transaksi_js');
     }
     public function delete($kode){
         if($this->M_transaksi->delete_pembelian($kode)){

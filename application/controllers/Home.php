@@ -11,6 +11,7 @@ class Home extends CI_Controller{
     }
     public function index(){
         $this->template->load('layout/template', 'dashboard', 'Dashboard');
+        $this->load->view('layout/dashboard_js');
     }
     public function profil(){
         $data['user'] = $this->M_user->getwup_user($this->session->userdata('username'));
@@ -71,5 +72,10 @@ class Home extends CI_Controller{
                 redirect(base_url('home/profil'));
             }
         }
+    }
+    public function laporan_transaksi(){
+        $this->load->model('M_transaksi');
+        $data = $this->M_transaksi->get_pp_data();
+        echo json_encode($data);
     }
 }

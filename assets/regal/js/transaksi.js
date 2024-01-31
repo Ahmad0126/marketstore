@@ -35,7 +35,7 @@ $('#vchbtn').on('click', function(){
     $.ajax({
         type: 'POST',
         dataType: 'JSON',
-        url: '<?= base_url("voucher/cek_voucher") ?>',
+        url: base_url+'voucher/cek_voucher',
         data: {kode_voucher: code},
         success: function(data){
             if(data.status == null){

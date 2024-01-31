@@ -17,6 +17,7 @@
 <script src="<?= base_url('assets/regal/') ?>vendors/datatables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url('assets/regal/') ?>vendors/datatables/dataTables.bootstrap4.min.js"></script>
 <script>
+	var base_url = "<?= base_url() ?>"
     <?php if($this->session->flashdata('alert') != null){ ?>
     $('#alertmodal').modal("show");
 	<?php } ?>

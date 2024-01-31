@@ -1,0 +1,1 @@
+<script src="<?= base_url('assets/regal/') ?>js/beranda.js"></script>

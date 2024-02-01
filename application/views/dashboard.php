@@ -76,12 +76,12 @@
 						<p>Jumlah seluruh transaksi baik penjualan maupun pembelian dari bulan Januari sampai Desember</p>
 					</div>
 					<div class="col-lg-7">
-						<div class="chart-legends d-lg-block d-none" id="chart-legends"></div>
+						<div class="chart-legends d-lg-block d-none" id="chart-legendzsdtns"></div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
-						<canvas id="web-transaksi-metrics-satacked" class="mt-3"></canvas>
+						<canvas id="web-transaksi-metricserhjtey-satacked" class="mt-3"></canvas>
 					</div>
 				</div>
 
@@ -94,7 +94,7 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex justify-content-between mb-3">
-					<h4 class="card-title">Market Trends</h4>
+					<h4 class="card-title">Jumlah Transaksi</h4>
 					<div class="dropdown">
 						<button class="btn btn-sm dropdown-toggle text-dark pt-0 pr-0" type="button"
 							id="dropdownMenuSizeButton3" data-toggle="dropdown" aria-haspopup="true"
@@ -107,7 +107,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="chart-legends-market-trend" class="chart-legends mt-1">
+				<div id="chart-legends" class="chart-legends mt-1">
 				</div>
 				<div class="row mt-2 mb-2">
 					<div class="col-6">
@@ -119,7 +119,7 @@
 					</div>
 				</div>
 				<div class="marketTrends mt-4">
-					<canvas id="marketTrendssatacked"></canvas>
+					<canvas id="web-transaksi-metrics-satacked"></canvas>
 				</div>
 
 			</div>
@@ -128,7 +128,7 @@
 	<div class="col-xl-4 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">Traffic Sources</h4>
+				<h4 class="card-title">Barang Terlaris</h4>
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="d-flex justify-content-between mt-2 text-dark mb-2">
@@ -190,7 +190,7 @@
 	<div class="col-xl-4 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title mb-3">Recent Activity</h4>
+				<h4 class="card-title mb-3">Transaksi Hari ini</h4>
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="text-dark">

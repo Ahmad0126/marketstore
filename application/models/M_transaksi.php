@@ -14,15 +14,25 @@ class M_transaksi extends CI_Model{
         $penjualan = array();
         $pembelian_color = array();
         $penjualan_color = array();
-        $bulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-        for($i = 0; $i < count($bulan); $i++){
-            array_push($pembelian, intval($this->count_all_pembelian_by_bulan(($i >= 9 ? $i+1 : '0'.$i+1))));
-            array_push($penjualan, intval($this->count_all_penjualan_by_bulan(($i >= 9 ? $i+1 : '0'.$i+1))));
-            array_push($pembelian_color, '#3794fc');
-            array_push($penjualan_color, '#a037fc');
+
+        $hari = [];
+        $end = date_create(date('Y-m-d', strtotime('+1 day')));
+        $begin = date_create(date('Y-m-d', strtotime('+1 day')));
+        date_sub($begin, new DateInterval('P7D'));
+
+        $interval = new DateInterval('P1D');
+        $period = new DatePeriod($begin, $interval, $end);
+
+        foreach ($period as $dt) {
+            //fetch data from database where tanggal = $dt
+            array_push($pembelian, intval($this->count_all_pembelian_by_tanggal($dt->format("Y-m-d"))));
+            array_push($penjualan, intval($this->count_all_penjualan_by_tanggal($dt->format("Y-m-d"))));
+            array_push($pembelian_color, '#51c81c');
+            array_push($penjualan_color, '#dee5ef');
+            array_push($hari, $dt->format("j"));
         }
         $data = [
-            'labels' => $bulan,
+            'labels' => $hari,
             'datasets' => [
                 [
                     'label' => 'Penjualan',
@@ -54,8 +64,8 @@ class M_transaksi extends CI_Model{
         $this->db->order_by('tanggal', 'DESC');
         return $this->db->get()->result();
     }
-    public function count_all_pembelian_by_bulan($bulan){
-        $this->db->like('tanggal', date('Y').'-'.$bulan);
+    public function count_all_pembelian_by_tanggal($tanggal){
+        $this->db->like('tanggal', $tanggal);
         return $this->db->get($this->table1)->num_rows();
     }
     public function get_pembelian_by_id($id){
@@ -134,8 +144,8 @@ class M_transaksi extends CI_Model{
         $this->db->where('id_penjualan', $id);
         return $this->db->get($this->table2)->row_array();
     }
-    public function count_all_penjualan_by_bulan($bulan){
-        $this->db->like('tanggal', date('Y').'-'.$bulan);
+    public function count_all_penjualan_by_tanggal($tanggal){
+        $this->db->like('tanggal', $tanggal);
         return $this->db->get($this->table2)->num_rows();
     }
     public function get_penjualan_by_member($id){

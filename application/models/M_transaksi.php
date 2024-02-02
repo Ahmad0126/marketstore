@@ -67,7 +67,7 @@ class M_transaksi extends CI_Model{
             array_push($penjualan_color, '#a037fc');
         }
         $data = [
-            'labels' => $bulan,
+            'labels' => $hari,
             'datasets' => [
                 [
                     'label' => 'Penjualan',

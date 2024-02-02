@@ -107,7 +107,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="chart-legends-market-trend" class="chart-legends mt-1">
+				<div id="jumlah-transaksi-chart-legends" class="chart-legends mt-1">
 				</div>
 				<div class="row mt-2 mb-2">
 					<div class="col-6">
@@ -119,7 +119,7 @@
 					</div>
 				</div>
 				<div class="marketTrends mt-4">
-					<canvas id="marketTrendssatacked"></canvas>
+					<canvas id="web-transaksi-jumlah-satacked"></canvas>
 				</div>
 
 			</div>

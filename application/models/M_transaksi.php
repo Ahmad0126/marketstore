@@ -67,7 +67,7 @@ class M_transaksi extends CI_Model{
             array_push($penjualan_color, '#a037fc');
         }
         $data = [
-            'labels' => $hari,
+            'labels' => $bulan,
             'datasets' => [
                 [
                     'label' => 'Penjualan',
@@ -102,6 +102,16 @@ class M_transaksi extends CI_Model{
     public function count_total_pembelian_by_bulan($bulan){
         $this->db->select('sum(total_tagihan)');
         $this->db->like('tanggal', date('Y').'-'.$bulan);
+        return $this->db->get($this->table1)->row_array();
+    }
+    public function count_total_pembelian_bulan_ini(){
+        $this->db->select('sum(total_tagihan)');
+        $this->db->like('tanggal', date('Y-m'));
+        return $this->db->get($this->table1)->row_array();
+    }
+    public function count_total_pembelian_hari_ini(){
+        $this->db->select('sum(total_tagihan)');
+        $this->db->where('tanggal', date('Y-m-d'));
         return $this->db->get($this->table1)->row_array();
     }
     public function count_all_pembelian_by_tanggal($tanggal){
@@ -187,6 +197,16 @@ class M_transaksi extends CI_Model{
     public function count_total_penjualan_by_bulan($bulan){
         $this->db->select('sum(total_tagihan)');
         $this->db->like('tanggal', date('Y').'-'.$bulan);
+        return $this->db->get($this->table2)->row_array();
+    }
+    public function count_total_penjualan_bulan_ini(){
+        $this->db->select('sum(total_tagihan)');
+        $this->db->like('tanggal', date('Y-m'));
+        return $this->db->get($this->table2)->row_array();
+    }
+    public function count_total_penjualan_hari_ini(){
+        $this->db->select('sum(total_tagihan)');
+        $this->db->where('tanggal', date('Y-m-d'));
         return $this->db->get($this->table2)->row_array();
     }
     public function count_all_penjualan_by_tanggal($tanggal){

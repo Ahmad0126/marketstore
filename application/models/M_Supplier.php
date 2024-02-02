@@ -86,6 +86,9 @@ class M_supplier extends CI_Model{
     public function get_supplier_by_id($id){
         return $this->db->get_where($this->_table, array('id_supplier' => $id))->row();
     }
+    public function count_supplier(){
+        return $this->db->get($this->_table)->num_rows();
+    }
 
     //Delete
     public function delete($id){

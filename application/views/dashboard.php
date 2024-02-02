@@ -8,32 +8,40 @@
 	<div class="col-md-6 col-xl-3 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">Customers</h4>
-				<h4 class="text-dark font-weight-bold mb-2">43,981</h4>
+				<h4 class="card-title">Penjualan Hari Ini</h4>
+				<h4 class="text-dark font-weight-bold mb-2">
+					Rp <?= $pj_hari == null ? '0' : number_format($pj_hari) ?>
+				</h4>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-6 col-xl-3 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">Orders</h4>
-				<h4 class="text-dark font-weight-bold mb-2">55,543</h4>
+				<h4 class="card-title">Pembelian Hari Ini</h4>
+				<h4 class="text-dark font-weight-bold mb-2">
+					Rp <?= $pb_hari == null ? '0' : number_format($pb_hari) ?>
+				</h4>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-6 col-xl-3 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">Orders</h4>
-				<h4 class="text-dark font-weight-bold mb-2">55,543</h4>
+				<h4 class="card-title">Penjualan Bulan Ini</h4>
+				<h4 class="text-dark font-weight-bold mb-2">
+					Rp <?= $pj_bulan == null ? '0' : number_format($pj_bulan) ?>
+				</h4>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-6 col-xl-3 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">Orders</h4>
-				<h4 class="text-dark font-weight-bold mb-2">55,543</h4>
+				<h4 class="card-title">Pembelian Bulan Ini</h4>
+				<h4 class="text-dark font-weight-bold mb-2">
+					Rp <?= $pb_bulan == null ? '0' : number_format($pb_bulan) ?>
+				</h4>
 			</div>
 		</div>
 	</div>
@@ -44,24 +52,24 @@
 			<div class="col-sm-12 grid-margin stretch-card">
 				<div class="card">
 					<div class="card-body">
-						<h4 class="card-title">Customers</h4>
-						<h4 class="text-dark font-weight-bold mb-2">43,981</h4>
+						<h4 class="card-title">Jumlah Pelanggan</h4>
+						<h4 class="text-dark font-weight-bold mb-2"><?= $pelanggan == null ? '0' : number_format($pelanggan) ?></h4>
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-12 grid-margin stretch-card">
 				<div class="card">
 					<div class="card-body">
-						<h4 class="card-title">Customers</h4>
-						<h4 class="text-dark font-weight-bold mb-2">43,981</h4>
+						<h4 class="card-title">Jumlah Barang</h4>
+						<h4 class="text-dark font-weight-bold mb-2"><?= $barang == null ? '0' : number_format($barang) ?></h4>
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-12 stretch-card">
 				<div class="card">
 					<div class="card-body">
-						<h4 class="card-title">Orders</h4>
-						<h4 class="text-dark font-weight-bold mb-2">55,543</h4>
+						<h4 class="card-title">Jumlah Supplier</h4>
+						<h4 class="text-dark font-weight-bold mb-2"><?= $supplier == null ? '0' : number_format($supplier) ?></h4>
 					</div>
 				</div>
 			</div>
@@ -76,12 +84,12 @@
 						<p>Total penghasilan transaksi tiap bulan. Total penghasilan sampai saat ini ada di samping:</p>
 					</div>
 					<div class="col-lg-7">
-						<div class="chart-legends d-lg-block d-none" id="chart-legendzsdtns"></div>
+						<div class="chart-legends d-lg-block d-none" id="chart-legends"></div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
-						<canvas id="web-transaksi-metricserhjtey-satacked" class="mt-3"></canvas>
+						<canvas id="web-transaksi-metrics-satacked" class="mt-3"></canvas>
 					</div>
 				</div>
 

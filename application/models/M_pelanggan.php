@@ -86,6 +86,9 @@ class M_pelanggan extends CI_Model{
     public function get_pelanggan_by_id($id){
         return $this->db->get_where($this->_table, array('id_pelanggan' => $id))->row();
     }
+    public function count_pelanggan(){
+        return $this->db->get($this->_table)->num_rows();
+    }
 
     //Delete
     public function delete($id){

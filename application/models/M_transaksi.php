@@ -16,8 +16,8 @@ class M_transaksi extends CI_Model{
         $penjualan_color = array();
         $bulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
         for($i = 0; $i < count($bulan); $i++){
-            array_push($pembelian, intval($this->count_all_pembelian_by_bulan(($i >= 9 ? $i+1 : '0'.$i+1))));
-            array_push($penjualan, intval($this->count_all_penjualan_by_bulan(($i >= 9 ? $i+1 : '0'.$i+1))));
+            array_push($pembelian, intval($this->count_total_pembelian_by_bulan(($i >= 9 ? $i+1 : '0'.$i+1))['sum(total_tagihan)']));
+            array_push($penjualan, intval($this->count_total_penjualan_by_bulan(($i >= 9 ? $i+1 : '0'.$i+1))['sum(total_tagihan)']));
             array_push($pembelian_color, '#3794fc');
             array_push($penjualan_color, '#a037fc');
         }
@@ -54,9 +54,10 @@ class M_transaksi extends CI_Model{
         $this->db->order_by('tanggal', 'DESC');
         return $this->db->get()->result();
     }
-    public function count_all_pembelian_by_bulan($bulan){
+    public function count_total_pembelian_by_bulan($bulan){
+        $this->db->select('sum(total_tagihan)');
         $this->db->like('tanggal', date('Y').'-'.$bulan);
-        return $this->db->get($this->table1)->num_rows();
+        return $this->db->get($this->table1)->row_array();
     }
     public function get_pembelian_by_id($id){
         $this->db->select('*');
@@ -134,9 +135,10 @@ class M_transaksi extends CI_Model{
         $this->db->where('id_penjualan', $id);
         return $this->db->get($this->table2)->row_array();
     }
-    public function count_all_penjualan_by_bulan($bulan){
+    public function count_total_penjualan_by_bulan($bulan){
+        $this->db->select('sum(total_tagihan)');
         $this->db->like('tanggal', date('Y').'-'.$bulan);
-        return $this->db->get($this->table2)->num_rows();
+        return $this->db->get($this->table2)->row_array();
     }
     public function get_penjualan_by_member($id){
         $this->db->order_by('tanggal', 'DESC');

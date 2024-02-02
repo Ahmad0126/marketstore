@@ -73,7 +73,7 @@
 				<h4 class="card-title">Transaksi Marketstore Tahun <?= date('Y') ?></h4>
 				<div class="row">
 					<div class="col-lg-5">
-						<p>Jumlah seluruh transaksi baik penjualan maupun pembelian dari bulan Januari sampai Desember</p>
+						<p>Total penghasilan transaksi tiap bulan. Total penghasilan sampai saat ini ada di samping:</p>
 					</div>
 					<div class="col-lg-7">
 						<div class="chart-legends d-lg-block d-none" id="chart-legends"></div>

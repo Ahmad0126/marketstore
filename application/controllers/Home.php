@@ -21,7 +21,8 @@ class Home extends CI_Controller{
             'pj_bulan' => $this->M_transaksi->count_total_penjualan_bulan_ini()['sum(total_tagihan)'],
             'pj_hari' => $this->M_transaksi->count_total_penjualan_hari_ini()['sum(total_tagihan)'],
             'pb_bulan' => $this->M_transaksi->count_total_pembelian_bulan_ini()['sum(total_tagihan)'],
-            'pb_hari' => $this->M_transaksi->count_total_pembelian_hari_ini()['sum(total_tagihan)']
+            'pb_hari' => $this->M_transaksi->count_total_pembelian_hari_ini()['sum(total_tagihan)'],
+            'pj_recent' => $this->M_transaksi->get_recent_penjualan()
         ];
         $this->template->load('layout/template', 'dashboard', 'Dashboard', $data);
         $this->load->view('layout/dashboard_js');
@@ -96,20 +97,20 @@ class Home extends CI_Controller{
         $data = $this->M_transaksi->get_pp_jumlah();
         echo json_encode($data);
     }
-    public function jumlah_status(){
+    public function get_recent_tr($transaksi){
         $this->load->model('M_transaksi');
-        $this->load->model('M_barang');
-        $this->load->model('M_supplier');
-        $this->load->model('M_pelanggan');
-        $data = [
-            'pelanggan' => $this->M_pelanggan->count_pelanggan(),
-            'barang' => $this->M_barang->count_barang(),
-            'supplier' => $this->M_supplier->count_supplier(),
-            'pj_bulan' => $this->M_transaksi->count_total_penjualan_bulan_ini()['sum(total_tagihan)'],
-            'pj_hari' => $this->M_transaksi->count_total_penjualan_hari_ini()['sum(total_tagihan)'],
-            'pb_bulan' => $this->M_transaksi->count_total_pembelian_bulan_ini()['sum(total_tagihan)'],
-            'pb_hari' => $this->M_transaksi->count_total_pembelian_hari_ini()['sum(total_tagihan)']
-        ];
-        var_dump($data); die;
+        $data = array();
+        if($transaksi == 'penjualan'){
+            $data = [
+                'kategori' => 'penjualan',
+                'transaksi' => $this->M_transaksi->get_recent_penjualan()
+            ];
+        }else{
+            $data = [
+                'kategori' => 'pembelian',
+                'transaksi' => $this->M_transaksi->get_recent_pembelian()
+            ];
+        }
+        echo json_encode($data);
     }
 }

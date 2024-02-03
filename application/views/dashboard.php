@@ -198,53 +198,42 @@
 	<div class="col-xl-4 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title mb-3">Transaksi Hari ini</h4>
+				<div class="d-flex justify-content-between mb-1">
+					<h4 class="card-title">Transaksi Hari ini</h4>
+					<div class="dropdown">
+						<button class="btn btn-sm dropdown-toggle text-dark pt-0 pr-0" type="button"
+							id="activeDropdownTransaksi" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">
+							Penjualan
+						</button>
+						<div class="dropdown-menu" aria-labelledby="activeDropdownTransaksi">
+							<a type="button" data-kategori="penjualan" data-active="Penjualan" class="kategoriMenu text-decoration-none">
+								<h6 class="dropdown-header">Penjualan</h6>
+							</a>
+							<a type="button" data-kategori="pembelian" data-active="Pembelian" class="kategoriMenu text-decoration-none">
+								<h6 class="dropdown-header">Pembelian</h6>
+							</a>
+						</div>
+					</div>
+				</div>
+				
 				<div class="row">
 					<div class="col-sm-12">
-						<div class="text-dark">
-							<div class="d-flex pb-3 border-bottom justify-content-between">
-								<div class="mr-3"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
-								<div class="font-weight-bold mr-sm-4">
-									<div>Deposit has updated to Paid</div>
-									<div class="text-muted font-weight-normal mt-1">32 Minutes Ago
-									</div>
+						<div id="daftar" class="text-dark">
+							<?php foreach($pj_recent as $pj){ ?>
+							<div class="d-flex pb-3 border-bottom justify-content-between mt-3">
+								<div class="mr-2"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
+								<div class="font-weight-bold mr-sm-2">
+									<div>Transaksi penjualan sebesar</div>
+									<div class="text-muted font-weight-normal mt-1"><?= $pj->id_pelanggan == null ? 'Non member' : 'Member' ?></div>
 								</div>
 								<div>
-									<h6 class="font-weight-bold text-info ml-sm-2">$325</h6>
+									<a href="<?= base_url('penjualan/detail/').$pj->id_penjualan ?>">
+										<h6 class="font-weight-bold text-info ml-sm-2">Rp <?= number_format($pj->total_tagihan)?></h6>
+									</a>
 								</div>
 							</div>
-							<div class="d-flex pb-3 pt-3 border-bottom justify-content-between">
-								<div class="mr-3"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
-								<div class="font-weight-bold mr-sm-4">
-									<div>Your Withdrawal Proceeded</div>
-									<div class="text-muted font-weight-normal mt-1">45 Minutes Ago
-									</div>
-								</div>
-								<div>
-									<h6 class="font-weight-bold text-info ml-sm-2">$4987</h6>
-								</div>
-							</div>
-							<div class="d-flex pb-3 pt-3 border-bottom justify-content-between">
-								<div class="mr-3"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
-								<div class="font-weight-bold mr-sm-4">
-									<div>Deposit has updated to Paid </div>
-									<div class="text-muted font-weight-normal mt-1">1 Days Ago</div>
-								</div>
-								<div>
-									<h6 class="font-weight-bold text-info ml-sm-2">$5391</h6>
-								</div>
-							</div>
-							<div class="d-flex pt-3 justify-content-between">
-								<div class="mr-3"><i class="mdi mdi-signal-cellular-outline icon-md"></i></div>
-								<div class="font-weight-bold mr-sm-4">
-									<div>Deposit has updated to Paid</div>
-									<div class="text-muted font-weight-normal mt-1">3 weeks Ago
-									</div>
-								</div>
-								<div>
-									<h6 class="font-weight-bold text-info ml-sm-2">$264</h6>
-								</div>
-							</div>
+							<?php } ?>
 						</div>
 					</div>
 				</div>

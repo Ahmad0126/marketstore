@@ -99,6 +99,13 @@ class M_transaksi extends CI_Model{
         $this->db->order_by('tanggal', 'DESC');
         return $this->db->get()->result();
     }
+    public function get_recent_pembelian(){
+        $this->db->select('*');
+        $this->db->join($this->table3, $this->table3.'.kode_supplier = '.$this->table1.'.kode_supplier');
+        $this->db->order_by('id_pembelian', 'DESC');
+        $this->db->where('tanggal', date('Y-m-d'));
+        return $this->db->get($this->table1, 5)->result();
+    }
     public function count_total_pembelian_by_bulan($bulan){
         $this->db->select('sum(total_tagihan)');
         $this->db->like('tanggal', date('Y').'-'.$bulan);
@@ -193,6 +200,11 @@ class M_transaksi extends CI_Model{
     public function get_penjualan_by_id($id){
         $this->db->where('id_penjualan', $id);
         return $this->db->get($this->table2)->row_array();
+    }
+    public function get_recent_penjualan(){
+        $this->db->order_by('id_penjualan', 'DESC');
+        $this->db->where('tanggal', date('Y-m-d'));
+        return $this->db->get($this->table2, 5)->result();
     }
     public function count_total_penjualan_by_bulan($bulan){
         $this->db->select('sum(total_tagihan)');

@@ -140,22 +140,31 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="d-flex justify-content-between mt-2 text-dark mb-2">
-							<div><span class="font-weight-bold">4453</span> Leads</div>
-							<div>Goal: 2000</div>
+							<div><span class="font-weight-bold"><?= $terjual == null ? '0' : number_format($terjual) ?></span> Terjual</div>
+							<div>Stok: <?= $terbeli == null ? '0' : number_format($terbeli) ?></div>
 						</div>
 						<div class="progress progress-md grouped mb-2">
-							<div class="progress-bar  bg-danger" role="progressbar" style="width: 30%"
-								aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-							<div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="50"
-								aria-valuemin="0" aria-valuemax="100"></div>
-							<div class="progress-bar  bg-primary" role="progressbar" style="width: 10%"
-								aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-							<div class="progress-bar bg-warning" role="progressbar" style="width: 10%"
-								aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-							<div class="progress-bar bg-success" role="progressbar" style="width: 5%" aria-valuenow="50"
-								aria-valuemin="0" aria-valuemax="100"></div>
-							<div class="progress-bar bg-light" role="progressbar" style="width: 25%" aria-valuenow="50"
-								aria-valuemin="0" aria-valuemax="100"></div>
+							<?php
+							$color = ['bg-danger', 'bg-info', 'bg-primary', 'bg-warning', 'bg-success'];
+							$all = $terbeli;
+							$b_lain = 0;
+							$no = 0;
+							foreach($barang_terlaris as $b){
+								$pres = $b['jumlah'] * 100 / $terbeli;
+								$all -= intval($b['jumlah']);
+								if($no < 5){
+							?>
+							<div class="progress-bar <?= $color[$no++] ?>" style="width: <?= round($pres) ?>%"></div>
+							<?php 
+								}else if($no >= 5){
+									$b_lain -= $b['jumlah'];
+								}
+							}
+							$sisa = $all * 100 / $terbeli;
+							$b_lain_p = $b_lain * 100 / $terbeli;
+							?>
+							<div class="progress-bar bg-dark" style="width: <?= round($b_lain_p) ?>%"></div>
+							<div class="progress-bar bg-light" style="width: <?= round($sisa) ?>%"></div>
 						</div>
 					</div>
 					<div class="col-sm-12">
@@ -164,32 +173,37 @@
 								<div class="font-weight-bold">SOURCE</div>
 								<div class="font-weight-bold">TOTAL</div>
 							</div>
+							<?php
+							$color = ['bg-danger', 'bg-info', 'bg-primary', 'bg-warning', 'bg-success'];
+							$all = $terbeli;
+							$b_lain = 0;
+							$no = 0;
+							foreach($barang_terlaris as $b){
+								$pres = $b['jumlah'] * 100 / $terbeli;
+								$all -= intval($b['jumlah']);
+								if($no < 5){
+							?>
 							<div class="d-flex justify-content-between legend-label">
-								<div><span class="bg-danger"></span>Google Search</div>
-								<div>30%</div>
+								<div><span class="<?= $color[$no++] ?>"></span><?= $b['nama'] ?></div>
+								<div><?= round($pres) ?>%</div>
+							</div>
+							<?php 
+								}else if($no >= 5){
+									$b_lain -= $b['jumlah'];
+								}
+							}
+							$sisa = $all * 100 / $terbeli;
+							$b_lain_p = $b_lain * 100 / $terbeli;
+							?>
+							<div class="d-flex justify-content-between legend-label">
+								<div><span class="bg-dark"></span>Barang lain</div>
+								<div><?= round($b_lain_p) ?>%</div>
 							</div>
 							<div class="d-flex justify-content-between legend-label">
-								<div><span class="bg-info"></span>Social Media</div>
-								<div>20%</div>
-							</div>
-							<div class="d-flex justify-content-between legend-label">
-								<div><span class="bg-primary"></span>Referrals</div>
-								<div>10%</div>
-							</div>
-							<div class="d-flex justify-content-between legend-label">
-								<div><span class="bg-warning"></span>Organic Traffic</div>
-								<div>10%</div>
-							</div>
-							<div class="d-flex justify-content-between legend-label">
-								<div><span class="bg-success"></span>Google Search</div>
-								<div>5%</div>
-							</div>
-							<div class="d-flex justify-content-between legend-label">
-								<div><span class="bg-light"></span>Email Marketing</div>
-								<div>25%</div>
+								<div><span class="bg-light"></span>Belum Terjual</div>
+								<div><?= round($sisa) ?>%</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -237,342 +251,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-xl-9 grid-margin-lg-0 grid-margin stretch-card">
-		<div class="card">
-			<div class="card-body">
-				<h4 class="card-title">Top Sellers</h4>
-				<div class="table-responsive mt-3">
-					<table class="table table-header-bg">
-						<thead>
-							<tr>
-								<th>
-									Country
-								</th>
-								<th>
-									Revenue
-								</th>
-								<th>
-									Vs Last Month
-								</th>
-								<th>
-									Goal Reached
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<i class="flag-icon flag-icon-us mr-2" title="us" id="us"></i>
-									United States
-								</td>
-								<td>
-									$911,200
-								</td>
-								<td>
-									<div class="text-success"><i class="icon-arrow-up mr-2"></i>+60%
-									</div>
-								</td>
-								<td>
-									<div class="row">
-										<div class="col-sm-10">
-											<div class="progress">
-												<div class="progress-bar bg-info" role="progressbar" style="width: 25%"
-													aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-											</div>
-										</div>
-										<div class="col-sm-2">
-											25%
-										</div>
-									</div>
-								</td>
-
-							</tr>
-							<tr>
-								<td>
-									<i class="flag-icon flag-icon-at mr-2" title="us" id="at"></i>
-									Austria
-								</td>
-								<td>
-									$821,600
-								</td>
-								<td>
-									<div class="text-danger"><i class="icon-arrow-down mr-2"></i>-40%</div>
-								</td>
-								<td>
-									<div class="row">
-										<div class="col-sm-10">
-											<div class="progress">
-												<div class="progress-bar bg-info" role="progressbar" style="width: 50%"
-													aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-											</div>
-										</div>
-										<div class="col-sm-2">
-											50%
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<i class="flag-icon flag-icon-fr mr-2" title="us" id="fr"></i>
-									France
-								</td>
-								<td>
-									$323,700
-								</td>
-								<td>
-									<div class="text-success"><i class="icon-arrow-up mr-2"></i>+40%
-									</div>
-								</td>
-								<td>
-									<div class="row">
-										<div class="col-sm-10">
-											<div class="progress">
-												<div class="progress-bar bg-info" role="progressbar" style="width: 10%"
-													aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-											</div>
-										</div>
-										<div class="col-sm-2">
-											10%
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="py-1">
-									<i class="flag-icon flag-icon-de mr-2" title="us" id="de"></i>
-									Germany
-								</td>
-								<td>
-									$833,205
-								</td>
-								<td>
-									<div class="text-danger"><i class="icon-arrow-down mr-2"></i>-80%</div>
-								</td>
-								<td>
-									<div class="row">
-										<div class="col-sm-10">
-											<div class="progress">
-												<div class="progress-bar bg-info" role="progressbar" style="width: 70%"
-													aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-											</div>
-										</div>
-										<div class="col-sm-2">
-											70%
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="pb-0">
-									<i class="flag-icon flag-icon-ae mr-2" title="ae" id="ae"></i>
-									united arab emirates
-								</td>
-								<td class="pb-0">
-									$232,243
-								</td>
-								<td class="pb-0">
-									<div class="text-success"><i class="icon-arrow-up mr-2"></i>+80%
-									</div>
-								</td>
-								<td class="pb-0">
-									<div class="row">
-										<div class="col-sm-10">
-											<div class="progress">
-												<div class="progress-bar bg-info" role="progressbar" style="width: 60%"
-													aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-											</div>
-										</div>
-										<div class="col-sm-2">
-											0%
-										</div>
-									</div>
-								</td>
-							</tr>
-
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-xl-3 grid-margin-lg-0 grid-margin stretch-card">
-		<div class="card">
-			<div class="card-body">
-				<h4 class="card-title mb-3">Overall rating</h4>
-				<div class="d-flex">
-					<div>
-						<h4 class="text-dark font-weight-bold mb-2 mr-2">4.3</h4>
-					</div>
-					<div>
-						<select id="over-all-rating" name="rating" autocomplete="off">
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-						</select>
-					</div>
-				</div>
-				<p class="mb-4">Based on 186 reviews</p>
-				<div class="row">
-					<div class="col-sm-2 pr-0">
-						<div class="d-flex">
-							<div>
-								<div class="text-dark font-weight-bold mb-2 mr-2">5</div>
-							</div>
-							<div>
-								<i class="fa fa-star text-warning"></i>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-9 pl-2">
-						<div class="row">
-							<div class="col-sm-10">
-								<div class="progress progress-lg mt-1">
-									<div class="progress-bar bg-warning" role="progressbar" style="width: 80%"
-										aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-							</div>
-							<div class="col-sm-2 p-lg-0">
-								80%
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row mt-2">
-					<div class="col-sm-2 pr-0">
-						<div class="d-flex">
-							<div>
-								<div class="text-dark font-weight-bold mb-2 mr-2">4</div>
-							</div>
-							<div>
-								<i class="fa fa-star text-warning"></i>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-9 pl-2">
-						<div class="row">
-							<div class="col-sm-10">
-								<div class="progress progress-lg mt-1">
-									<div class="progress-bar bg-warning" role="progressbar" style="width: 45%"
-										aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-							</div>
-							<div class="col-sm-2 p-lg-0">
-								45%
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row mt-2">
-					<div class="col-sm-2 pr-0">
-						<div class="d-flex">
-							<div>
-								<div class="text-dark font-weight-bold mb-2 mr-2">3</div>
-							</div>
-							<div>
-								<i class="fa fa-star text-warning"></i>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-9 pl-2">
-						<div class="row">
-							<div class="col-sm-10">
-								<div class="progress progress-lg mt-1">
-									<div class="progress-bar bg-warning" role="progressbar" style="width: 30%"
-										aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-							</div>
-							<div class="col-sm-2 p-lg-0">
-								30%
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row mt-2">
-					<div class="col-sm-2 pr-0">
-						<div class="d-flex">
-							<div>
-								<div class="text-dark font-weight-bold mb-2 mr-2">2</div>
-							</div>
-							<div>
-								<i class="fa fa-star text-warning"></i>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-9 pl-2">
-						<div class="row">
-							<div class="col-sm-10">
-								<div class="progress progress-lg mt-1">
-									<div class="progress-bar bg-warning" role="progressbar" style="width: 8%"
-										aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-							</div>
-							<div class="col-sm-2 p-lg-0">
-								8%
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row mt-2">
-					<div class="col-sm-2 pr-0">
-						<div class="d-flex">
-							<div>
-								<div class="text-dark font-weight-bold mb-2 mr-2">5</div>
-							</div>
-							<div>
-								<i class="fa fa-star text-warning"></i>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-9 pl-2">
-						<div class="row">
-							<div class="col-sm-10">
-								<div class="progress progress-lg mt-1">
-									<div class="progress-bar bg-warning" role="progressbar" style="width: 1%"
-										aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-							</div>
-							<div class="col-sm-2 p-lg-0">
-								1%
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12">
-						<p class="mb-2 mt-3 mb-3 text-dark font-weight-bold">Rating by category</p>
-						<div class="d-flex">
-							<div>
-								<div class="text-dark font-weight-bold mb-2 mr-2">4.3</div>
-							</div>
-							<div class="mr-2">
-								<i class="fa fa-star text-warning"></i>
-							</div>
-							<div>
-								<p>Work/Management</p>
-							</div>
-						</div>
-						<div class="d-flex">
-							<div>
-								<div class="text-dark font-weight-bold mb-2 mr-2">3.5</div>
-							</div>
-							<div class="mr-2">
-								<i class="fa fa-star text-warning"></i>
-							</div>
-							<div>
-								<p>Salary/Culture</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
 			</div>
 		</div>
 	</div>

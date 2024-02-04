@@ -204,6 +204,26 @@ class M_barang extends CI_Model{
     public function count_barang(){
         return $this->db->get($this->_table)->num_rows();
     }
+    public function get_list_barang_terlaris(){
+        $data = array();
+        $this->db->select('kode_barang, nama');
+        $barang = $this->db->get($this->_table)->result_array();
+        $this->load->model('M_transaksi');
+        foreach($barang as $b){
+            array_push(
+                $data,
+                array(
+                    'jumlah' => $this->M_transaksi->get_terjual_by_kode($b['kode_barang'])['sum(jumlah)'],
+                    'nama' => $b['nama']
+                )
+            );
+        }
+        function cmp_jml($a, $b) {
+            return strcmp($b['jumlah'], $a['jumlah']);
+        }
+        usort($data, 'cmp_jml');
+        return $data;
+    }
     
 
     //Delete

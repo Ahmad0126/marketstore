@@ -139,6 +139,10 @@ class M_transaksi extends CI_Model{
         $this->db->where('kode_pembelian', $kode);
         return $this->db->get()->result();
     }
+    public function count_terbeli(){
+        $this->db->select('sum(jumlah)');
+        return $this->db->get($this->table4)->row_array()['sum(jumlah)'];
+    }
 
     //Delete
     public function delete_pembelian($kode){
@@ -236,6 +240,15 @@ class M_transaksi extends CI_Model{
         $this->db->join($this->table6, $this->table6.'.kode_barang = '.$this->table5.'.kode_barang');
         $this->db->where('kode_penjualan', $kode);
         return $this->db->get()->result();
+    }
+    public function get_terjual_by_kode($kode){
+        $this->db->select('sum(jumlah)');
+        $this->db->where('kode_barang', $kode);
+        return $this->db->get($this->table5)->row_array();
+    }
+    public function count_terjual(){
+        $this->db->select('sum(jumlah)');
+        return $this->db->get($this->table5)->row_array()['sum(jumlah)'];
     }
 
     //Delete

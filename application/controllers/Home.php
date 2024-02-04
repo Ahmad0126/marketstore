@@ -22,7 +22,10 @@ class Home extends CI_Controller{
             'pj_hari' => $this->M_transaksi->count_total_penjualan_hari_ini()['sum(total_tagihan)'],
             'pb_bulan' => $this->M_transaksi->count_total_pembelian_bulan_ini()['sum(total_tagihan)'],
             'pb_hari' => $this->M_transaksi->count_total_pembelian_hari_ini()['sum(total_tagihan)'],
-            'pj_recent' => $this->M_transaksi->get_recent_penjualan()
+            'pj_recent' => $this->M_transaksi->get_recent_penjualan(),
+            'terjual' => $this->M_transaksi->count_terjual(),
+            'terbeli' => $this->M_transaksi->count_terbeli(),
+            'barang_terlaris' => $this->M_barang->get_list_barang_terlaris()
         ];
         $this->template->load('layout/template', 'dashboard', 'Dashboard', $data);
         $this->load->view('layout/dashboard_js');

@@ -163,7 +163,7 @@
 							$sisa = $all * 100 / $terbeli;
 							$b_lain_p = $b_lain * 100 / $terbeli;
 							?>
-							<div class="progress-bar bg-dark" style="width: <?= round($b_lain_p) ?>%"></div>
+							<div class="progress-bar bg-dark" style="width: <?= abs(round($b_lain_p)) ?>%"></div>
 							<div class="progress-bar bg-light" style="width: <?= round($sisa) ?>%"></div>
 						</div>
 					</div>
@@ -197,7 +197,7 @@
 							?>
 							<div class="d-flex justify-content-between legend-label">
 								<div><span class="bg-dark"></span>Barang lain</div>
-								<div><?= round($b_lain_p) ?>%</div>
+								<div><?= abs(round($b_lain_p)) ?>%</div>
 							</div>
 							<div class="d-flex justify-content-between legend-label">
 								<div><span class="bg-light"></span>Belum Terjual</div>

@@ -244,7 +244,10 @@ class M_transaksi extends CI_Model{
     public function get_terjual_by_kode($kode){
         $this->db->select('sum(jumlah)');
         $this->db->where('kode_barang', $kode);
-        return $this->db->get($this->table5)->row_array();
+        $data = $this->db->get($this->table5)->row_array();
+        if($data['sum(jumlah)'] == null){
+            return array('sum(jumlah)' => '0');
+        }else{ return $data; }
     }
     public function count_terjual(){
         $this->db->select('sum(jumlah)');

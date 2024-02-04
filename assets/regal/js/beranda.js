@@ -99,7 +99,7 @@ function listTransaksi(judul, url, total, keterangan){
 			'</div>'+
 		'<div>'+
 			'<a href="'+ url +'">'+
-				'<h6 class="font-weight-bold text-info ml-sm-2">Rp '+ total +'</h6>'+
+				'<h6 class="font-weight-bold text-info ml-sm-2">Rp '+ total.toLocaleString() +'</h6>'+
 			'</a>'+
 		'</div>'+
 	'</div>';

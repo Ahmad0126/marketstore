@@ -218,10 +218,7 @@ class M_barang extends CI_Model{
                 )
             );
         }
-        function cmp_jml($a, $b) {
-            return strcmp($b['jumlah'], $a['jumlah']);
-        }
-        usort($data, 'cmp_jml');
+        arsort($data);
         return $data;
     }
     

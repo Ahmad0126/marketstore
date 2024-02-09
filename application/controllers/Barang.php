@@ -46,4 +46,12 @@ class Barang extends CI_Controller{
             redirect(base_url('barang'));
         }
     }
+    public function get_barang(){
+        $data = array();
+        $barang = $this->M_barang->get_barang();
+        foreach($barang as $b){
+            array_push($data, $b->nama);
+        }
+        echo json_encode($data);
+    }
 }

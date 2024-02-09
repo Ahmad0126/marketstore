@@ -1,34 +1,32 @@
 let table = new DataTable('#barang',{
-    dom: 't'
+    dom: 'tp'
 });
 var poin = 0;
 var voucher = 0;
 $('#carian').keyup(function(){
     table.search($(this).val()).draw();
 });
-$(document).ready(function () { 
-    $(".add_barang").click(function () { 
-        var button = $(this);
-        tableBody = $("#detail tbody");
-        if(tableBody.find('#'+button.data('kode')).attr('id') != button.data('kode')){
-            row = '<tr id="'+button.data('kode')+'">'+
-                '<td>'
-                    +button.data('nama')+
-                    '<input type="hidden" name="kode_barang[]" value="'+button.data('kode')+'">'+
-                    '<input type="hidden" name="harga[]" value="'+button.data('harga')+'"</td>'+
-                '<td>'+button.data('kode')+'</td>'+
-                '<td>Rp '+button.data('harga').toLocaleString()+'</td>'+
-                '<td><input type="number" name="jumlah[]" max="'+button.data('stok')+'" data-harga="'+button.data('harga')+'" data-kode="'+button.data('kode')+'" class="form-control form-control-sm jumlah"></td>'+
-                '<td class="total1" id="total_'+button.data('kode')+'"></td>'+
-            '</tr>';
-            tableBody.append(row);
-            button.html('-');
-        }else{
-            button.html('+');
-            $('#'+button.data('kode')).remove();
-        }
-        jumlahkan();
-    }); 
+$(".add_barang").click(function () { 
+    var button = $(this);
+    tableBody = $("#detail tbody");
+    if(tableBody.find('#'+button.data('kode')).attr('id') != button.data('kode')){
+        row = '<tr id="'+button.data('kode')+'">'+
+            '<td>'
+                +button.data('nama')+
+                '<input type="hidden" name="kode_barang[]" value="'+button.data('kode')+'">'+
+                '<input type="hidden" name="harga[]" value="'+button.data('harga')+'"</td>'+
+            '<td>'+button.data('kode')+'</td>'+
+            '<td>Rp '+button.data('harga').toLocaleString()+'</td>'+
+            '<td><input type="number" name="jumlah[]" max="'+button.data('stok')+'" data-harga="'+button.data('harga')+'" data-kode="'+button.data('kode')+'" class="form-control form-control-sm jumlah"></td>'+
+            '<td class="total1" id="total_'+button.data('kode')+'"></td>'+
+        '</tr>';
+        tableBody.append(row);
+        button.html('-');
+    }else{
+        button.html('+');
+        $('#'+button.data('kode')).remove();
+    }
+    jumlahkan();
 }); 
 $('#vchbtn').on('click', function(){
     var code = $('#kode_voucher').val();
@@ -87,3 +85,42 @@ function jumlahkan(){
     $('#diskon').html('Rp '+diskon.toLocaleString());
     $('#total_bayar').html('Rp '+(all_total - diskon).toLocaleString());
 }
+(function($) {
+    'use strict';
+    function substringMatcher(strs) {
+        return function findMatches(q, cb) {
+            var matches, substringRegex;
+    
+            // an array that will be populated with substring matches
+            matches = [];
+    
+            // regex used to determine if a string contains the substring `q`
+            var substrRegex = new RegExp(q, 'i');
+    
+            // iterate through the pool of strings and for any string that
+            // contains the substring `q`, add it to the `matches` array
+            for (var i = 0; i < strs.length; i++) {
+                if (substrRegex.test(strs[i])) {
+                    matches.push(strs[i]);
+                }
+            }
+    
+            cb(matches);
+        };
+    };
+    $.ajax({
+        type: 'GET',
+        dataType: 'JSON',
+        url: base_url+'barang/get_barang',
+    }).done(function(data){
+        var barang = data;
+        $('#cari').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        }, {
+            name: 'barang',
+            source: substringMatcher(barang)
+        });
+    });
+})(jQuery);

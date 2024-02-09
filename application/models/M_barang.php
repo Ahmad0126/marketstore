@@ -201,6 +201,9 @@ class M_barang extends CI_Model{
     public function get_barang_by_id($id){
         return $this->db->get_where($this->_table, array('id_barang' => $id))->row_array();
     }
+    public function get_barang_by_name($name){
+        return $this->db->get_where($this->_table, array('nama' => $name))->row_array();
+    }
     public function count_barang(){
         return $this->db->get($this->_table)->num_rows();
     }

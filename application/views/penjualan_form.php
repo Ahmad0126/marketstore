@@ -8,9 +8,7 @@
 					<label class="card-title" for="Jumlah">Jumlah</label>
 					<input type="number" class="form-control" placeholder="Jumlah" id="Jumlah">
 				</div>
-			</div>
-			<div class="card-footer">
-				<button class="btn btn-info form-control">Tambah +</button>
+				<button class="btn btn-info form-control" id="add_barang">Tambah +</button>
 			</div>
 		</div>
 	</div>
@@ -99,9 +97,7 @@
 								<td class="d-md-table-cell d-none"><?= $b->stok ?></td>
 								<td class="d-md-table-cell d-none"><?= 'Rp '.number_format($b->harga_jual) ?></td>
 								<td>
-									<button class="add_barang btn btn-small btn-info" data-nama="<?= $b->nama ?>"
-										data-stok="<?= $b->stok ?>" data-harga="<?= $b->harga_jual ?>"
-										data-kode="<?= $b->kode_barang ?>">+</button>
+									<button class="add_barang btn btn-small btn-info" data-nama="<?= $b->nama ?>">+</button>
 								</td>
 							</tr>
 							<?php } ?>

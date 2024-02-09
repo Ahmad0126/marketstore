@@ -6,28 +6,38 @@ var voucher = 0;
 $('#carian').keyup(function(){
     table.search($(this).val()).draw();
 });
-$(".add_barang").click(function () { 
-    var button = $(this);
+$('.add_barang').on('click', function(){
+    $('#cari').val($(this).data('nama'));
+});
+function updateTable(data) {
     tableBody = $("#detail tbody");
-    if(tableBody.find('#'+button.data('kode')).attr('id') != button.data('kode')){
-        row = '<tr id="'+button.data('kode')+'">'+
+    if(tableBody.find('#'+data.id_barang).attr('id') != data.id_barang){
+        row = '<tr id="'+data.id_barang+'">'+
             '<td>'
-                +button.data('nama')+
-                '<input type="hidden" name="kode_barang[]" value="'+button.data('kode')+'">'+
-                '<input type="hidden" name="harga[]" value="'+button.data('harga')+'"</td>'+
-            '<td>'+button.data('kode')+'</td>'+
-            '<td>Rp '+button.data('harga').toLocaleString()+'</td>'+
-            '<td><input type="number" name="jumlah[]" max="'+button.data('stok')+'" data-harga="'+button.data('harga')+'" data-kode="'+button.data('kode')+'" class="form-control form-control-sm jumlah"></td>'+
-            '<td class="total1" id="total_'+button.data('kode')+'"></td>'+
+                +data.nama+
+                '<input type="hidden" name="kode_barang[]" value="'+data.kode_barang+'">'+
+                '<input type="hidden" name="harga[]" value="'+data.harga_jual+'"</td>'+
+                '<input type="hidden" name="jumlah[]" value="'+data.jumlah+'"</td>'+
+            '<td>'+data.kode_barang+'</td>'+
+            '<td>Rp '+data.harga_jual.toLocaleString()+'</td>'+
+            '<td>'+data.jumlah.toLocaleString()+'</td>'+
+            '<td class="total1">Rp '+(parseInt(data.harga_jual) * parseInt(data.jumlah))+'</td>'+
         '</tr>';
         tableBody.append(row);
-        button.html('-');
     }else{
-        button.html('+');
-        $('#'+button.data('kode')).remove();
+        row = '<td>'
+                +data.nama+
+                '<input type="hidden" name="kode_barang[]" value="'+data.kode_barang+'">'+
+                '<input type="hidden" name="harga[]" value="'+data.harga_jual+'"</td>'+
+                '<input type="hidden" name="jumlah[]" value="'+data.jumlah+'"</td>'+
+            '<td>'+data.kode_barang+'</td>'+
+            '<td>Rp '+data.harga_jual.toLocaleString()+'</td>'+
+            '<td>'+data.jumlah.toLocaleString()+'</td>'+
+            '<td class="total1">Rp '+(parseInt(data.harga_jual) * parseInt(data.jumlah))+'</td>';
+        $('#'+data.id_barang).html(row);
     }
     jumlahkan();
-}); 
+}; 
 $('#vchbtn').on('click', function(){
     var code = $('#kode_voucher').val();
     $.ajax({
@@ -75,7 +85,7 @@ $('#poin').on('keyup', function(){
     jumlahkan();
 });
 function jumlahkan(){
-    var h_total = document.querySelectorAll('.total1');
+    var h_total = $('.total1');
     var all_total = 0;
     for (var i = 0; i < h_total.length; i++){
         all_total += parseInt(($(h_total[i]).html().substr(3)));
@@ -124,3 +134,33 @@ function jumlahkan(){
         });
     });
 })(jQuery);
+$('#add_barang').on('click', function(){
+    var name = $('#cari');
+    var jumlah = $('#Jumlah');
+    $.ajax({
+        type: 'POST',
+        dataType: 'JSON',
+        url: base_url+'barang/lihat_barang',
+        data: {nama: name.val(), jumlah: jumlah.val()},
+        success: function(data){
+            if(data.status == null){
+                updateTable(data);
+                name.val('');
+                jumlah.val('');
+            }else{
+                $('#vouchermodal').modal('hide');
+                $('#kode_voucher').val("");
+                $('#pesan').html(data.status);
+                $('#color').addClass('alert-danger');
+                $('#alertmodal').modal('show');
+            }
+        },
+        error: function(){
+            $('#vouchermodal').modal('hide');
+            $('#kode_voucher').val("");
+            $('#pesan').html('Maaf, server sedang bermasalah');
+            $('#color').addClass('alert-danger');
+            $('#alertmodal').modal('show');
+        }
+    });
+});

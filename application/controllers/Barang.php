@@ -54,4 +54,25 @@ class Barang extends CI_Controller{
         }
         echo json_encode($data);
     }
+    public function lihat_barang(){
+        $data = array();
+        $barang = $this->M_barang->get_barang_by_name($this->input->post('nama'));
+        if($this->input->post('jumlah') == null){
+            $data = array('status' => 'Jumlahnya berapa?!');
+            echo json_encode($data);
+            return;
+        }
+        if($barang == null){
+            $data = array('status' => 'Barang tidak terdaftar!');
+            echo json_encode($data);
+            return;
+        }
+        $stok = $barang['stok'] <= $this->input->post('jumlah');
+        if($stok){
+            $data = array('status' => 'Barang meleebihi stok!');
+            echo json_encode($data);
+            return;
+        }
+        echo json_encode(array_merge($barang, array('jumlah' => $this->input->post('jumlah'))));
+    }
 }

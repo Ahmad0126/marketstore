@@ -42,24 +42,25 @@
 									<th>Harga Satuan</th>
 									<th>Jumlah</th>
 									<th>Harga Total</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 							</tbody>
-						</table>
-						<table class="table table-hover table-striped">
-							<tr>
-								<th colspan="4">Total Transaksi</th>
-								<th id="total"></th>
-							</tr>
-							<tr>
-								<th colspan="4">Diskon</th>
-								<th id="diskon"></th>
-							</tr>
-							<tr>
-								<th colspan="4">Total Bayar</th>
-								<th id="total_bayar"></th>
-							</tr>
+							<thead>
+								<tr>
+									<td class="font-weight-bold" colspan="4">Total Transaksi</td>
+									<td class="font-weight-bold" id="total"></td>
+								</tr>
+								<tr>
+									<td class="font-weight-bold" colspan="4">Diskon</td>
+									<td class="font-weight-bold" id="diskon"></td>
+								</tr>
+								<tr>
+									<td class="font-weight-bold" colspan="4">Total Bayar</td>
+									<td class="font-weight-bold" id="total_bayar"></td>
+								</tr>
+							</thead>
 						</table>
 					</div>
 				</form>

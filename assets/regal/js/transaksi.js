@@ -22,6 +22,11 @@ function updateTable(data) {
             '<td>Rp '+data.harga_jual.toLocaleString()+'</td>'+
             '<td>'+data.jumlah.toLocaleString()+'</td>'+
             '<td class="total1">Rp '+(parseInt(data.harga_jual) * parseInt(data.jumlah))+'</td>'+
+            '<td>'+
+                '<button type="button" class="close del-barang" data-del="'+data.id_barang+'">'+
+                    '<span>×</span>'+
+                '</button>'+
+            '</td>'+
         '</tr>';
         tableBody.append(row);
     }else{
@@ -33,11 +38,16 @@ function updateTable(data) {
             '<td>'+data.kode_barang+'</td>'+
             '<td>Rp '+data.harga_jual.toLocaleString()+'</td>'+
             '<td>'+data.jumlah.toLocaleString()+'</td>'+
-            '<td class="total1">Rp '+(parseInt(data.harga_jual) * parseInt(data.jumlah))+'</td>';
+            '<td class="total1">Rp '+(parseInt(data.harga_jual) * parseInt(data.jumlah))+'</td>'+
+            '<td>'+
+                '<button type="button" class="close del-barang" data-del="'+data.id_barang+'">'+
+                    '<span>×</span>'+
+                '</button>'+
+            '</td>';
         $('#'+data.id_barang).html(row);
     }
     jumlahkan();
-}; 
+};
 $('#vchbtn').on('click', function(){
     var code = $('#kode_voucher').val();
     $.ajax({
@@ -73,11 +83,8 @@ $('#vchbtn').on('click', function(){
         }
     });
 });
-$('#detail').delegate('input', 'keyup', function(){
-    var harga = $(this).data('harga');
-    var jumlah = $(this).val();
-    var total = parseInt(harga) * parseInt(jumlah);
-    $('#total_'+$(this).data('kode')).html('Rp '+total);
+$('#detail').delegate('.del-barang', 'click', function(){
+    $('#'+$(this).data('del')).remove();
     jumlahkan();
 });
 $('#poin').on('keyup', function(){

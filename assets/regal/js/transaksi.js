@@ -9,19 +9,24 @@ $('#carian').keyup(function(){
 $('.add_barang').on('click', function(){
     $('#cari').val($(this).data('nama'));
 });
-function updateTable(data) {
+function updateTable(data, beli) {
+    if(beli){
+        var harga = data.harga_beli;
+    }else{
+        var harga = data.harga_jual;
+    }
     tableBody = $("#detail tbody");
     if(tableBody.find('#'+data.id_barang).attr('id') != data.id_barang){
         row = '<tr id="'+data.id_barang+'">'+
             '<td>'
                 +data.nama+
                 '<input type="hidden" name="kode_barang[]" value="'+data.kode_barang+'">'+
-                '<input type="hidden" name="harga[]" value="'+data.harga_jual+'"</td>'+
+                '<input type="hidden" name="harga[]" value="'+harga+'"</td>'+
                 '<input type="hidden" name="jumlah[]" value="'+data.jumlah+'"</td>'+
             '<td>'+data.kode_barang+'</td>'+
-            '<td>Rp '+data.harga_jual.toLocaleString()+'</td>'+
+            '<td>Rp '+harga.toLocaleString()+'</td>'+
             '<td>'+data.jumlah.toLocaleString()+'</td>'+
-            '<td class="total1">Rp '+(parseInt(data.harga_jual) * parseInt(data.jumlah))+'</td>'+
+            '<td class="total1">Rp '+(parseInt(harga) * parseInt(data.jumlah))+'</td>'+
             '<td>'+
                 '<button type="button" class="close del-barang" data-del="'+data.id_barang+'">'+
                     '<span>×</span>'+
@@ -33,12 +38,12 @@ function updateTable(data) {
         row = '<td>'
                 +data.nama+
                 '<input type="hidden" name="kode_barang[]" value="'+data.kode_barang+'">'+
-                '<input type="hidden" name="harga[]" value="'+data.harga_jual+'"</td>'+
+                '<input type="hidden" name="harga[]" value="'+harga+'"</td>'+
                 '<input type="hidden" name="jumlah[]" value="'+data.jumlah+'"</td>'+
             '<td>'+data.kode_barang+'</td>'+
-            '<td>Rp '+data.harga_jual.toLocaleString()+'</td>'+
+            '<td>Rp '+harga.toLocaleString()+'</td>'+
             '<td>'+data.jumlah.toLocaleString()+'</td>'+
-            '<td class="total1">Rp '+(parseInt(data.harga_jual) * parseInt(data.jumlah))+'</td>'+
+            '<td class="total1">Rp '+(parseInt(harga) * parseInt(data.jumlah))+'</td>'+
             '<td>'+
                 '<button type="button" class="close del-barang" data-del="'+data.id_barang+'">'+
                     '<span>×</span>'+
@@ -144,6 +149,8 @@ function jumlahkan(){
 $('#add_barang').on('click', function(){
     var name = $('#cari');
     var jumlah = $('#Jumlah');
+    var beli = $(this).data('beli');
+    console.log(beli);
     $.ajax({
         type: 'POST',
         dataType: 'JSON',
@@ -151,7 +158,11 @@ $('#add_barang').on('click', function(){
         data: {nama: name.val(), jumlah: jumlah.val()},
         success: function(data){
             if(data.status == null){
-                updateTable(data);
+                if(beli != null){
+                    updateTable(data, true);
+                }else{
+                    updateTable(data, false);
+                }
                 name.val('');
                 jumlah.val('');
             }else{

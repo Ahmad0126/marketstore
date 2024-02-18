@@ -14,3 +14,8 @@
 <link rel="stylesheet" href="<?= base_url('assets/regal/') ?>css/style.css">
 <!-- endinject -->
 <link rel="shortcut icon" href="<?= base_url('assets/regal/') ?>images/favicon.png" />
+<style>
+    .twitter-typeahead{
+        width: 100%;
+    }
+</style>

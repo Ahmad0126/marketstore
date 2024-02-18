@@ -12,7 +12,7 @@
 					<button class="btn btn-info" data-toggle="modal" data-target="#tambahmodal">Tambah +</button>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-striped">
+					<table class="table table-striped" id="tabel">
 						<thead>
 							<tr>
 								<th>No</th>
@@ -39,13 +39,13 @@
 								<td><?= 'Rp '.number_format($b->harga_beli)  ?></td>
 								<td><?= 'Rp '.number_format($b->harga_jual) ?></td>
 								<td>
-									<button class="btn btn-primary" data-toggle="modal" data-target="#editbarang" 
+									<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editbarang" 
 										data-nama="<?= $b->nama ?>" data-kode="<?= $b->kode_barang ?>" 
 										data-harga_jual="<?= $b->harga_jual ?>" data-harga_beli="<?= $b->harga_beli ?>"
 										data-id_kategori="<?= $b->id_kategori ?>" data-id_barang="<?= $b->id_barang ?>">
 										Edit
 									</button>
-									<a href="<?= base_url('barang/delete/').$b->id_barang ?>" onclick="return confirm('Yakin ingin menghapus barang ini?')" class="btn btn-danger">Hapus</a>
+									<a href="<?= base_url('barang/delete/').$b->id_barang ?>" onclick="return confirm('Yakin ingin menghapus barang ini?')" class="btn btn-sm btn-danger">Hapus</a>
 								</td>
 							</tr>
 							<?php } ?>

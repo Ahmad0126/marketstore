@@ -15,13 +15,13 @@
 					</div>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-striped">
+					<table class="table table-striped" id="tabel">
 						<thead>
 							<tr>
 								<th>No</th>
 								<th>Tanggal</th>
-								<th>Kode Penjualan</th>
                                 <th>Total Transaksi</th>
+								<th>Kode Penjualan</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
@@ -33,10 +33,10 @@
 							<tr>
 								<td><?= $no++ ?></td>
 								<td><?= $this->template->translate_bulan($pj->tanggal) ?></td>
-								<td><?= $pj->kode_penjualan ?></td>
 								<td><?= 'Rp '.number_format($pj->total_tagihan)  ?></td>
+								<td><?= $pj->kode_penjualan ?></td>
 								<td>
-									<a href="<?= base_url('penjualan/detail/').$pj->id_penjualan ?>" class="btn btn-primary">Detail</a>
+									<a href="<?= base_url('penjualan/detail/').$pj->id_penjualan ?>" class="btn btn-sm btn-primary">Detail</a>
 								</td>
 							</tr>
 							<?php } ?>

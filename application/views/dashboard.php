@@ -81,10 +81,10 @@
 				<h4 class="card-title">Transaksi Marketstore Tahun <?= date('Y') ?></h4>
 				<div class="row">
 					<div class="col-lg-5">
-						<p>Total penghasilan transaksi tiap bulan. Total penghasilan sampai saat ini ada di samping:</p>
+						<p>Total penghasilan transaksi tiap bulan. Total penghasilan sampai saat ini:</p>
 					</div>
 					<div class="col-lg-7">
-						<div class="chart-legends d-lg-block d-none" id="chart-legends"></div>
+						<div class="chart-legends" id="chart-legends"></div>
 					</div>
 				</div>
 				<div class="row">
@@ -103,17 +103,7 @@
 			<div class="card-body">
 				<div class="d-flex justify-content-between mb-3">
 					<h4 class="card-title">Jumlah Transaksi</h4>
-					<div class="dropdown">
-						<button class="btn btn-sm dropdown-toggle text-dark pt-0 pr-0" type="button"
-							id="dropdownMenuSizeButton3" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">
-							This week
-						</button>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
-							<h6 class="dropdown-header">This week</h6>
-							<h6 class="dropdown-header">This month</h6>
-						</div>
-					</div>
+					<p>Minggu ini</p>
 				</div>
 				<div id="jumlah-transaksi-chart-legends" class="chart-legends mt-1">
 				</div>

@@ -166,6 +166,9 @@ class M_transaksi extends CI_Model{
         $kode_barang = $this->input->post('kode_barang');
         $jumlah = $this->input->post('jumlah');
         $harga = $this->input->post('harga');
+        if($kode_barang == null || $jumlah == null || $harga == null || $this->input->post('tanggal') == null){
+            return false;
+        }
         for($i = 0; $i < count($kode_barang); $i++){
             $data = [
                 'kode_barang' => $kode_barang[$i],
@@ -277,6 +280,9 @@ class M_transaksi extends CI_Model{
         $kode_barang = $this->input->post('kode_barang');
         $jumlah = $this->input->post('jumlah');
         $harga = $this->input->post('harga');
+        if($kode_barang == null || $jumlah == null || $harga == null || $this->input->post('tanggal') == null){
+            return false;
+        }
         for($i = 0; $i < count($kode_barang); $i++){
             $data = [
                 'kode_barang' => $kode_barang[$i],

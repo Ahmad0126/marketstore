@@ -12,7 +12,7 @@
 					<button class="btn btn-info" data-toggle="modal" data-target="#tambahmodal">Tambah +</button>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-striped">
+					<table class="table table-striped" id="tabel">
 						<thead>
 							<tr>
 								<th>No</th>
@@ -35,8 +35,8 @@
 								<td><?= $this->template->translate_bulan($k->expired) ?></td>
 								<td><?= $k->used == 1 ? '<label class="badge badge-warning">Sudah</label>' : '<label class="badge badge-success">Belum</label>' ?></td>
 								<td>
-									<a class="btn btn-sm btn-primary" <?= $k->used == 1 ? '' : 'data-toggle="modal" data-target="#editvch"' ?>  data-id="<?= $k->id_voucher ?>" data-kode="<?= $k->kode_voucher ?>" data-potongan="<?= $k->potongan ?>" data-expired="<?= $k->expired ?>">Edit <i class="fa fa-edit"></i></a>
-									<a class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus voucher ini?')" href="<?= base_url('voucher/delete/').$k->id_voucher ?>"><i class="fa fa-trash"></i> Hapus</a>
+									<a class="btn btn-sm btn-primary" <?= $k->used == 1 ? '' : 'data-toggle="modal" data-target="#editvch"' ?>  data-id="<?= $k->id_voucher ?>" data-kode="<?= $k->kode_voucher ?>" data-potongan="<?= $k->potongan ?>" data-expired="<?= $k->expired ?>">Edit</a>
+									<a class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus voucher ini?')" href="<?= base_url('voucher/delete/').$k->id_voucher ?>">Hapus</a>
 								</td>
 							</tr>
 							<?php endforeach ?>

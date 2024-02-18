@@ -12,13 +12,13 @@
 					<button class="btn btn-info" data-toggle="modal" data-target="#tambahmodal">Tambah +</button>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-striped">
+					<table class="table table-striped" id="tabel">
 						<thead>
 							<tr>
 								<th>No</th>
 								<th>Nama</th>
 								<th>Poin</th>
-								<th>Kode</th>
+								<th>Alamat</th>
                                 <th>No Telp</th>
 								<th>Aksi</th>
 							</tr>
@@ -35,13 +35,13 @@
 								<td><?= $p->alamat ?></td>
 								<td><?= $p->telp ?></td>
 								<td>
-									<button class="btn btn-primary" data-toggle="modal" data-target="#editpelanggan" 
+									<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editpelanggan" 
 										data-nama="<?= $p->nama ?>" data-alamat="<?= $p->alamat ?>" 
 										data-telp="<?= $p->telp ?>" data-id_pelanggan="<?= $p->id_pelanggan ?>">
 										Edit
 									</button>
-									<a href="<?= base_url('pelanggan/riwayat/').$p->id_pelanggan ?>" class="btn btn-info">Riwayat</a>
-									<a href="<?= base_url('pelanggan/delete/').$p->id_pelanggan ?>" onclick="return confirm('Yakin ingin menghapus pelanggan ini?')" class="btn btn-danger">Hapus</a>
+									<a href="<?= base_url('pelanggan/riwayat/').$p->id_pelanggan ?>" class="btn btn-sm btn-info">Riwayat</a>
+									<a href="<?= base_url('pelanggan/delete/').$p->id_pelanggan ?>" onclick="return confirm('Yakin ingin menghapus pelanggan ini?')" class="btn btn-sm btn-danger">Hapus</a>
 								</td>
 							</tr>
 							<?php } ?>

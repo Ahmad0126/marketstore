@@ -48,8 +48,10 @@ class Penjualan extends CI_Controller{
         }
     }
     public function detail($id){
+        $this->load->model('M_pelanggan');
         $data['penjualan'] = $this->M_transaksi->get_penjualan_by_id($id);
         $data['detail'] = $this->M_transaksi->get_detail_penjualan($data['penjualan']['kode_penjualan']);
+        $data['pelanggan'] = $this->M_pelanggan->get_pelanggan_by_id($data['penjualan']['id_pelanggan']);
         $this->template->load('layout/template', 'penjualan_detail', 'Transaksi '.$data['penjualan']['kode_penjualan'], $data);
     }
 }

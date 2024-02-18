@@ -12,7 +12,7 @@
 					<a href="<?= base_url('pembelian/add') ?>" class="btn btn-info">Beli +</a>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-striped">
+					<table class="table table-striped" id="tabel">
 						<thead>
 							<tr>
 								<th>No</th>
@@ -35,8 +35,7 @@
 								<td><?= $pb->nama ?></td>
 								<td><?= 'Rp '.number_format($pb->total_tagihan)  ?></td>
 								<td>
-									<a href="<?= base_url('pembelian/detail/').$pb->id_pembelian ?>" class="btn btn-primary">Detail</a>
-									<a href="<?= base_url('pembelian/delete/').$pb->kode_pembelian ?>" onclick="return confirm('Yakin ingin menghapus pembelian ini?')" class="btn btn-danger">Hapus</a>
+									<a href="<?= base_url('pembelian/detail/').$pb->id_pembelian ?>" class="btn btn-sm btn-primary">Detail</a>
 								</td>
 							</tr>
 							<?php } ?>

@@ -12,7 +12,7 @@
 					<button class="btn btn-info" data-toggle="modal" data-target="#tambahmodal">Tambah +</button>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-striped">
+					<table class="table table-striped" id="tabel">
 						<thead>
 							<tr>
 								<th>No</th>
@@ -33,19 +33,19 @@
 								<td><?= $u->nama ?></td>
 								<td><?= $u->username ?></td>
 								<td class="py-1">
-									<a href="">
-										<img src="<?= base_url('assets/regal/') ?>images/faces/face1.jpg" alt="image" />
+									<a data-toggle="modal" data-target="#profilModl" data-url="<?= base_url('assets/upload/profil/').$u->profil ?>" href="#">
+										<img src="<?= $u->profil == null ? base_url('assets/upload/profil/unknown.png') : base_url('assets/upload/profil/').$u->profil ?>" alt="image" />
 									</a>
 								</td>
 								<td><?= $u->level ?></td>
 								<td>
-									<button class="btn btn-primary" data-toggle="modal" data-target="#edituser" 
+									<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edituser" 
 										data-nama="<?= $u->nama ?>" data-username="<?= $u->username ?>" 
 										data-level="<?= $u->level ?>" data-id_user="<?= $u->id_user ?>">
 										Edit
 									</button>
-									<button class="btn btn-warning"  data-toggle="modal" data-target="#resetuser"  data-id_user="<?= $u->id_user ?>">Reset Password</button>
-									<a href="<?= base_url('user/delete/').$u->id_user ?>" onclick="return confirm('Yakin ingin menghapus user ini?')" class="btn btn-danger">Hapus</a>
+									<button class="btn btn-sm btn-warning"  data-toggle="modal" data-target="#resetuser"  data-id_user="<?= $u->id_user ?>">Reset Password</button>
+									<a href="<?= base_url('user/delete/').$u->id_user ?>" onclick="return confirm('Yakin ingin menghapus user ini?')" class="btn btn-sm btn-danger">Hapus</a>
 								</td>
 							</tr>
 							<?php } ?>
@@ -154,5 +154,9 @@
 			</div>
 			</form>
 		</div>
+	</div>
+</div>
+<div class="modal fade" id="profilModl" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" id="fotopp" role="document">
 	</div>
 </div>

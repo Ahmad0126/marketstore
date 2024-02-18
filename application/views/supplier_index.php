@@ -12,7 +12,7 @@
 					<button class="btn btn-info" data-toggle="modal" data-target="#tambahmodal">Tambah +</button>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-striped">
+					<table class="table table-striped" id="tabel">
 						<thead>
 							<tr>
 								<th>No</th>
@@ -33,12 +33,12 @@
 								<td><?= $s->kode_supplier ?></td>
 								<td><?= $s->telp ?></td>
 								<td>
-									<button class="btn btn-primary" data-toggle="modal" data-target="#editsupplier" 
+									<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editsupplier" 
 										data-nama="<?= $s->nama ?>" data-kode="<?= $s->kode_supplier ?>" 
 										data-telp="<?= $s->telp ?>" data-id_supplier="<?= $s->id_supplier ?>">
 										Edit
 									</button>
-									<a href="<?= base_url('supplier/delete/').$s->id_supplier ?>" onclick="return confirm('Yakin ingin menghapus supplier ini?')" class="btn btn-danger">Hapus</a>
+									<a href="<?= base_url('supplier/delete/').$s->id_supplier ?>" onclick="return confirm('Yakin ingin menghapus supplier ini?')" class="btn btn-sm btn-danger">Hapus</a>
 								</td>
 							</tr>
 							<?php } ?>

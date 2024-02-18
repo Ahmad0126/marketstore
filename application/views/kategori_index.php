@@ -12,7 +12,7 @@
 					<button class="btn btn-info" data-toggle="modal" data-target="#tambahmodal">Tambah +</button>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-striped">
+					<table class="table table-striped" id="tabel">
 						<thead>
 							<tr>
 								<th>No</th>
@@ -29,8 +29,8 @@
 								<td><?= $no++ ?></td>
 								<td><?= $k->kategori ?></td>
 								<td>
-									<a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editkate" data-id="<?= $k->id_kategori ?>" data-nama="<?= $k->kategori ?>">Edit <i class="fa fa-edit"></i></a>
-									<a class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus kategori ini?')" href="<?= base_url('kategori/delete/').$k->id_kategori ?>"><i class="fa fa-trash"></i> Hapus</a>
+									<a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editkate" data-id="<?= $k->id_kategori ?>" data-nama="<?= $k->kategori ?>">Edit</a>
+									<a class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus kategori ini?')" href="<?= base_url('kategori/delete/').$k->id_kategori ?>">Hapus</a>
 								</td>
 							</tr>
 							<?php endforeach ?>

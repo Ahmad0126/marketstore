@@ -17,8 +17,7 @@
 							<i class="icon-search"></i>
 						</span>
 					</div>
-					<input type="text" class="form-control" placeholder="Search Projects.." aria-label="search"
-						aria-describedby="search">
+					<input type="search" class="form-control" placeholder="Cari.." id="genSearch">
 				</div>
 			</li>
 		</ul>

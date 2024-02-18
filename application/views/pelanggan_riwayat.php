@@ -44,7 +44,7 @@
 			<div class="card-body">
 				<h4 class="card-title">Riwayat Transaksi Pelanggan</h4>
 				<div class="table-responsive">
-					<table class="table table-striped">
+					<table class="table table-striped" id="tabel">
 						<thead>
 							<tr>
 								<th>No</th>

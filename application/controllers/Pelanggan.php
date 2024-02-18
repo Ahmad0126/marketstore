@@ -46,4 +46,25 @@ class Pelanggan extends CI_Controller{
             redirect(base_url('pelanggan'));
         }
     }
+    public function cek_poin(){
+        if($this->input->post('nama') == null){
+            echo json_encode(array('status' => 'Pelanggan Tidak Diketahui!'));
+            return;
+        }
+        if($this->input->post('jumlah') == null){
+            echo json_encode(array('status' => 'Poinnya berapa?!'));
+            return;
+        }
+        $pelanggan = $this->M_pelanggan->get_pelanggan_by_id($this->input->post('nama'));
+        if($pelanggan == null){
+            echo json_encode(array('status' => 'Pelanggan tidak punya poin!'));
+            return;
+        }
+        $poin = $pelanggan->poin < $this->input->post('jumlah');
+        if($poin){
+            echo json_encode(array('status' => 'Poin tidak mencukupi!'));
+            return;
+        }
+        echo json_encode(array('jumlah' => $this->input->post('jumlah')));
+    }
 }

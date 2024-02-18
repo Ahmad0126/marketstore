@@ -55,22 +55,38 @@ class Barang extends CI_Controller{
         echo json_encode($data);
     }
     public function lihat_barang(){
-        $data = array();
+        if($this->input->post('nama') == null){
+            echo json_encode(array('status' => 'Masukkan nama barang!'));
+            return;
+        }
         $barang = $this->M_barang->get_barang_by_name($this->input->post('nama'));
         if($this->input->post('jumlah') == null){
-            $data = array('status' => 'Jumlahnya berapa?!');
-            echo json_encode($data);
+            echo json_encode(array('status' => 'Jumlahnya berapa?!'));
             return;
         }
         if($barang == null){
-            $data = array('status' => 'Barang tidak terdaftar!');
-            echo json_encode($data);
+            echo json_encode(array('status' => 'Barang tidak terdaftar!'));
             return;
         }
-        $stok = $barang['stok'] <= $this->input->post('jumlah');
+        $stok = $barang['stok'] < $this->input->post('jumlah');
         if($stok){
-            $data = array('status' => 'Barang meleebihi stok!');
-            echo json_encode($data);
+            echo json_encode(array('status' => 'Barang melebihi stok!'));
+            return;
+        }
+        echo json_encode(array_merge($barang, array('jumlah' => $this->input->post('jumlah'))));
+    }
+    public function ambil_barang(){
+        if($this->input->post('nama') == null){
+            echo json_encode(array('status' => 'Masukkan nama barang!'));
+            return;
+        }
+        if($this->input->post('jumlah') == null){
+            echo json_encode(array('status' => 'Jumlahnya berapa?!'));
+            return;
+        }
+        $barang = $this->M_barang->get_barang_by_name($this->input->post('nama'));
+        if($barang == null){
+            echo json_encode(array('status' => 'Barang tidak terdaftar!'));
             return;
         }
         echo json_encode(array_merge($barang, array('jumlah' => $this->input->post('jumlah'))));

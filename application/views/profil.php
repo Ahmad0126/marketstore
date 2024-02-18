@@ -90,7 +90,16 @@
 <div class="modal fade" id="profilmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<?php if($user['profil'] != null){ ?>
-		<img class="img-fluid" alt="Profil" src="<?= base_url('assets/upload/profil/').$user['profil'] ?>">
+        <div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+                <img class="img-fluid" alt="Profil" src="<?= base_url('assets/upload/profil/').$user['profil'] ?>">
+			</div>
+		</div>
 		<?php }else{ ?>
 		<div class="modal-content">
 			<div class="modal-header">

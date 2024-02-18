@@ -52,3 +52,31 @@ $('#editkate').on('show.bs.modal', function(event){
     modal.find('#kategori').val(button.data('nama'));
     modal.find('#id_kategori').val(button.data('id'));
 });
+$('#profilModl').on('show.bs.modal', function(event){
+    var button = $(event.relatedTarget);
+    var modal = $(this);
+    var row = '';
+    console.log(button.data('url'));
+    if(button.data('url') != base_url+'assets/upload/profil/'){
+		row = '<div class="modal-content">'+
+            '<div class="modal-header">'+ 
+                '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+                    '<span aria-hidden="true">&times;</span>'+
+                '</button>'+
+            '</div>'+
+            '<div class="modal-body">'+ 
+                '<img class="img-fluid" alt="Profil" src="'+button.data('url')+'">'+
+            '</div>'+
+        '</div>';
+    }else{
+		row = '<div class="modal-content">'+
+			'<div class="modal-header">'+ 
+				'<h5 class="modal-title" id="exampleModalLabel">Tidak ada profil</h5>'+
+				'<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+					'<span aria-hidden="true">&times;</span>'+
+				'</button>'+
+			'</div>'+
+		'</div>';
+    } 
+    modal.find('#fotopp').html(row);
+});

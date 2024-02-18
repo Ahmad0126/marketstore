@@ -21,9 +21,16 @@
     <?php if($this->session->flashdata('alert') != null){ ?>
     $('#alertmodal').modal("show");
 	<?php } ?>
+	let genTable = new DataTable('#tabel',{
+		dom: 'ltip'
+	});
+	$('#genSearch').keyup(function(){
+		genTable.search($(this).val()).draw();
+	});
+	$('#memberbtn').attr('href', base_url + 'penjualan/member/' + $('#pelanggan').val());
 	$('#pelanggan').on('click', function(){
 		var id = $(this).val();
-		$('#memberbtn').attr('href', '<?= base_url('penjualan/member/') ?>'+id);
+		$('#memberbtn').attr('href', base_url+'penjualan/member/'+id);
 	});
 </script>
 <script src="<?= base_url('assets/regal/') ?>js/modal_edit.js"></script>

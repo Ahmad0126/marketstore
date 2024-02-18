@@ -8,7 +8,7 @@
 					<label class="card-title" for="Jumlah">Jumlah</label>
 					<input type="number" class="form-control" placeholder="Jumlah" id="Jumlah">
 				</div>
-				<button class="btn btn-info form-control" id="add_barang">Tambah +</button>
+				<button class="btn btn-info form-control addBarang">Tambah +</button>
 			</div>
 		</div>
 	</div>
@@ -18,32 +18,28 @@
 				<form action="<?= base_url('penjualan/simpan') ?>" method="post">
 					<div class="d-flex justify-content-between">
 						<h4 class="card-title">Detail Transaksi</h4>
-						<button type="submit" class="btn btn-info">Simpan</button>
+						<button type="submit" class="btn btn-primary">Bayar</button>
 					</div>
 					<div class="row">
-						<div class="col-4">
+						<div class="col-xl-4 col-12">
 							<div class="form-group mb-3">
 								<label for="Tanggal">Tanggal Transaksi</label>
 								<input type="date" required name="tanggal" class="form-control" id="Tanggal">
 								<input type="hidden" required name="id_pelanggan" class="form-control" value="<?= $pelanggan->id_pelanggan ?>">
 							</div>
 						</div>
-						<div class="col-4">
+						<div class="col-xl-4 col-md-6 col-12">
 							<div class="form-group mb-3">
 								<p>Pelanggan punya <?= number_format($pelanggan->poin) ?> poin</p>
-								<div class="row">
-									<label for="poin" class="col-sm-4 col-form-label">Gunakan Poin</label>
-									<div class="col-sm-8">
-										<input type="number" max="<?= $pelanggan->poin ?>" name="poin" class="form-control" placeholder="Berapa poin?" id="poin">
-									</div>
-								</div>
+								<a data-toggle="modal" data-target="#poinmodal" class="btn btn-info form-control">Gunakan Poin</a>
 							</div>
 						</div>
-						<div class="col-4">
+						<div class="col-xl-4 col-md-6 col-12">
 							<div class="form-group mb-3">
 								<input type="hidden" name="id_voucher" id="id_vch">
 								<input type="hidden" name="voucher" id="nomi_vch">
-								<a data-toggle="modal" data-target="#vouchermodal" id="use_vch" class="mt-4 btn btn-info form-control">Pakai Voucher</a>
+								<p>Lainnya</p>
+								<a data-toggle="modal" data-target="#vouchermodal" id="use_vch" class="btn btn-info form-control">Pakai Voucher</a>
 							</div>
 						</div>
 					</div>
@@ -140,6 +136,50 @@
 			<div class="modal-footer">
 				<button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
 				<button id="vchbtn" class="btn btn-primary m-2">Terapkan</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="poinmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Poin yang akan dipakai</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group mb-3">
+					<input type="number" name="poin" id="jumlah_poin" value="<?= $pelanggan->poin ?>" placeholder="Masukkan Jumlah Poin" class="form-control">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+				<button id="poin" data-pelanggan="<?= $pelanggan->id_pelanggan ?>" class="btn btn-primary m-2">Gunakan</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="addmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Jumlah Barang</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" class="cari">
+				<div class="form-group mb-3">
+					<label class="card-title">Jumlah</label>
+					<input type="number" name="shfgasdg" id="toJumlah" class="form-control">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+				<button class="btn btn-info addBarang">Tambah +</button>
 			</div>
 		</div>
 	</div>

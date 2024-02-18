@@ -8,6 +8,10 @@ $('#carian').keyup(function(){
 });
 $('.add_barang').on('click', function(){
     $('#cari').val($(this).data('nama'));
+    $('#addmodal').modal('show');
+});
+$('#toJumlah').on('keyup', function(){
+    $('#Jumlah').val($(this).val());
 });
 function updateTable(data, beli) {
     if(beli){
@@ -92,9 +96,32 @@ $('#detail').delegate('.del-barang', 'click', function(){
     $('#'+$(this).data('del')).remove();
     jumlahkan();
 });
-$('#poin').on('keyup', function(){
-    poin = parseInt($(this).val());
-    jumlahkan();
+$('#poin').on('click', function(){
+    $('#poinmodal').modal('hide');
+    var name = $(this).data('pelanggan');
+    var jumlah = $('#jumlah_poin');
+    $.ajax({
+        type: 'POST',
+        dataType: 'JSON',
+        url: base_url+'pelanggan/cek_poin',
+        data: {nama: name, jumlah: jumlah.val()},
+        success: function(data){
+            if(data.status == null){
+                poin = parseInt(data.jumlah);
+                jumlah.val('');
+                jumlahkan();
+            }else{
+                $('#pesan').html(data.status);
+                $('#color').addClass('alert-danger');
+                $('#alertmodal').modal('show');
+            }
+        },
+        error: function(){
+            $('#pesan').html('Maaf, server sedang bermasalah');
+            $('#color').addClass('alert-danger');
+            $('#alertmodal').modal('show');
+        }
+    });
 });
 function jumlahkan(){
     var h_total = $('.total1');
@@ -112,21 +139,13 @@ function jumlahkan(){
     function substringMatcher(strs) {
         return function findMatches(q, cb) {
             var matches, substringRegex;
-    
-            // an array that will be populated with substring matches
             matches = [];
-    
-            // regex used to determine if a string contains the substring `q`
             var substrRegex = new RegExp(q, 'i');
-    
-            // iterate through the pool of strings and for any string that
-            // contains the substring `q`, add it to the `matches` array
             for (var i = 0; i < strs.length; i++) {
                 if (substrRegex.test(strs[i])) {
                     matches.push(strs[i]);
                 }
             }
-    
             cb(matches);
         };
     };
@@ -135,22 +154,20 @@ function jumlahkan(){
         dataType: 'JSON',
         url: base_url+'barang/get_barang',
     }).done(function(data){
-        var barang = data;
         $('#cari').typeahead({
             hint: true,
             highlight: true,
             minLength: 1
         }, {
             name: 'barang',
-            source: substringMatcher(barang)
+            source: substringMatcher(data)
         });
     });
 })(jQuery);
-$('#add_barang').on('click', function(){
+$('.addBarang').on('click', function(){
+    $('#addmodal').modal('hide');
     var name = $('#cari');
     var jumlah = $('#Jumlah');
-    var beli = $(this).data('beli');
-    console.log(beli);
     $.ajax({
         type: 'POST',
         dataType: 'JSON',
@@ -158,24 +175,45 @@ $('#add_barang').on('click', function(){
         data: {nama: name.val(), jumlah: jumlah.val()},
         success: function(data){
             if(data.status == null){
-                if(beli != null){
-                    updateTable(data, true);
-                }else{
-                    updateTable(data, false);
-                }
+                updateTable(data, false);
                 name.val('');
                 jumlah.val('');
+                $('#toJumlah').val("");
             }else{
-                $('#vouchermodal').modal('hide');
-                $('#kode_voucher').val("");
                 $('#pesan').html(data.status);
                 $('#color').addClass('alert-danger');
                 $('#alertmodal').modal('show');
             }
         },
         error: function(){
-            $('#vouchermodal').modal('hide');
-            $('#kode_voucher').val("");
+            $('#pesan').html('Maaf, server sedang bermasalah');
+            $('#color').addClass('alert-danger');
+            $('#alertmodal').modal('show');
+        }
+    });
+});
+$('.beliBarang').on('click', function(){
+    $('#addmodal').modal('hide');
+    var name = $('#cari');
+    var jumlah = $('#Jumlah');
+    $.ajax({
+        type: 'POST',
+        dataType: 'JSON',
+        url: base_url+'barang/ambil_barang',
+        data: {nama: name.val(), jumlah: jumlah.val()},
+        success: function(data){
+            if(data.status == null){
+                updateTable(data, true);
+                name.val('');
+                jumlah.val('');
+                $('#toJumlah').val('');
+            }else{
+                $('#pesan').html(data.status);
+                $('#color').addClass('alert-danger');
+                $('#alertmodal').modal('show');
+            }
+        },
+        error: function(){
             $('#pesan').html('Maaf, server sedang bermasalah');
             $('#color').addClass('alert-danger');
             $('#alertmodal').modal('show');

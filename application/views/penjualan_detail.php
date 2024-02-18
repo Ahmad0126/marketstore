@@ -13,16 +13,26 @@
 						<thead>
 							<tr>
 								<th colspan="2">Tanggal Transaksi</th>
+								<?php if($pelanggan != null){ ?>
+								<th>Nama Pelanggan</th>
+								<th>Alamat</th>
+								<th>Contact</th>
+								<?php } ?>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td colspan="2"><?= $this->template->translate_bulan($penjualan['tanggal']) ?></td>
+								<?php if($pelanggan != null){ ?>
+								<td><?= $pelanggan->nama ?></td>
+								<td><?= $pelanggan->alamat ?></td>
+								<td><?= $pelanggan->telp ?></td>
+								<?php } ?>
 							</tr>
 						</tbody>
 					</table>
                 </div>
-				<div class="table-responsive">
+				<div class="table-responsive mt-4">
 					<table id="detail" class="table table-hover table-striped">
 						<thead>
 							<tr>

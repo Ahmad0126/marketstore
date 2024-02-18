@@ -62,7 +62,7 @@ $('#vchbtn').on('click', function(){
     $.ajax({
         type: 'POST',
         dataType: 'JSON',
-        url: base_url+'voucher/cek_voucher',
+        url: base_url+'auth/cek_voucher',
         data: {kode_voucher: code},
         success: function(data){
             if(data.status == null){
@@ -103,7 +103,7 @@ $('#poin').on('click', function(){
     $.ajax({
         type: 'POST',
         dataType: 'JSON',
-        url: base_url+'pelanggan/cek_poin',
+        url: base_url+'auth/cek_poin',
         data: {nama: name, jumlah: jumlah.val()},
         success: function(data){
             if(data.status == null){
@@ -152,7 +152,7 @@ function jumlahkan(){
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
-        url: base_url+'barang/get_barang',
+        url: base_url+'auth/get_barang',
     }).done(function(data){
         $('#cari').typeahead({
             hint: true,
@@ -171,7 +171,7 @@ $('.addBarang').on('click', function(){
     $.ajax({
         type: 'POST',
         dataType: 'JSON',
-        url: base_url+'barang/lihat_barang',
+        url: base_url+'auth/lihat_barang',
         data: {nama: name.val(), jumlah: jumlah.val()},
         success: function(data){
             if(data.status == null){
@@ -199,7 +199,7 @@ $('.beliBarang').on('click', function(){
     $.ajax({
         type: 'POST',
         dataType: 'JSON',
-        url: base_url+'barang/ambil_barang',
+        url: base_url+'auth/ambil_barang',
         data: {nama: name.val(), jumlah: jumlah.val()},
         success: function(data){
             if(data.status == null){

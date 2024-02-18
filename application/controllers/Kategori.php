@@ -4,7 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Kategori extends CI_Controller {
 	public function __construct(){
         parent::__construct();
-		if($this->session->userdata('id') == null){ redirect(base_url('auth')); }
+		if($this->session->userdata('id') == null){
+            redirect(base_url('auth'));
+        }else if($this->session->userdata('level') != 'Admin'){
+            show_404();
+        }
         $this->load->model('M_barang');
     }
 

@@ -121,13 +121,7 @@ class M_user extends CI_Model{
         } else { return FALSE; }
     }
     public function reset(){
-        $pass_user = $this->db->get_where($this->_table, array('id_user' => $this->session->userdata('id')))->row_array();
-        if ($pass_user['password'] == md5($this->input->post('password'))){
-            $data = [
-                'password' => md5('12345678')
-            ];
-            return $this->update_user($data);
-        } else { return FALSE; }
+        return $this->update_user(array('password' => md5('12345678')));
     }
     public function edit_profile($data){
         $this->db->where('id_user',$this->session->userdata('id'));

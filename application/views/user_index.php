@@ -39,13 +39,15 @@
 								</td>
 								<td><?= $u->level ?></td>
 								<td>
+									<button class="btn btn-sm btn-warning"  data-toggle="modal" data-target="#resetuser" data-id_user="<?= $u->id_user ?>">Reset Password</button>
+									<?php if($u->id_user != $this->session->userdata('id')){ ?>
 									<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edituser" 
 										data-nama="<?= $u->nama ?>" data-username="<?= $u->username ?>" 
 										data-level="<?= $u->level ?>" data-id_user="<?= $u->id_user ?>">
 										Edit
 									</button>
-									<button class="btn btn-sm btn-warning"  data-toggle="modal" data-target="#resetuser"  data-id_user="<?= $u->id_user ?>">Reset Password</button>
 									<a href="<?= base_url('user/delete/').$u->id_user ?>" onclick="return confirm('Yakin ingin menghapus user ini?')" class="btn btn-sm btn-danger">Hapus</a>
+									<?php } ?>
 								</td>
 							</tr>
 							<?php } ?>
@@ -142,15 +144,12 @@
 			</div>
 			<form action="<?= base_url('user/reset') ?>" method="post">
 			<div class="modal-body">
-				<div class="form-group mb-3">
-					<label for="konf_pass">Konfirmasi Password Anda</label>
-					<input type="password" name="password" class="form-control" placeholder="Konfirmasi Password" id="konf_pass">
-					<input type="hidden" name="id_user" id="id_user">
-				</div>
+				<h6>Yakin ingin <span class="text-danger">mereset password</span> user ini?</h6>
+				<input type="hidden" name="id_user" id="id_user">
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-				<button type="submit" class="btn btn-primary m-2" onclick="return confirm('Yakin ingin mereset password user ini?')">Reset</button>
+				<button type="submit" class="btn btn-primary m-2">Reset</button>
 			</div>
 			</form>
 		</div>

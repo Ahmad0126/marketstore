@@ -4,8 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Pelanggan extends CI_Controller{
     public function __construct(){
         parent::__construct();
-        if($this->session->userdata('level') != 'Admin'){
+        if($this->session->userdata('id') == null){
             redirect(base_url('auth'));
+        }else if($this->session->userdata('level') != 'Admin'){
+            show_404();
         }
         $this->load->model('M_pelanggan');
     }
@@ -45,26 +47,5 @@ class Pelanggan extends CI_Controller{
             $this->session->set_flashdata('alert', $this->template->buat_notif('Pelanggan Gagal Dihapus!', 'danger'));
             redirect(base_url('pelanggan'));
         }
-    }
-    public function cek_poin(){
-        if($this->input->post('nama') == null){
-            echo json_encode(array('status' => 'Pelanggan Tidak Diketahui!'));
-            return;
-        }
-        if($this->input->post('jumlah') == null){
-            echo json_encode(array('status' => 'Poinnya berapa?!'));
-            return;
-        }
-        $pelanggan = $this->M_pelanggan->get_pelanggan_by_id($this->input->post('nama'));
-        if($pelanggan == null){
-            echo json_encode(array('status' => 'Pelanggan tidak punya poin!'));
-            return;
-        }
-        $poin = $pelanggan->poin < $this->input->post('jumlah');
-        if($poin){
-            echo json_encode(array('status' => 'Poin tidak mencukupi!'));
-            return;
-        }
-        echo json_encode(array('jumlah' => $this->input->post('jumlah')));
     }
 }

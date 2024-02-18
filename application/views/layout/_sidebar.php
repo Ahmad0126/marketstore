@@ -18,6 +18,7 @@
 				<span class="menu-title">Dashboard</span>
 			</a>
 		</li>
+		<?php if($this->session->userdata('level') == 'Admin'){ ?>
 		<li class="nav-item <?= $menu == 'user' || $menu == 'supplier' || $menu == 'pelanggan' || $menu == 'voucher' ? 'active' : '' ?>">
 			<a class="nav-link" data-toggle="collapse" href="#admin" aria-expanded="false" aria-controls="ui-basic">
 				<i class="icon-head menu-icon"></i>
@@ -91,5 +92,13 @@
 				</ul>
 			</div>
 		</li>
+		<?php }else{ ?>
+		<li class="nav-item">
+			<a class="nav-link <?= $menu == 'penjualan' ? 'active' : '' ?>" href="<?= base_url('penjualan') ?>">
+				<i class="icon-clipboard menu-icon"></i>
+				<span class="menu-title">Penjualan</span>
+			</a>
+		</li>
+		<?php } ?>
 	</ul>
 </nav>

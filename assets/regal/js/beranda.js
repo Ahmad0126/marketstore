@@ -32,7 +32,7 @@ var webTransaksiMetricsOption = {
 			for (var a = 0; a < chart.data.datasets[i].data.length; a++) {
 				jumlah += chart.data.datasets[i].data[a];
 			}
-			text.push('<div class="col-6 col-lg-4"><div class="row"><div class="col-sm-12"><h5 class="font-weight-bold text-dark mb-1">Rp ' + jumlah.toLocaleString() + '</h5></div></div><div class="row align-items-center"><div class="col-2"><span class="legend-label" style="background-color:' + chart.data.datasets[i].backgroundColor[i] + '"></span></div><div class="col-9 pl-0"><p class="text-muted m-0 ml-1">' + chart.data.datasets[i].label + '</p></div></div>');
+			text.push('<div class="col-6"><div class="row"><div class="col-sm-12"><h5 class="font-weight-bold text-dark mb-1">Rp ' + jumlah.toLocaleString() + '</h5></div></div><div class="row align-items-center"><div class="col-2"><span class="legend-label" style="background-color:' + chart.data.datasets[i].backgroundColor[i] + '"></span></div><div class="col-9 pl-0"><p class="text-muted m-0 ml-1">' + chart.data.datasets[i].label + '</p></div></div>');
 			text.push('</div>');
 			jumlah = 0;
 		}
@@ -122,6 +122,70 @@ $.ajax({
 			options: webTransaksiMetricsOption
 		});
 		document.getElementById('chart-legends').innerHTML = barChart.generateLegend();
+	}
+});
+$.ajax({
+	url: base_url + "home/laporan_pemilu",
+	async: true,
+	dataType: 'json',
+	type: 'get',
+}).done(function (data) {
+	console.log(data);
+	if ($("#web-pemilu-metrics-satacked").length) {
+		var barChartCanvas = $("#web-pemilu-metrics-satacked").get(0).getContext("2d");
+		// This will get the first returned node in the jQuery collection.
+		var barChart = new Chart(barChartCanvas, {
+			type: 'pie',
+			data: data,
+			options: {
+				responsive: true,
+				animation: {
+					animateScale: true,
+					animateRotate: true,
+				},
+				legendCallback: function (chart) {
+					return '<div class="row">'+
+						'<div class="col-12 col-lg-4">'+
+							'<div class="row">'+
+								'<div class="col-sm-12">'+
+									'<h5 class="font-weight-bold text-primary mb-1">' + chart.data.suara_sah.toLocaleString() + '</h5>'+
+								'</div>'+
+							'</div>'+
+							'<div class="row align-items-center">'+
+								'<div class="col">'+
+									'<p class="text-muted m-0">Suara Sah</p>'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+						'<div class="col-12 col-lg-4">'+
+							'<div class="row">'+
+								'<div class="col-sm-12">'+
+									'<h5 class="font-weight-bold text-danger mb-1">' + chart.data.suara_tidak_sah.toLocaleString() + '</h5>'+
+								'</div>'+
+							'</div>'+
+							'<div class="row align-items-center">'+
+								'<div class="col">'+
+									'<p class="text-muted m-0">Suara Tidak Sah</p>'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+						'<div class="col-12 col-lg-4">'+
+							'<div class="row">'+
+								'<div class="col-sm-12">'+
+									'<h5 class="font-weight-bold text-info mb-1">' + chart.data.total_suara.toLocaleString() + '</h5>'+
+								'</div>'+
+							'</div>'+
+							'<div class="row align-items-center">'+
+								'<div class="col">'+
+									'<p class="text-muted m-0">Suara Masuk</p>'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+					'</div>';
+				}
+			}
+		});
+		document.getElementById('pemilu-chart-legends').innerHTML = barChart.generateLegend();
 	}
 });
 $.ajax({

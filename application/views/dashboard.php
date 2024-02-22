@@ -245,3 +245,26 @@
 		</div>
 	</div>
 </div>
+<div class="row">
+	<div class="col grid-margin">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title">Rekap Suara Pemilu</h4>
+				<div class="row">
+					<div class="col-lg-5">
+						<p>Total suara terkumpul saat ini:</p>
+					</div>
+					<div class="col-lg-7">
+						<div class="chart-legends" id="pemilu-chart-legends"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<canvas id="web-pemilu-metrics-satacked" class="mt-3"></canvas>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

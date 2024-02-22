@@ -95,6 +95,11 @@ class Home extends CI_Controller{
         $data = $this->M_transaksi->get_pp_data();
         echo json_encode($data);
     }
+    public function laporan_pemilu(){
+        $this->load->model('M_suara');
+        $data = $this->M_suara->get_laporan();
+        echo json_encode($data);
+    }
     public function jumlah_transaksi(){
         $this->load->model('M_transaksi');
         $data = $this->M_transaksi->get_pp_jumlah();

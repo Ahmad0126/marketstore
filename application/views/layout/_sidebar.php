@@ -92,6 +92,12 @@
 				</ul>
 			</div>
 		</li>
+		<li class="nav-item <?= $menu == 'pemilu' ? 'active' : '' ?>">
+			<a class="nav-link" href="<?= base_url('pemilu') ?>">
+				<i class="icon-archive menu-icon"></i>
+				<span class="menu-title">Pemilu</span>
+			</a>
+		</li>
 		<?php }else{ ?>
 		<li class="nav-item">
 			<a class="nav-link <?= $menu == 'penjualan' ? 'active' : '' ?>" href="<?= base_url('penjualan') ?>">

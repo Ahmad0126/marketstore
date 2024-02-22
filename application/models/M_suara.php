@@ -89,15 +89,27 @@ class M_suara extends CI_Model{
     }
     
     //Read
-    public function get_supplier(){
-        $this->db->order_by('id_supplier', 'DESC');
-        return $this->db->get($this->_table)->result();
+    public function get_laporan(){
+        $s1 = $this->count_suara('suara_no1_01');
+        $s2 = $this->count_suara('suara_no2_01');
+        $s3 = $this->count_suara('suara_no3_01');
+        $data = [
+            'labels' => array('Suara 01', 'Suara 02', 'Suara 03'),
+            'datasets' => [[
+                'data' => array($s1['sum(suara_no1_01)'], $s2['sum(suara_no2_01)'], $s3['sum(suara_no3_01)']),
+                'backgroundColor' => array('#3794fc', '#a037fc', '#51c81c'),
+                'borderWidth' => 0,
+                'fill' => false
+            ]],
+            'suara_sah' => $this->count_suara('total_suara_sah_01')['sum(total_suara_sah_01)'],
+            'suara_tidak_sah' => $this->count_suara('total_suara_tidak_sah_01')['sum(total_suara_tidak_sah_01)'],
+            'total_suara' => $this->count_suara('total_suara_01')['sum(total_suara_01)']
+        ];
+        return $data;
     }
-    public function get_supplier_by_id($id){
-        return $this->db->get_where($this->_table, array('id_supplier' => $id))->row();
-    }
-    public function count_supplier(){
-        return $this->db->get($this->_table)->num_rows();
+    private function count_suara($column){
+        $this->db->select('sum('.$column.')');
+        return $this->db->get($this->_table)->row_array();
     }
 
     //Insert

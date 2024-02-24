@@ -169,6 +169,11 @@ class M_transaksi extends CI_Model{
         if($kode_barang == null || $jumlah == null || $harga == null || $this->input->post('tanggal') == null){
             return false;
         }
+        for($i = 0; $i < count($jumlah); $i++){
+            if($jumlah[$i] < 0){
+                return false;
+            }
+        }
         for($i = 0; $i < count($kode_barang); $i++){
             $data = [
                 'kode_barang' => $kode_barang[$i],

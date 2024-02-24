@@ -24,7 +24,7 @@
 						<div class="col-xl-4 col-12">
 							<div class="form-group mb-3">
 								<label for="Tanggal">Tanggal Transaksi</label>
-								<input type="date" required name="tanggal" class="form-control" id="Tanggal">
+								<input type="date" required value="<?= date('Y-m-d') ?>" name="tanggal" class="form-control" id="Tanggal">
 								<input type="hidden" required name="id_pelanggan" class="form-control" value="<?= $pelanggan->id_pelanggan ?>">
 							</div>
 						</div>

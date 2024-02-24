@@ -9,7 +9,7 @@
 			<div class="card-body">
 				<div class="d-flex justify-content-between">
 					<h4 class="card-title">Daftar Barang Marketstore</h4>
-					<button class="btn btn-info" data-toggle="modal" data-target="#tambahmodal">Tambah +</button>
+					<button class="btn btn-info" data-toggle="modal" data-target="<?= $kategori == null? '#alertBarang' : '#tambahmodal' ?>">Tambah +</button>
 				</div>
 				<div class="table-responsive">
 					<table class="table table-striped" id="tabel">
@@ -56,6 +56,19 @@
 		</div>
 	</div>
 </div>
+<?php if($kategori == null){ ?>
+<div class="modal fade" id="alertBarang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="alert alert-danger alert-dismissible fade show notifikasi" role="alert">
+			<span class="alert-icon"><i class="fa fa-exclamation"></i></span>
+            <span class="alert-text">Tambahkan kategori barang terlebih dahulu</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+		</div>
+	</div>
+</div>
+<?php }else{ ?>
 <div class="modal fade" id="tambahmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -144,3 +157,4 @@
 		</div>
 	</div>
 </div>
+<?php } ?>

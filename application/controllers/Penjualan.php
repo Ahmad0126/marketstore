@@ -11,6 +11,8 @@ class Penjualan extends CI_Controller{
     }
     public function index(){
         $this->load->model('M_pelanggan');
+        $this->load->model('M_barang');
+        $data['barang'] = $this->M_barang->count_barang();
         $data['pelanggan'] = $this->M_pelanggan->get_pelanggan();
         $data['penjualan'] = $this->M_transaksi->get_penjualan();
         $this->template->load('layout/template', 'penjualan_index', 'Transaksi Penjualan', $data);

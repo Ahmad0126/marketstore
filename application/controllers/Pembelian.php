@@ -12,6 +12,10 @@ class Pembelian extends CI_Controller{
         $this->load->model('M_transaksi');
     }
     public function index(){
+        $this->load->model('M_barang');
+        $this->load->model('M_supplier');
+        $data['supplier'] = $this->M_supplier->count_supplier();
+        $data['barang'] = $this->M_barang->count_barang();
         $data['pembelian'] = $this->M_transaksi->get_pembelian();
         $this->template->load('layout/template', 'pembelian_index', 'Transaksi Pembelian', $data);
     }

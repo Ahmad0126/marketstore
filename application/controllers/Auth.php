@@ -88,11 +88,15 @@ class Auth extends CI_Controller{
             echo json_encode(array('status' => 'Masukkan nama barang!'));
             return;
         }
-        $barang = $this->M_barang->get_barang_by_name($this->input->post('nama'));
         if($this->input->post('jumlah') == null){
             echo json_encode(array('status' => 'Jumlahnya berapa?!'));
             return;
         }
+        if($this->input->post('jumlah') <= 0){
+            echo json_encode(array('status' => 'Jumlah barang minimal 1!'));
+            return;
+        }
+        $barang = $this->M_barang->get_barang_by_name($this->input->post('nama'));
         if($barang == null){
             echo json_encode(array('status' => 'Barang tidak terdaftar!'));
             return;
@@ -112,6 +116,10 @@ class Auth extends CI_Controller{
         }
         if($this->input->post('jumlah') == null){
             echo json_encode(array('status' => 'Jumlahnya berapa?!'));
+            return;
+        }
+        if($this->input->post('jumlah') <= 0){
+            echo json_encode(array('status' => 'Jumlah barang minimal 1!'));
             return;
         }
         $barang = $this->M_barang->get_barang_by_name($this->input->post('nama'));

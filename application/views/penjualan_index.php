@@ -10,8 +10,16 @@
 				<div class="d-flex justify-content-between">
 					<h4 class="card-title">Riwayat Transaksi Penjualan Marketstore</h4>
 					<div class="row">
+						<?php if($barang == null){ ?>
+						<button data-toggle="modal" data-target="#alertBarang" class="btn btn-primary mr-2">Member +</button>
+						<a href="#" data-toggle="modal" data-target="#alertBarang" class="btn btn-info">Non Member +</a>
+						<?php }else if($barang != null && $pelanggan == null){ ?>
+						<button data-toggle="modal" data-target="#alertMember" class="btn btn-primary mr-2">Member +</button>
+						<a href="<?= base_url('penjualan/add') ?>" class="btn btn-info">Non Member +</a>
+						<?php }else{ ?>
 						<button data-toggle="modal" data-target="#membermodal" class="btn btn-primary mr-2">Member +</button>
 						<a href="<?= base_url('penjualan/add') ?>" class="btn btn-info">Non Member +</a>
+						<?php } ?>
 					</div>
 				</div>
 				<div class="table-responsive">
@@ -47,6 +55,31 @@
 		</div>
 	</div>
 </div>
+<?php if($barang == null){ ?>
+<div class="modal fade" id="alertBarang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="alert alert-danger alert-dismissible fade show notifikasi" role="alert">
+			<span class="alert-icon"><i class="fa fa-exclamation"></i></span>
+            <span class="alert-text">Tambahkan barang terlebih dahulu</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+		</div>
+	</div>
+</div>
+<?php }else if($pelanggan == null){ ?>
+<div class="modal fade" id="alertMember" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="alert alert-danger alert-dismissible fade show notifikasi" role="alert">
+			<span class="alert-icon"><i class="fa fa-exclamation"></i></span>
+            <span class="alert-text">Tambahkan pelanggan terlebih dahulu</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+		</div>
+	</div>
+</div>
+<?php }else{ ?>
 <div class="modal fade" id="membermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -72,3 +105,4 @@
 		</div>
 	</div>
 </div>
+<?php } ?>

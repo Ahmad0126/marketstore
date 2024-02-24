@@ -107,15 +107,6 @@
 				</div>
 				<div id="jumlah-transaksi-chart-legends" class="chart-legends mt-1">
 				</div>
-				<div class="row mt-2 mb-2">
-					<div class="col-6">
-						<div class="text-small"><span class="text-success">18.2%</span> higher
-						</div>
-					</div>
-					<div class="col-6">
-						<div class="text-small"><span class="text-danger">0.7%</span> higher </div>
-					</div>
-				</div>
 				<div class="marketTrends mt-4">
 					<canvas id="web-transaksi-jumlah-satacked"></canvas>
 				</div>
@@ -139,22 +130,26 @@
 							$all = $terbeli;
 							$b_lain = 0;
 							$no = 0;
-							foreach($barang_terlaris as $b){
-								$pres = $b['jumlah'] * 100 / $terbeli;
-								$all -= intval($b['jumlah']);
-								if($no < 5){
+							if($barang_terlaris != null){
+								foreach($barang_terlaris as $b){
+									$pres = $b['jumlah'] * 100 / $terbeli;
+									$all -= intval($b['jumlah']);
+									if($no < 5){
 							?>
 							<div class="progress-bar <?= $color[$no++] ?>" style="width: <?= round($pres) ?>%"></div>
 							<?php 
-								}else if($no >= 5){
-									$b_lain -= $b['jumlah'];
+									}else if($no >= 5){
+										$b_lain -= $b['jumlah'];
+									}
 								}
-							}
-							$sisa = $all * 100 / $terbeli;
-							$b_lain_p = $b_lain * 100 / $terbeli;
+								$sisa = $all * 100 / $terbeli;
+								$b_lain_p = $b_lain * 100 / $terbeli;
 							?>
 							<div class="progress-bar bg-dark" style="width: <?= abs(round($b_lain_p)) ?>%"></div>
 							<div class="progress-bar bg-light" style="width: <?= round($sisa) ?>%"></div>
+							<?php }else{ ?>
+							<div class="progress-bar bg-light" style="width: 100%"></div>
+							<?php } ?>
 						</div>
 					</div>
 					<div class="col-sm-12">
@@ -164,6 +159,7 @@
 								<div class="font-weight-bold">TOTAL</div>
 							</div>
 							<?php
+							if($barang_terlaris != null){
 							$color = ['bg-danger', 'bg-info', 'bg-primary', 'bg-warning', 'bg-success'];
 							$all = $terbeli;
 							$b_lain = 0;
@@ -193,6 +189,7 @@
 								<div><span class="bg-light"></span>Belum Terjual</div>
 								<div><?= round($sisa) ?>%</div>
 							</div>
+							<?php } ?>
 						</div>
 					</div>
 				</div>

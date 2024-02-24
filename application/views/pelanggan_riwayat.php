@@ -25,7 +25,7 @@
 					</li>
 					<li class="list-group-item">
 						<div class="d-flex justify-content-between">
-							<p>Teepon</p>
+							<p>Telepon</p>
 							<p><?= $pelanggan->telp ?></p>
 						</div>
 					</li>

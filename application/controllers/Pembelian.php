@@ -50,4 +50,9 @@ class Pembelian extends CI_Controller{
         $data['detail'] = $this->M_transaksi->get_detail_pembelian($data['pembelian']['kode_pembelian']);
         $this->template->load('layout/template', 'pembelian_detail', 'Transaksi '.$data['pembelian']['kode_pembelian'], $data);
     }
+    public function cetak($id){
+        $data['pembelian'] = $this->M_transaksi->get_pembelian_by_id($id);
+        $data['detail'] = $this->M_transaksi->get_detail_pembelian($data['pembelian']['kode_pembelian']);
+        $this->load->view('cetak_beli', $data);
+    }
 }

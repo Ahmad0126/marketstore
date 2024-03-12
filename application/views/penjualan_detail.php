@@ -7,7 +7,10 @@
 	<div class="col-lg-12 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">Detail Transaksi <?= $penjualan['kode_penjualan'] ?></h4>
+				<div class="d-flex justify-content-between">
+					<h4 class="card-title">Detail Transaksi <?= $penjualan['kode_penjualan'] ?></h4>
+					<a href="<?= base_url('penjualan/cetak/'.$penjualan['id_penjualan']) ?>" class="btn btn-primary">Cetak</a>
+				</div>
                 <div class="table-responsive">
 					<table id="detail" class="table table-hover table-striped">
 						<thead>
